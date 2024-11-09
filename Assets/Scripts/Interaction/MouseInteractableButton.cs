@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.Events;
-using static UnityEngine.UI.Button;
+using UnityEngine.Rendering;
 
 public class MouseInteractableButton : MouseInteractable
 {
@@ -22,6 +22,7 @@ public class MouseInteractableButton : MouseInteractable
 
     [SerializeField]
     private UnityEvent m_OnInteractUp = new UnityEvent();
+
     protected override void OnInteract(bool value)
     {
         if (ButtonAnimator != null) 
@@ -32,13 +33,14 @@ public class MouseInteractableButton : MouseInteractable
         if (value)
         {
             m_OnInteractDown?.Invoke();
-            PlayerButtonSound(true);
         }
         else
         {
             m_OnInteractUp?.Invoke();
-            PlayerButtonSound(false);
+           
         }
+
+        PlayerButtonSound(value);
     }
 
     private void PlayerButtonSound(bool down)

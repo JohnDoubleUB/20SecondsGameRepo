@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
+    //TODO: Make sure all sounds are checking here for volume
     public static AudioManager current;
     public float SoundVolumeMultiplier = 1;
 
