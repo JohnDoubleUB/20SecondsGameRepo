@@ -38,6 +38,19 @@ public class PlayerCharacter : MonoBehaviour
     private bool isCrouching;
     private bool groundedLastFrame;
 
+    public Vector2 GetCharacterRotation()
+    {
+        return rotation;
+    }
+
+    public void SetCharacterPosition(Vector3 position, Vector2 rotation)
+    {
+        characterController.enabled = false;
+        transform.position = position;
+        characterController.enabled = true;
+        this.rotation = rotation;
+    }
+
     private void Awake()
     {
         if (current != null) Debug.LogWarning("Oops! it looks like there might already be a " + GetType().Name + " in this scene!");

@@ -244,7 +244,7 @@ MonoBehaviour:
   PlayerController: {fileID: 0}
   moveDirection: {x: 0, y: 0, z: 0}
   CrouchingAmount: 4
-  Speed: 4
+  Speed: 10
   CrouchingSpeed: 2
   JumpSpeed: 8
   Gravity: 20
