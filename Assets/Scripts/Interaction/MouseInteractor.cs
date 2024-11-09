@@ -47,11 +47,6 @@ public class MouseInteractor : MonoBehaviour
 
             MouseInteractable newInteractable = hitObj.GetComponent<MouseInteractable>();
 
-            if (HeldInteractable != null) 
-            {
-                HeldInteractable.Interact(false);
-            }
-
             if (newInteractable != null) 
             {
                 newInteractable.Interact(true);

@@ -103,6 +103,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ButtonAnimator: {fileID: 8664771818290307569}
   ButtonAudio: {fileID: 1131689255728244748}
+  ButtonDownSound: {fileID: 8300000, guid: 98220c8fc7214b44cbee6083eb395365, type: 3}
+  ButtonUpSound: {fileID: 8300000, guid: 98220c8fc7214b44cbee6083eb395365, type: 3}
   m_OnInteractDown:
     m_PersistentCalls:
       m_Calls:

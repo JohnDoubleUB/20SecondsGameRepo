@@ -6,8 +6,11 @@ public class MouseInteractable : MonoBehaviour
 
     public void Interact(bool value) 
     {
-        Held = value;
-        OnInteract(value);
+        if (value != Held) 
+        {
+            Held = value;
+            OnInteract(value);
+        }
     }
 
     protected virtual void OnInteract(bool value) 
