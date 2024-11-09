@@ -1,5 +1,13 @@
-using JetBrains.Annotations;
+using System;
 using UnityEngine;
+using static UnityEngine.InputSystem.InputAction;
+
+public enum EControllerState
+{
+    CharacterControl,
+    PuzzleControl,
+    None
+}
 
 public class PlayerController : MonoBehaviour
 {
@@ -13,9 +21,15 @@ public class PlayerController : MonoBehaviour
 
     public PuzzleArea CurrentPuzzleArea;
 
+    public MouseInteractor PositionInteractor;
+
     public float LookSpeed = 0.2f;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
+    public EControllerState State { get; private set; } = EControllerState.CharacterControl;
+
+    //Cursor.lockState = CursorLockMode.Locked;
+    //    Cursor.visible = false;
     public bool PuzzleAreaActive
     {
         get
@@ -29,11 +43,14 @@ public class PlayerController : MonoBehaviour
         if (current != null) Debug.LogWarning("Oops! it looks like there might already be a " + GetType().Name + " in this scene!");
         current = this;
     }
-
+    
     void Start()
     {
         ControllerInput = InputManager.current.Input;
         InitializeBind();
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     public void SetPuzzle(PuzzleArea puzzleArea)
@@ -44,19 +61,32 @@ public class PlayerController : MonoBehaviour
         }
 
         CurrentPuzzleArea = puzzleArea;
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     public void ClearPuzzle(PuzzleArea puzzleArea)
     {
-        if(puzzleArea == CurrentPuzzleArea)
+        if (puzzleArea == CurrentPuzzleArea)
         {
             CurrentPuzzleArea = null;
         }
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
+        PositionInteractor.SetButton(false);
     }
 
     public void ClearPuzzle() 
     {
         CurrentPuzzleArea = null;
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
+        PositionInteractor.SetButton(false);
     }
 
     // Update is called once per frame
@@ -95,15 +125,48 @@ public class PlayerController : MonoBehaviour
     }
     private void InitializeBind() 
     {
-
         if (PlayerCharacter == null)
         {
             Debug.Log("Error, there doesn't appear to be a player character attached to this!");
             return;
         }
 
+        ControllerInput.Player.Attack.performed += OnAttackPerformed;
+        ControllerInput.Player.Attack.canceled += OnAttackCanceled;
+
         PlayerCharacter.InitializeBind(this);
 
         bind = PlayerCharacter.CameraTransform;
+    }
+
+    private void UninitializeBind() 
+    {
+        ControllerInput.Player.Attack.performed -= OnAttackPerformed;
+        ControllerInput.Player.Attack.canceled -= OnAttackCanceled;
+    }
+
+    private void OnAttackPerformed(CallbackContext obj)
+    {
+        if(!ValidPuzzleArea())
+        {
+            return;
+        }
+
+        PositionInteractor.SetButton(true);
+    }
+
+    private void OnAttackCanceled(CallbackContext obj)
+    {
+        if (!ValidPuzzleArea())
+        {
+            return;
+        }
+
+        PositionInteractor.SetButton(false);
+    }
+
+    private void OnDestroy()
+    {
+        UninitializeBind();
     }
 }

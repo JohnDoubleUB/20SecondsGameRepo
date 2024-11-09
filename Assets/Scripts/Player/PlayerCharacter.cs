@@ -87,9 +87,6 @@ public class PlayerCharacter : MonoBehaviour
 
     private void Update()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-
         moveDirection = GetMovementDirection();
 
         if (characterController.isGrounded)
@@ -226,5 +223,54 @@ public class PlayerCharacter : MonoBehaviour
 
         ////Interactor binds
         //Interactor.OnInteractableChanged += OnInteractableChanged;
+    }
+
+    public void UninitializeBind()
+    {
+        if(PlayerController == null)
+        {
+            return;
+        }
+
+        PlayerController.ControllerInput.Player.Move.performed -= OnMovementPerformed;
+        PlayerController.ControllerInput.Player.Move.canceled -= OnMovementCanceled;
+
+        PlayerController.ControllerInput.Player.Look.performed -= OnLookPerformed;
+        PlayerController.ControllerInput.Player.Look.canceled -= OnLookCanceled;
+
+        //PlayerController.ControllerInput.Player.Movement.performed += OnMovementPerformed;
+        //PlayerController.ControllerInput.Player.Movement.canceled += OnMovementCanceled;
+
+        //PlayerController.ControllerInput.Player.Look.performed += OnLookPerformed;
+        //PlayerController.ControllerInput.Player.Look.canceled += OnLookCanceled;
+
+        //PlayerController.ControllerInput.Player.ReloadLeft.performed += OnReloadLeftPerformed;
+        //PlayerController.ControllerInput.Player.ReloadRight.performed += OnReloadRightPerformed;
+
+        //PlayerController.ControllerInput.Player.Fire.performed += OnFireRightPerformed;
+        //PlayerController.ControllerInput.Player.Fire.canceled += OnCancelRight;
+
+        //PlayerController.ControllerInput.Player.AltFire.performed += OnFireLeftPerformed;
+        //PlayerController.ControllerInput.Player.AltFire.canceled += OnCancelLeft;
+
+        //PlayerController.ControllerInput.Player.Interact.performed += OnInteractPerformed;
+
+        //PlayerController.ControllerInput.Player.SwitchItems.performed += OnSwitchItemsPerformed;
+        //PlayerController.ControllerInput.Player.DropSelected.performed += OnDropSelectedItemPerformed;
+
+        //PlayerController.ControllerInput.Player.ToggleEquipment.performed += OnToggleEquipmentPerformed;
+        //PlayerController.ControllerInput.Player.DropSelectedEquipment.performed += OnDropSelectedEquipmentPerformed;
+
+        //PlayerController.ControllerInput.Player.Back.performed += OnBackPerformed;
+
+        //Keyboard.current.onTextInput += OnTextInput;
+
+        ////Interactor binds
+        //Interactor.OnInteractableChanged += OnInteractableChanged;
+    }
+
+    private void OnDestroy()
+    {
+        UninitializeBind();
     }
 }
