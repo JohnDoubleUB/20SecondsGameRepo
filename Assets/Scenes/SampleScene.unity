@@ -6328,7 +6328,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpawnLocation: {x: 0, y: 0, z: 0}
   SpawnRotation: {x: 0, y: 0}
-  CompleteReset: 0
+  CompleteReset: 1
   timer: 20
 --- !u!1 &813912768
 GameObject:

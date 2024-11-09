@@ -47,9 +47,14 @@ public class GameManager : MonoBehaviour
     {
         ResetTimer();
 
-        if(!CompleteReset)
+        if (!CompleteReset)
         {
             return;
+        }
+
+        if (PlayerController.current != null)
+        {
+            PlayerController.current.ClearPuzzle();
         }
 
         ResetGame();

@@ -54,6 +54,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void ClearPuzzle() 
+    {
+        CurrentPuzzleArea = null;
+    }
+
     // Update is called once per frame
     void Update()
     {
