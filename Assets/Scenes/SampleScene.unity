@@ -6221,7 +6221,7 @@ MonoBehaviour:
   SpawnLocation: {x: 0, y: 0, z: 0}
   SpawnRotation: {x: 0, y: 0}
   CompleteReset: 0
-  timer: 5
+  timer: 20
 --- !u!1 &813912768
 GameObject:
   m_ObjectHideFlags: 0
