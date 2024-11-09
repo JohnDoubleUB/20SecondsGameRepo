@@ -38,6 +38,16 @@ public class PlayerCharacter : MonoBehaviour
     private bool isCrouching;
     private bool groundedLastFrame;
 
+    public bool CanPlayerLook() 
+    { 
+        //if (PlayerController != null)
+        //{
+        //    return false;
+        //}
+
+        return !PlayerController.PuzzleAreaActive;
+    }
+
     public Vector2 GetCharacterRotation()
     {
         return rotation;
@@ -155,12 +165,24 @@ public class PlayerCharacter : MonoBehaviour
 
     private void OnLookPerformed(InputAction.CallbackContext callbackContext)
     {
+        if(!CanPlayerLook())
+        {
+            LookVector = Vector2.zero;
+            return;
+        }
+
         Vector2 v = callbackContext.ReadValue<Vector2>();
         LookVector = new Vector2(v.y, v.x);
     }
 
     private void OnLookCanceled(InputAction.CallbackContext callbackContext)
     {
+        if (!CanPlayerLook())
+        {
+            LookVector = Vector2.zero;
+            return;
+        }
+
         Vector2 v = callbackContext.ReadValue<Vector2>();
         LookVector = new Vector2(v.y, v.x);
     }
