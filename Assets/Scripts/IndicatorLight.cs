@@ -25,8 +25,47 @@ public class IndicatorLight : MonoBehaviour
     [SerializeField]
     private MeshRenderer Renderer;
 
-    public void SetLight(LightColor color)
+    private float interval = 0;
+
+    private void Update()
     {
+        if (interval > 0) 
+        {
+            interval -= Time.deltaTime;
+            return;
+        }
+        
+        if(Renderer.material != None) 
+        {
+            Renderer.material = None;
+        }
+    }
+    public LightColor StringToLight(char color)
+    {
+        switch (color)
+        {
+            case 'N':
+                return LightColor.None;
+            case 'R':
+                return LightColor.Red;
+            case 'G':
+                return LightColor.Green;
+            case 'B':
+                return LightColor.Blue;
+            case 'Y':
+                return LightColor.Yellow;
+        }
+
+        return LightColor.None;
+    }
+
+    public void SetLight(char color, float interval) 
+    {
+        SetLight(StringToLight(color), interval);
+    }
+    public void SetLight(LightColor color, float interval)
+    {
+        this.interval = interval;
         switch (color)
         {
             case LightColor.None:
