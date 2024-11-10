@@ -3,6 +3,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager current;
+    public SessionData SessionData;
 
     private bool SpawnLocationSet = false;
 
@@ -27,6 +28,11 @@ public class GameManager : MonoBehaviour
             SpawnLocation = PlayerCharacter.current.transform.position;
             SpawnRotation = PlayerCharacter.current.GetCharacterRotation();
         }
+
+        SessionData = new SessionData(4, 2);
+
+        Debug.Log("Codes! " + string.Join(", ", SessionData.GetAllCodes()));
+        Debug.Log("Complete Code! " + string.Join(", ", SessionData.GetCompleteCode()));
 
         ResetTimer();
     }
