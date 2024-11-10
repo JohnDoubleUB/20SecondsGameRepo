@@ -29,7 +29,7 @@ public class MouseInteractablePanel : MouseInteractable
             MousePositionOrigin = Input.mousePosition;
             Max = MousePositionOrigin.x + range;
             Min = MousePositionOrigin.x - range;
-            initialYRotation = transform.rotation.eulerAngles.y;
+            initialYRotation = transform.localRotation.eulerAngles.y;
         }
     }
 
@@ -48,10 +48,10 @@ public class MouseInteractablePanel : MouseInteractable
             return;
         }
 
-        Vector3 rotation = transform.rotation.eulerAngles;
+        Vector3 rotation = transform.localRotation.eulerAngles;
 
         rotation.y = Mathf.Clamp(rotation.y + rotationYDifference, 0, 180);
-        transform.rotation = Quaternion.Euler(rotation);
+        transform.localRotation = Quaternion.Euler(rotation);
 
         if (rotation.y == 180 || rotation.y == 0)
         {
@@ -61,7 +61,7 @@ public class MouseInteractablePanel : MouseInteractable
 
     private void PanelHeldUpdate()
     {
-        Vector3 rotation = transform.rotation.eulerAngles;
+        Vector3 rotation = transform.localRotation.eulerAngles;
 
         Vector3 currentMousePos = Input.mousePosition;
 
@@ -98,7 +98,7 @@ public class MouseInteractablePanel : MouseInteractable
 
 
         rotation.y = Mathf.Clamp(initialYRotation + remappedRange.Remap(0, 1, -180, 180), 0, 180);
-        transform.rotation = Quaternion.Euler(rotation);
+        transform.localRotation = Quaternion.Euler(rotation);
 
         mouseXLastFrame = currentMousePos.x;
     }
