@@ -1,10 +1,11 @@
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {
-    //TODO: Make sure all sounds are checking here for volume
     public static AudioManager current;
     public float SoundVolumeMultiplier = 1;
+    public AudioMixer AudioMixer;
 
     public float pitchVariation = 0.2f;
 
