@@ -1,7 +1,7 @@
 using UnityEngine;
 
 
-public enum SimonSaysState 
+public enum SimonSaysState
 {
     NoInput,
     ShowingSequence,
@@ -11,7 +11,7 @@ public class SimonSaysPuzzle : Puzzle
 {
     public SimonSaysState CurrentState = SimonSaysState.NoInput;
 
-    private string FullCode = "RGYBYR";
+    private string FullCode = "RGYBR";
     private string TargetCode = "";
     private string CurrentCode = "";
     private int CurrentIndex = 0;
@@ -45,7 +45,7 @@ public class SimonSaysPuzzle : Puzzle
             return;
         }
 
-        if (CurrentState == SimonSaysState.NoInput) 
+        if (CurrentState == SimonSaysState.NoInput)
         {
             if (timer <= 0)
             {
@@ -56,7 +56,7 @@ public class SimonSaysPuzzle : Puzzle
 
             timer -= Time.deltaTime;
         }
-        else if (CurrentState == SimonSaysState.ShowingSequence) 
+        else if (CurrentState == SimonSaysState.ShowingSequence)
         {
             if (CurrentIndex >= TargetCode.Length)
             {
@@ -66,8 +66,8 @@ public class SimonSaysPuzzle : Puzzle
 
             if (timer <= 0)
             {
-                IndicatorLight[CurrentIndex].SetLight(FullCode[CurrentIndex], interval / 4);
-                timer = interval/ 2;
+                IndicatorLight[CurrentIndex].SetLight(FullCode[CurrentIndex], interval / 8);
+                timer = interval / 4;
                 CurrentIndex++;
                 return;
             }
@@ -124,19 +124,19 @@ public class SimonSaysPuzzle : Puzzle
 
     public override void ButtonValue(string value)
     {
-        if (PuzzleCompleted) 
+        if (PuzzleCompleted)
         {
             return;
         }
 
         //Skip if showing a sequence
-        if (CurrentState == SimonSaysState.ShowingSequence) 
+        if (CurrentState == SimonSaysState.ShowingSequence)
         {
             return;
         }
 
         //Check if the next character is correct or not
-        if (FullCode[CurrentCode.Length] != value[0]) 
+        if (FullCode[CurrentCode.Length] != value[0])
         {
             Incorrect();
             return;
@@ -152,11 +152,12 @@ public class SimonSaysPuzzle : Puzzle
         }
 
         //If CurrentCode is now the same length as the full code
-        if (CurrentCode.Length == FullCode.Length) 
+        if (CurrentCode.Length == FullCode.Length)
         {
             foreach (IndicatorLight l in IndicatorLight)
             {
-                l.SetLight(LightColor.Green, 10);
+                l.blink = false;
+                l.SetLight(LightColor.Green, 0);
             }
 
             PuzzleCompleted = true;
@@ -164,27 +165,18 @@ public class SimonSaysPuzzle : Puzzle
             return;
         }
 
-
-
-        //if(CurrentCode != TargetCode) 
-        //{
-        //    Incorrect();
-        //}
-        //else 
-        //{
-        //Add the next value in
-            foreach (IndicatorLight l in IndicatorLight)
-            {
-                l.SetLight(LightColor.None, 0);
-            }
-
-            timer = interval / 2;
-
-            TargetCode += FullCode[TargetCode.Length];
-            CurrentState = SimonSaysState.ShowingSequence;
-            CurrentIndex = 0;
-            CurrentCode = "";
+        foreach (IndicatorLight l in IndicatorLight)
+        {
+            l.SetLight(LightColor.None, 0);
         }
-    //}
+
+        timer = interval / 4;
+
+        TargetCode += FullCode[TargetCode.Length];
+        CurrentState = SimonSaysState.ShowingSequence;
+        CurrentIndex = 0;
+        CurrentCode = "";
+    }
+
 
 }

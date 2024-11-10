@@ -11,6 +11,8 @@ public enum LightColor
 
 public class IndicatorLight : MonoBehaviour
 {
+    public bool blink = true;
+
     [SerializeField]
     private Material Red;
     [SerializeField]
@@ -29,6 +31,11 @@ public class IndicatorLight : MonoBehaviour
 
     private void Update()
     {
+        if (!blink) 
+        {
+            return;
+        }
+
         if (interval > 0) 
         {
             interval -= Time.deltaTime;
