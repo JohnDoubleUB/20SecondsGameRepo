@@ -2,6 +2,7 @@ using NUnit.Framework;
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class KeypadPuzzle : Puzzle
 {
@@ -21,9 +22,15 @@ public class KeypadPuzzle : Puzzle
 
     public CodeDisplayer Displayer;
 
+    [SerializeField]
+    private UnityEvent m_OnPuzzleSuccess = new UnityEvent();
+
+    [SerializeField]
+    private UnityEvent m_OnPuzzleReset = new UnityEvent();
+
     public void Awake()
     {
-        SetPassword("1234");
+        SetPassword("123456789");
 
         if(KeypadButtons == null) 
         {
