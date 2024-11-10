@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class MouseInteractable : MonoBehaviour
 {
+    public bool ControlUntilRelease = false;
     public bool Held { get; private set; }
 
     public void Interact(bool value) 

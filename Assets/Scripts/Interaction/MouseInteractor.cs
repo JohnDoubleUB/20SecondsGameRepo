@@ -78,7 +78,7 @@ public class MouseInteractor : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (ButtonHeld && HeldInteractable != null && HeldInteractable.Held)
+        if (ButtonHeld && HeldInteractable != null && HeldInteractable.Held && !HeldInteractable.ControlUntilRelease)
         {
             TryAndHitObject();
         }
