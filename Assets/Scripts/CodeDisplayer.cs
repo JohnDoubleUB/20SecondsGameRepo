@@ -1,14 +1,37 @@
+using TMPro;
 using UnityEngine;
 
 public class CodeDisplayer : MonoBehaviour
 {
+    [SerializeField]
+    private TextMeshProUGUI Text;
+
+    public bool startVisible = true;
+
+    private void Awake()
+    {
+        if(Text != null) 
+        {
+            Text.gameObject.SetActive(startVisible);
+        }
+    }
     public void Show()
     {
-        gameObject.SetActive(true);
+        Text.gameObject.SetActive(true);
     }
 
-    public void Hide() 
+    public void Hide()
     {
-        gameObject.SetActive(false);
+        Text.gameObject.SetActive(false);
+    }
+
+    public void SetText(string text)
+    {
+        if (Text == null) 
+        {
+            return;
+        }
+
+        Text.text = text;
     }
 }

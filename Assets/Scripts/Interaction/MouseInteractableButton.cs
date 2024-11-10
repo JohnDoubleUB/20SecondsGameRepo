@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.Events;
@@ -5,6 +6,12 @@ using UnityEngine.Rendering;
 
 public class MouseInteractableButton : MouseInteractable
 {
+    private string ButtonValue;
+    public Puzzle PuzzleBrain;
+    
+    [SerializeField]
+    private TextMeshProUGUI ButtonValueText;
+
     [SerializeField]
     Animator ButtonAnimator;
 
@@ -23,6 +30,16 @@ public class MouseInteractableButton : MouseInteractable
     [SerializeField]
     private UnityEvent m_OnInteractUp = new UnityEvent();
 
+    public void SetButtonValue(string value) 
+    {
+        ButtonValue = value;
+
+        if (ButtonValueText != null) 
+        {
+            ButtonValueText.text = value;
+        } 
+    }
+
     protected override void OnInteract(bool value)
     {
         if (ButtonAnimator != null) 
@@ -33,6 +50,11 @@ public class MouseInteractableButton : MouseInteractable
         if (value)
         {
             m_OnInteractDown?.Invoke();
+
+            if(PuzzleBrain != null) 
+            {
+                PuzzleBrain.ButtonValue(ButtonValue);
+            }
         }
         else
         {
@@ -45,13 +67,21 @@ public class MouseInteractableButton : MouseInteractable
 
     private void PlayerButtonSound(bool down)
     {
-        if (ButtonAudio == null) 
+        if (ButtonAudio == null)
         {
             return;
         }
 
-        ButtonAudio.resource = down ? ButtonDownSound : ButtonUpSound;
-        ButtonAudio.Play();
+        if (down && ButtonDownSound != null)
+        {
+            ButtonAudio.resource = ButtonDownSound;
+            ButtonAudio.Play();
+        }
+        else if (!down && ButtonUpSound != null)
+        {
+            ButtonAudio.resource = ButtonUpSound;
+            ButtonAudio.Play();
+        }
     }
 
 
