@@ -1,11 +1,7 @@
 using UnityEngine;
 
-//The brain of each puzzle
-public class Puzzle : MonoBehaviour
-
+public class Triggerable : MonoBehaviour
 {
-
-    public bool PuzzleCompleted = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -16,15 +12,5 @@ public class Puzzle : MonoBehaviour
     void Update()
     {
         
-    }
-
-    public virtual void ButtonValue(string value)
-    {
-
-    }
-
-    public virtual void ResetPuzzle()
-    {
-
     }
 }

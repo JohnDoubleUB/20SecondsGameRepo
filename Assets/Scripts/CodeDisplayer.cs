@@ -6,6 +6,14 @@ public class CodeDisplayer : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI Text;
 
+    public string CurrentText
+    {
+        get
+        {
+            return Text.text;
+        }
+    }
+
     public bool startVisible = true;
 
     private void Awake()

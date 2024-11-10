@@ -5,6 +5,8 @@ public class GameManager : MonoBehaviour
     public static GameManager current;
     public SessionData SessionData;
 
+    public KeypadPuzzle KeyPad;
+
     private bool SpawnLocationSet = false;
 
     public Vector3 SpawnLocation;
@@ -29,10 +31,17 @@ public class GameManager : MonoBehaviour
             SpawnRotation = PlayerCharacter.current.GetCharacterRotation();
         }
 
-        SessionData = new SessionData(4, 2);
+        SessionData = new SessionData(4, 1);
 
         Debug.Log("Codes! " + string.Join(", ", SessionData.GetAllCodes()));
-        Debug.Log("Complete Code! " + string.Join(", ", SessionData.GetCompleteCode()));
+
+        string completeCode = SessionData.GetCompleteCode();
+        Debug.Log("Complete Code! " + completeCode);
+
+        if(KeyPad != null) 
+        {
+            KeyPad.SetPassword(completeCode);
+        }
 
         ResetTimer();
     }
@@ -52,6 +61,8 @@ public class GameManager : MonoBehaviour
     public void TriggerPlayerDeath() 
     {
         ResetTimer();
+
+        KeyPad.ResetPuzzle();
 
         if (!CompleteReset)
         {

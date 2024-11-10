@@ -8,17 +8,18 @@ public class KeypadPuzzle : Puzzle
 {
     private string Password = "";
 
-    public char PasswordGapCharacter = '_';
+    public string SuccessMessage = "Access Granted!";
+    public string DeniedMessage = "Code Incorrect!";
 
-    private string BlankPassword = "";
+    public float MessageDisplayTime = 0.5f;
+
+    public char PasswordGapCharacter = '_';
 
     private string CurrentCode = string.Empty;
 
     private string[] buttons = new string[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "OK", "0", "X" };
 
     public MouseInteractableButton[] KeypadButtons;
-
-    public bool PuzzleCompleted = false;
 
     public CodeDisplayer Displayer;
 
@@ -28,9 +29,12 @@ public class KeypadPuzzle : Puzzle
     [SerializeField]
     private UnityEvent m_OnPuzzleReset = new UnityEvent();
 
+
+    private float timer = 0;
+
     public void Awake()
     {
-        SetPassword("123456789");
+        SetPassword("1234");
 
         if(KeypadButtons == null) 
         {
@@ -42,6 +46,29 @@ public class KeypadPuzzle : Puzzle
             MouseInteractableButton currentButton = KeypadButtons[i];
             currentButton.SetButtonValue(buttons[i]);
             currentButton.PuzzleBrain = this;
+        }
+    }
+
+    public override void ResetPuzzle()
+    {
+        PuzzleCompleted = false;
+        SetNewCurrentCode("");
+        m_OnPuzzleReset?.Invoke();
+    }
+
+    private void Update()
+    {
+        if(timer > 0) 
+        {
+            timer -= Time.deltaTime;
+
+            if (timer <= 0) 
+            {
+                if(Displayer.CurrentText == DeniedMessage) 
+                {
+                    SetNewCurrentCode(CurrentCode);
+                }
+            }
         }
     }
 
@@ -78,7 +105,18 @@ public class KeypadPuzzle : Puzzle
 
     private void Enter() 
     {
-
+        if(CurrentCode == Password) 
+        {
+            Displayer.SetText(SuccessMessage);
+            PuzzleCompleted = true;
+            m_OnPuzzleSuccess?.Invoke();
+        }
+        else
+        {
+            timer = MessageDisplayTime;
+            CurrentCode = "";
+            Displayer.SetText(DeniedMessage);
+        }
     }
 
     private void Backspace() 
