@@ -51,7 +51,12 @@ public class KeypadPuzzle : Puzzle
 
     public override void ResetPuzzle()
     {
-        PuzzleCompleted = false;
+        if(PuzzleCompleted) 
+        {
+            return;
+        }
+
+        //PuzzleCompleted = false;
         SetNewCurrentCode("");
         m_OnPuzzleReset?.Invoke();
     }
