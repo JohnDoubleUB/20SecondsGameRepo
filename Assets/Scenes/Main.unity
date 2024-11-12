@@ -6320,6 +6320,7 @@ GameObject:
   - component: {fileID: 685258386}
   - component: {fileID: 685258385}
   - component: {fileID: 685258387}
+  - component: {fileID: 685258388}
   m_Layer: 0
   m_Name: MainManagers
   m_TagString: Untagged
@@ -6371,6 +6372,22 @@ MonoBehaviour:
   SpawnRotation: {x: 0, y: 0}
   CompleteReset: 0
   timer: 20
+--- !u!114 &685258388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 685258384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3197e654333a1ca4b8ac8daef65e0154, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SoundVolumeMultiplier: 1
+  AudioMixer: {fileID: 24100000, guid: 74404f449a3fd224b9f15a4e4d3345e1, type: 2}
+  pitchVariation: 0.2
+  audioClipPrefab: {fileID: 0}
 --- !u!1 &690793590
 GameObject:
   m_ObjectHideFlags: 0
@@ -13458,7 +13475,7 @@ PrefabInstance:
       objectReference: {fileID: 1428378520}
     - target: {fileID: 9181667984906986447, guid: 90650f94cff277b49814d30e95635e95, type: 3}
       propertyPath: m_VersionIndex
-      value: 4149
+      value: 4170
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -13733,7 +13750,7 @@ PrefabInstance:
       objectReference: {fileID: 2126953431}
     - target: {fileID: 2945433271935411882, guid: 6714a2dc8d7365a4388d6af80bfbdc10, type: 3}
       propertyPath: m_VersionIndex
-      value: 4152
+      value: 4173
       objectReference: {fileID: 0}
     - target: {fileID: 6141687508482059211, guid: 6714a2dc8d7365a4388d6af80bfbdc10, type: 3}
       propertyPath: m_Mesh

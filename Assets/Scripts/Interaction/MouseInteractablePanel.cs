@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class MouseInteractablePanel : MouseInteractable
 {
+    [SerializeField]
+    private AudioSource AudioSource;
+
     Vector3 MousePositionOrigin = Vector3.zero;
     float range = 500;
     float Max = 0;
@@ -11,11 +14,15 @@ public class MouseInteractablePanel : MouseInteractable
     public float mouseXLastFrame;
     public float rotationYDifference;
 
+    private float rotationYLastFrame;
     private float initialYRotation;
+    private float rotationChange;
+    private float rotationVelocity;
 
-    private float yVelocity = 0f;
-
-    //https://discussions.unity.com/t/how-i-can-access-objects-hinge-joint-and-change-its-value-with-c/819080/2
+    private void Reset()
+    {
+        AudioSource = GetComponent<AudioSource>();
+    }
 
     private void Awake()
     {
@@ -45,6 +52,7 @@ public class MouseInteractablePanel : MouseInteractable
         }
         else
         {
+            AudioSource.Stop();
             return;
         }
 
@@ -73,20 +81,7 @@ public class MouseInteractablePanel : MouseInteractable
         else
         {
             rotationYDifference = 0;
-            //if (rotationYDifference < 0)
-            //{
-            //    rotationYDifference = Mathf.Min(rotationYDifference + Time.deltaTime * 10, 0);
-            //}
-            //else if (rotationYDifference > 0)
-            //{
-            //    rotationYDifference = Mathf.Max(rotationYDifference - Time.deltaTime * 10, 0);
-            //}
-            //else { }
         }
-
-
-
-        // Define the min and max based on the current mouse position with an offset
 
         // Clamp the mouse position within this min and max range
         float positionClamped = Mathf.Clamp(currentMousePos.x, Min, Max);
@@ -95,11 +90,31 @@ public class MouseInteractablePanel : MouseInteractable
         float remappedRange = positionClamped.Remap(Min, Max, 1, 0);
 
         // Get the current rotation angles
-
-
         rotation.y = Mathf.Clamp(initialYRotation + remappedRange.Remap(0, 1, -180, 180), 0, 180);
         transform.localRotation = Quaternion.Euler(rotation);
 
+        rotationChange = Mathf.SmoothDamp(rotationChange, rotation.y - rotationYLastFrame, ref rotationVelocity, 0.02f);
+
+        //if (rotated != rotationChange > 0) 
+        //{
+        //    rotated = !rotated;
+        //    AudioSource.Play();
+            
+        //}
+
+        if (Mathf.Abs(rotationChange) < 0.0001f) 
+        {
+            AudioSource.Stop();
+        }
+        else 
+        {
+            if (!AudioSource.isPlaying) 
+            {
+                AudioSource.Play();
+            }
+        }
+
+        rotationYLastFrame = rotation.y;
         mouseXLastFrame = currentMousePos.x;
     }
 
