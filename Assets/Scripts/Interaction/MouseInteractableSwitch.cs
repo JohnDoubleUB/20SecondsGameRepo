@@ -19,6 +19,8 @@ public class MouseInteractableSwitch : MouseInteractable
 
     public int Index;
 
+    private bool SwitchInversion = false;
+
     protected override void OnInteract(bool value)
     {
         if (!value) 
@@ -42,9 +44,19 @@ public class MouseInteractableSwitch : MouseInteractable
 
         if (SwitchAnimator != null)
         {
-            SwitchAnimator.SetBool("switch", toggle);
+            SwitchAnimator.SetBool("switch", toggle != SwitchInversion);
         }
+    }
 
+    public void SetSwitchValue(bool value, bool switchInversion)
+    {
+        toggle = value;
+        SwitchInversion = switchInversion;
+
+        if (SwitchAnimator != null)
+        {
+            SwitchAnimator.SetBool("switch", toggle != SwitchInversion);
+        }
     }
 
     private void PlayButtonSound()

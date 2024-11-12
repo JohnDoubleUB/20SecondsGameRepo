@@ -23,6 +23,8 @@ public class SwitchPuzzle : Puzzle
             SwitchAndLight switchAndLight = SwitchAndLights[i];
             switchAndLight.Switch.Index = i;
             switchAndLight.Switch.PuzzleBrain = this;
+
+            switchAndLight.Switch.SetSwitchValue(false, Random.value > 0.5f);
         }
     }
 
