@@ -17,6 +17,8 @@ public class MouseInteractableSwitch : MouseInteractable
 
     private bool toggle = false;
 
+    public int Index;
+
     protected override void OnInteract(bool value)
     {
         if (!value) 
@@ -28,7 +30,7 @@ public class MouseInteractableSwitch : MouseInteractable
 
         if (PuzzleBrain != null)
         {
-            PuzzleBrain.SwitchValue(toggle);
+            PuzzleBrain.SwitchValue(toggle, Index);
         }
 
         PlayButtonSound();

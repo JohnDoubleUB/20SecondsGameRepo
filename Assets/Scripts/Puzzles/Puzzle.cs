@@ -23,7 +23,7 @@ public class Puzzle : MonoBehaviour
 
     }
 
-    public virtual void SwitchValue(bool value) 
+    public virtual void SwitchValue(bool value, int index) 
     {
 
     }
