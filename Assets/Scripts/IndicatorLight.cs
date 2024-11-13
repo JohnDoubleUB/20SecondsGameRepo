@@ -29,6 +29,8 @@ public class IndicatorLight : MonoBehaviour
 
     private float interval = 0;
 
+    public bool isOn { get; private set; }
+
     private void Update()
     {
         if (!blink) 
@@ -77,18 +79,23 @@ public class IndicatorLight : MonoBehaviour
         {
             case LightColor.None:
                 Renderer.material = None;
+                isOn = false;
                 break;
             case LightColor.Red:
                 Renderer.material = Red;
+                isOn = true;
                 break;
             case LightColor.Green:
                 Renderer.material = Green;
+                isOn = true;
                 break;
             case LightColor.Blue:
                 Renderer.material = Blue;
+                isOn = true;
                 break;
             case LightColor.Yellow:
                 Renderer.material = Yellow;
+                isOn = true;
                 break;
         }
     }

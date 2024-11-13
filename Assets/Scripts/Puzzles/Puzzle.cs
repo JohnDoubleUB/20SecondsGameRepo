@@ -23,6 +23,11 @@ public class Puzzle : MonoBehaviour
 
     }
 
+    public virtual void SwitchValue(bool value, int index) 
+    {
+
+    }
+
     public virtual void ResetPuzzle()
     {
 

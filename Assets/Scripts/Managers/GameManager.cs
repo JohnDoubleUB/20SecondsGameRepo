@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -25,6 +26,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+
+        SceneManager.LoadScene("Audio", LoadSceneMode.Additive);
         if(!SpawnLocationSet && PlayerCharacter.current != null)
         {
             SpawnLocation = PlayerCharacter.current.transform.position;
