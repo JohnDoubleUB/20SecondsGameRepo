@@ -8705,42 +8705,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8856375836934367210, guid: bbee3cf4387116346a7d3cb85d25f573, type: 3}
-      propertyPath: noiseWeight
-      value: -3.71
-      objectReference: {fileID: 0}
-    - target: {fileID: 8856375836934367210, guid: bbee3cf4387116346a7d3cb85d25f573, type: 3}
-      propertyPath: screenBendY
-      value: 3.78
-      objectReference: {fileID: 0}
-    - target: {fileID: 8856375836934367210, guid: bbee3cf4387116346a7d3cb85d25f573, type: 3}
-      propertyPath: vignetteSize
-      value: 1.68
-      objectReference: {fileID: 0}
-    - target: {fileID: 8856375836934367210, guid: bbee3cf4387116346a7d3cb85d25f573, type: 3}
-      propertyPath: vignetteAmount
-      value: 1.22
-      objectReference: {fileID: 0}
-    - target: {fileID: 8856375836934367210, guid: bbee3cf4387116346a7d3cb85d25f573, type: 3}
-      propertyPath: scanlinesWeight
-      value: 1.94
-      objectReference: {fileID: 0}
-    - target: {fileID: 8856375836934367210, guid: bbee3cf4387116346a7d3cb85d25f573, type: 3}
-      propertyPath: scanLinesDensity
-      value: 201.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 8856375836934367210, guid: bbee3cf4387116346a7d3cb85d25f573, type: 3}
-      propertyPath: vignetteRounding
-      value: 7.91
-      objectReference: {fileID: 0}
-    - target: {fileID: 8856375836934367210, guid: bbee3cf4387116346a7d3cb85d25f573, type: 3}
-      propertyPath: vignetteSmoothing
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 8856375836934367210, guid: bbee3cf4387116346a7d3cb85d25f573, type: 3}
-      propertyPath: grilleCounterOpacity
-      value: 0.93
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
