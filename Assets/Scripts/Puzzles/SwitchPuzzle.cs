@@ -9,13 +9,6 @@ public class SwitchAndLight
     public MouseInteractableSwitch Switch;
 }
 
-[System.Serializable]
-public class IndexLink
-{
-    public int Index1;
-    public int Index2;
-}
-
 public class SwitchPuzzle : Puzzle
 {
     [SerializeField]
@@ -26,8 +19,6 @@ public class SwitchPuzzle : Puzzle
 
     
     public Dictionary<int, IndicatorLight> connectedLights = new Dictionary<int, IndicatorLight>();
-
-    public List<IndexLink> indexLinks= new List<IndexLink>();
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -46,9 +37,6 @@ public class SwitchPuzzle : Puzzle
             linkableSwitches.Add(i);
         }
 
-        
-
-        
         connectedLights.Clear();
 
         for (int i = 0; i < enabledSwitchCount;) 
@@ -76,7 +64,6 @@ public class SwitchPuzzle : Puzzle
         for (int i = 0; i < linkableSwitches.Count && i < onSwitchIndexes.Count ; i++) 
         {
             connectedLights.Add(linkableSwitches[i], SwitchAndLights[onSwitchIndexes[i]].Light);
-            //indexLinks.Add(new IndexLink { Index1= linkableSwitches[i], Index2= SwitchAndLights[i] })
         }
 
         for (int i = 0; i < SwitchAndLights.Length; i++) 
