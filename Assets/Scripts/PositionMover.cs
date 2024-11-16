@@ -12,5 +12,6 @@ public class PositionMover : MonoBehaviour
         }
 
         transform.position = TargetTransform.position;
+        transform.rotation = TargetTransform.rotation;
     }
 }

@@ -71,6 +71,7 @@ public class WireController : MonoBehaviour
     public float maxDistanceToStarAnchor;
 
     public Transform MaxPipeRenderHeightTransform;
+    public Vector3[] CachedSegmentPositions;
 
     [Header("SPAWNED SEGMENTS")]
     public List<Transform> segments;
@@ -110,6 +111,20 @@ public class WireController : MonoBehaviour
     private void Start()
     {
         mousePossHelper.gameObject.SetActive(false);
+
+        CachedSegmentPositions = new Vector3[segments.Count];
+        for(int i = 0; i < CachedSegmentPositions.Length -1; i++) //Ignore the last segment
+        {
+            CachedSegmentPositions[i] = segments[i].position;
+        }
+    }
+
+    public void ResetSegmentsToCachedPositions() 
+    {
+        for (int i = 0; i < CachedSegmentPositions.Length - 1; i++) //Ignore the last segment
+        {
+           segments[i].position = CachedSegmentPositions[i];
+        }
     }
 
     private void OnValidate()

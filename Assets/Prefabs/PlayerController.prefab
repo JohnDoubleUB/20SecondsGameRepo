@@ -171,6 +171,6 @@ MonoBehaviour:
   MaxRayDistance: 1000
   LayerMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 2304
   HeldInteractable: {fileID: 0}
   Camera: {fileID: 7376116923873921478}
