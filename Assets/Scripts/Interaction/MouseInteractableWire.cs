@@ -6,7 +6,7 @@ public class MouseInteractableWire : MouseInteractable
     private Transform StartAnchor;
 
     [SerializeField]
-    private Transform EndAnchor;
+    private Rigidbody EndAnchor;
 
     [SerializeField]
     private Transform MaxPullDownAnchor;
@@ -33,11 +33,17 @@ public class MouseInteractableWire : MouseInteractable
 
     private Vector3 InitialMousePositionInWorld;
 
+    private Vector3 AnchorEndInitialPositionLocal;
+    private Quaternion AnchorEndInitialRotationLocal;
+
 
 
     private void Start()
     {
         AnchorStartInitialPositionLocal = StartAnchor.localPosition;
+        AnchorEndInitialPositionLocal = EndAnchor.transform.localPosition;
+        AnchorEndInitialRotationLocal = EndAnchor.transform.localRotation;
+        //EndAnchor.isKinematic = true;
     }
 
     protected override void OnInteract(bool value)
@@ -49,10 +55,15 @@ public class MouseInteractableWire : MouseInteractable
             DistanceFromCamera = Vector3.Distance(WireParent.transform.position, Camera.main.transform.position) - CloserToCameraOffset;
             InitialMousePositionInWorld = GetMousePositionInWorld();
             AnchorStartOnGrabPositionLocal = StartAnchor.localPosition;
+            //EndAnchor.isKinematic = false;
+
         }
         else 
         {
             Wire.ResetSegmentsToCachedPositions();
+            EndAnchor.transform.localPosition = AnchorEndInitialPositionLocal;
+            EndAnchor.transform.localRotation = AnchorEndInitialRotationLocal;
+            //EndAnchor.isKinematic = true;
         }
     }
 
@@ -61,6 +72,7 @@ public class MouseInteractableWire : MouseInteractable
         if (!Held)
         {
             StartAnchor.localPosition = AnchorStartInitialPositionLocal;
+            //EndAnchor.localPosition = AnchorEndInitialPositionLocal;
             return;
         }
 
@@ -69,7 +81,7 @@ public class MouseInteractableWire : MouseInteractable
 
     private void WireUnHeldUpdate() 
     {
-
+        StartAnchor.localPosition = AnchorStartInitialPositionLocal;
     }
 
     private Vector3 GetMousePositionInWorld() 
