@@ -6,6 +6,12 @@ public class MouseInteractableDial : MouseInteractable
     float range = 500;
 
     [SerializeField]
+    private int RotationSoundInterval = 15;
+
+    [SerializeField]
+    private AudioSource Audio;
+
+    [SerializeField]
     GameObject dialObject;
 
     private Quaternion InitialRotation;
@@ -64,6 +70,13 @@ public class MouseInteractableDial : MouseInteractable
         CumulativeRotationX = Mathf.Clamp(CumulativeRotationX + angleX, MinMaxClamp.x, MinMaxClamp.y);
 
         target.localRotation = Quaternion.AngleAxis(CumulativeRotationX, Vector3.right);
+        
+        if ((int)CumulativeRotationX % RotationSoundInterval == 0) 
+        {
+            Audio.Play();
+        }
+
+        
     }
 
     private void DialHeldUpdate()
@@ -76,7 +89,6 @@ public class MouseInteractableDial : MouseInteractable
         Vector3 lookPosition = (transform.forward * offset.x) + (-transform.up * offset.y);
 
         SetLookAtX(dialObject.transform, dialObject.transform.position + lookPosition, MinMaxCumulativeRotation);
-
 
     }
 
