@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MouseInteractableWire : MouseInteractable
@@ -36,7 +37,12 @@ public class MouseInteractableWire : MouseInteractable
     private Vector3 AnchorEndInitialPositionLocal;
     private Quaternion AnchorEndInitialRotationLocal;
 
+    [SerializeField]
+    private WireConnectionPoints ConnectionPoints;
 
+    private int ConnectedIndex = -1;
+
+    private Vector3 lastPositionInWorld = Vector3.zero;
 
     private void Start()
     {
@@ -55,23 +61,56 @@ public class MouseInteractableWire : MouseInteractable
             DistanceFromCamera = Vector3.Distance(WireParent.transform.position, Camera.main.transform.position) - CloserToCameraOffset;
             InitialMousePositionInWorld = GetMousePositionInWorld();
             AnchorStartOnGrabPositionLocal = StartAnchor.localPosition;
-            //EndAnchor.isKinematic = false;
+            EndAnchor.isKinematic = false;
+
+            if(ConnectedIndex != -1 && ConnectionPoints != null) 
+            {
+                ConnectionPoints.ClearIndex(ConnectedIndex);
+                ConnectedIndex = -1;
+            }
 
         }
         else 
         {
-            Wire.ResetSegmentsToCachedPositions();
-            EndAnchor.transform.localPosition = AnchorEndInitialPositionLocal;
-            EndAnchor.transform.localRotation = AnchorEndInitialRotationLocal;
+            CheckForConnectionOrReset();
+
+            //Wire.ResetSegmentsToCachedPositions();
+            //EndAnchor.transform.localPosition = AnchorEndInitialPositionLocal;
+            //EndAnchor.transform.localRotation = AnchorEndInitialRotationLocal;
+
+
             //EndAnchor.isKinematic = true;
         }
+    }
+
+    private void CheckForConnectionOrReset() 
+    {
+        if(ConnectionPoints != null && ConnectionPoints.TryConnectToNearestPoint(lastPositionInWorld, this, out ConnectionPoint point, out int index)) 
+        {
+            EndAnchor.isKinematic = true;
+            ConnectedIndex = index;
+            EndAnchor.transform.position = point.Point.transform.position;
+            EndAnchor.transform.rotation = point.Point.transform.rotation;
+            StartAnchor.localPosition = new Vector3(StartAnchor.localPosition.x, MaxPullDownAnchor.localPosition.y, StartAnchor.localPosition.z);
+
+            return;
+        }
+
+        ConnectedIndex = -1;
+        Wire.ResetSegmentsToCachedPositions();
+        EndAnchor.transform.localPosition = AnchorEndInitialPositionLocal;
+        EndAnchor.transform.localRotation = AnchorEndInitialRotationLocal;
     }
 
     private void Update()
     {
         if (!Held)
         {
+            if (ConnectedIndex == -1) 
+            {
             StartAnchor.localPosition = AnchorStartInitialPositionLocal;
+
+            }
             //EndAnchor.localPosition = AnchorEndInitialPositionLocal;
             return;
         }
@@ -108,6 +147,8 @@ public class MouseInteractableWire : MouseInteractable
 
         EndAnchor.position = mousePositionInWorld;
 
+
+        lastPositionInWorld = mousePositionInWorld;
         //SetLookAtX(dialObject.transform, dialObject.transform.position + lookPosition, MinMaxCumulativeRotation);
 
 
