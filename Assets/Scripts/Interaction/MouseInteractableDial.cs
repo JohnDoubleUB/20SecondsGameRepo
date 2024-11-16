@@ -26,7 +26,8 @@ public class MouseInteractableDial : MouseInteractable
     {
         if (value)
         {
-            MousePositionOrigin = Input.mousePosition;
+            MousePositionOrigin = Camera.main.WorldToScreenPoint(transform.position);
+            //MousePositionOrigin = Input.mousePosition;
         }
     }
 
