@@ -218,7 +218,7 @@ MonoBehaviour:
   RadioDisplay: {fileID: 6559381579117308424}
   RequiredPrecision: 0.005
   MinimumDistanceFromCenter: 0.2
-  CalibrationTimeModifier: 2
+  CalibrationTimeModifier: 1
   NoiseAudioSource: {fileID: 7326974373081351847}
   TargetAudioSource: {fileID: 928619513461610193}
 --- !u!1 &7981182105421984654
