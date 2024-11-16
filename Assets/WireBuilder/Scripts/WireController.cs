@@ -291,10 +291,18 @@ public class WireController : MonoBehaviour
         ///Modifies the radius of the sphere colliders of all instantiated segments.
         ///Increasing the radius usually improves the stability of the physics but makes the collisions less accurate in relation to the mesh.
         /// </summary>
+
         if (usePhysics)
             foreach (Transform segment in segments)
             {
-                segment.GetComponent<SphereCollider>().radius = segmentsRadius;
+                SphereCollider sCollider = GetComponent<SphereCollider>();
+
+                if (sCollider == null)
+                {
+                    continue;
+                }
+
+                sCollider.radius = segmentsRadius;
             }
     }
 
