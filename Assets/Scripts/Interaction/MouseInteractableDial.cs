@@ -8,9 +8,11 @@ public class MouseInteractableDial : MouseInteractable
     [SerializeField]
     GameObject dialObject;
 
+    private Quaternion InitialRotation;
+    private float InitialCumulativeRotationX;
 
     public Vector2 MinMaxCumulativeRotation = new Vector2(-3600, 3600);
-    public float cumulativeRotationX = 0f;  // Track cumulative X-axis rotation
+    public float CumulativeRotationX = 0f;  // Track cumulative X-axis rotation
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
@@ -20,6 +22,19 @@ public class MouseInteractableDial : MouseInteractable
 
     private void Start()
     {
+        InitialRotation = dialObject.transform.localRotation;
+        InitialCumulativeRotationX = CumulativeRotationX;
+    }
+
+    public void ResetDial()
+    {
+        if(dialObject == null)
+        {
+            return;
+        }
+
+        dialObject.transform.localRotation = InitialRotation;
+        CumulativeRotationX = InitialCumulativeRotationX;
     }
 
     protected override void OnInteract(bool value)
@@ -46,9 +61,9 @@ public class MouseInteractableDial : MouseInteractable
 
         float angleX = Vector3.SignedAngle(target.forward, direction, target.right) + 90f;
 
-        cumulativeRotationX = Mathf.Clamp(cumulativeRotationX + angleX, MinMaxClamp.x, MinMaxClamp.y);
+        CumulativeRotationX = Mathf.Clamp(CumulativeRotationX + angleX, MinMaxClamp.x, MinMaxClamp.y);
 
-        target.localRotation = Quaternion.AngleAxis(cumulativeRotationX, Vector3.right);
+        target.localRotation = Quaternion.AngleAxis(CumulativeRotationX, Vector3.right);
     }
 
     private void DialHeldUpdate()

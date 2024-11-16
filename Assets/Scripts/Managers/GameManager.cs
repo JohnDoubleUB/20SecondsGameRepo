@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     public Vector2 SpawnRotation;
 
     public bool CompleteReset = true;
+    public bool LoadEnvironmentAudio = true;
 
     public float timer = 5;
     public float CurrentTime { get; private set; }
@@ -26,9 +27,12 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        if (LoadEnvironmentAudio)
+        {
+            SceneManager.LoadScene("Audio", LoadSceneMode.Additive);
+        }
 
-        SceneManager.LoadScene("Audio", LoadSceneMode.Additive);
-        if(!SpawnLocationSet && PlayerCharacter.current != null)
+        if (!SpawnLocationSet && PlayerCharacter.current != null)
         {
             SpawnLocation = PlayerCharacter.current.transform.position;
             SpawnRotation = PlayerCharacter.current.GetCharacterRotation();
