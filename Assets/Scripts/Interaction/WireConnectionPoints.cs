@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.Rendering;
 
 [System.Serializable]
@@ -15,6 +16,15 @@ public class WireConnectionPoints : MonoBehaviour
 {
     [SerializeField]
     private ConnectionPoint[] ConnectionPoints;
+
+    [SerializeField]
+    AudioSource Audio;
+
+    [SerializeField]
+    AudioResource PlugSound;
+
+    [SerializeField]
+    AudioResource UnplugSound;
 
     [SerializeField]
     private float MaxValidDistance = 2f;
@@ -50,14 +60,34 @@ public class WireConnectionPoints : MonoBehaviour
         if(point != null) 
         {
             point.Wire = wire;
+            PlayAudio(PlugSound);
+
             return true;
         }
 
+        PlayAudio(UnplugSound);
         return false;
+    }
+
+    public void PlayAudio(AudioResource sound) 
+    {
+        if (Audio == null) 
+        {
+            return;
+        }
+
+        if(sound == null) 
+        {
+            return; 
+        }
+
+        Audio.resource = sound;
+        Audio.Play();
     }
 
     public void ClearIndex(int index) 
     {
         ConnectionPoints[index].Wire = null;
+        PlayAudio(UnplugSound);
     }
 }
