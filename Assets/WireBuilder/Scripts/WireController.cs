@@ -70,7 +70,7 @@ public class WireController : MonoBehaviour
     [Tooltip("Sets the maximum distance from the start anchor point to the end anchor point, based on the number of segments and the separation between them.")]
     public float maxDistanceToStarAnchor;
 
-
+    public Transform MaxPipeRenderHeightTransform;
 
     [Header("SPAWNED SEGMENTS")]
     public List<Transform> segments;
@@ -431,8 +431,15 @@ public class WireController : MonoBehaviour
 
         //Render the wire.
         List<Vector3> tempPos = new List<Vector3>();
+
+
         foreach (Transform pos in segments)
         {
+            if(MaxPipeRenderHeightTransform != null && pos.position.y > MaxPipeRenderHeightTransform.position.y) 
+            {
+                continue;
+            }
+
             tempPos.Add(pos.localPosition);
         }
         ropeMesh.SetPositions(tempPos.ToArray());
