@@ -1,4 +1,6 @@
+using NUnit.Framework;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.InputSystem.InputAction;
 
@@ -13,6 +15,9 @@ public class PlayerController : MonoBehaviour
 {
     public static PlayerController current;
 
+    public delegate void ItemsHeldUpdate(PickedUpItem item, bool pickupOrDrop);
+    public event ItemsHeldUpdate OnItemsHeldUpdate;
+
     public PlayerCharacter PlayerCharacter;
 
     public Transform bind;
@@ -23,7 +28,11 @@ public class PlayerController : MonoBehaviour
 
     public MouseInteractor PositionInteractor;
 
+    public PickupInteractor PickupInteractor;
+
     public float LookSpeed = 0.2f;
+
+    public List<PickedUpItem> HeldItems = new List<PickedUpItem>();
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
     public EControllerState State { get; private set; } = EControllerState.CharacterControl;
@@ -114,8 +123,14 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
+        bool validPuzzleArea = ValidPuzzleArea();
 
-        if (ValidPuzzleArea())
+        if (PickupInteractor != null && PickupInteractor.Enabled == validPuzzleArea) 
+        {
+            PickupInteractor.EnablePickupInteraction(!validPuzzleArea);
+        }
+
+        if (validPuzzleArea)
         {
             transform.SetPositionAndRotation(CurrentPuzzleArea.PuzzleCameraTransform.position, CurrentPuzzleArea.PuzzleCameraTransform.rotation);
             return;
@@ -149,6 +164,12 @@ public class PlayerController : MonoBehaviour
     {
         if(!ValidPuzzleArea())
         {
+            if(PickupInteractor != null && PickupInteractor.TryGetPickup(out PickedUpItem pickedUpItem))
+            {
+                HeldItems.Add(pickedUpItem);
+                OnItemsHeldUpdate?.Invoke(pickedUpItem, true);
+            }
+
             return;
         }
 
