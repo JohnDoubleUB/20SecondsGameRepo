@@ -1,16 +1,24 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using Unity.VisualScripting;
+using System.Linq;
 
 public class SessionData
 {
     //List of all the codes (2 digit sections)
+    const string AllowedSimonSaysColors = "RGBY";//'RGYBR'
+    const int SimonSaysCount = 5;
+
     string[] Codes;
     char[] ValidCharacters;
     static Random RandomInstance;
     string CompleteCode = string.Empty;
     int CurrentCodeIndex = 0;
+    
+    //Puzzle data
+    public string SimonSaysPattern { get; private set; }
+    public float RadioValue { get; private set; }
+
+    //public string CompletedCode
 
     public SessionData(int codeCount, int codeLength, int? seed = null, char[] validChar = null)
     {
@@ -26,6 +34,30 @@ public class SessionData
         }
 
         Codes = GenerateCodes(codeLength, codeCount, out CompleteCode);
+        SimonSaysPattern = GenerateSimonSaysPattern();
+        RadioValue = (float)RandomInstance.NextDouble();
+
+    }
+
+    private string GenerateSimonSaysPattern() 
+    {
+        List<char> charactersToUse = AllowedSimonSaysColors.ToList();
+
+        string result = "";
+
+        for (int i = 0; i < SimonSaysCount; i++) 
+        {
+            if (charactersToUse.Count < 1) 
+            {
+                charactersToUse = AllowedSimonSaysColors.ToList();
+            }
+
+            int indexToUse = RandomInstance.Next(0, charactersToUse.Count);
+            result += charactersToUse[indexToUse];
+            charactersToUse.RemoveAt(indexToUse);
+        }
+
+        return result;
     }
 
     private string[] GenerateCodes(int codeLength, int codeCount, out string completeCode) 

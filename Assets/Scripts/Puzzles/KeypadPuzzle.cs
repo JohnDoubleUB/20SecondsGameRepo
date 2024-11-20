@@ -21,8 +21,6 @@ public class KeypadPuzzle : Puzzle
 
     public MouseInteractableButton[] KeypadButtons;
 
-    public CodeDisplayer Displayer;
-
     [SerializeField]
     private UnityEvent m_OnPuzzleSuccess = new UnityEvent();
 
@@ -113,7 +111,7 @@ public class KeypadPuzzle : Puzzle
         if(CurrentCode == Password) 
         {
             Displayer.SetText(SuccessMessage);
-            PuzzleCompleted = true;
+            SetPuzzleCompleted(true);
             m_OnPuzzleSuccess?.Invoke();
         }
         else

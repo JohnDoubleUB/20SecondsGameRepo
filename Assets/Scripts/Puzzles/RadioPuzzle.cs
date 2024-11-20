@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class RadioPuzzle : Puzzle
 {
-    [SerializeField]
-    private CodeDisplayer Displayer;
 
     [SerializeField]
     private IndicatorLight CompleteLight;
@@ -43,10 +41,8 @@ public class RadioPuzzle : Puzzle
 
     private bool InTune = false;
 
-    private void Start()
+    public void SetPuzzle(float value) 
     {
-        OnSwitch.PuzzleBrain = this;
-
         if (Random.value > 0.5f)
         {
             randomValue = Random.value.Remap(0, 1, 0.5f + MinimumDistanceFromCenter, 1f);
@@ -55,7 +51,11 @@ public class RadioPuzzle : Puzzle
         {
             randomValue = Random.value.Remap(0, 1, 0.5f - MinimumDistanceFromCenter, 0f);
         }
-            
+    }
+
+    private void Start()
+    {
+        OnSwitch.PuzzleBrain = this;
     }
 
     private void Update()
@@ -106,9 +106,9 @@ public class RadioPuzzle : Puzzle
             }
             else 
             {
-                PuzzleCompleted = true;
+                SetPuzzleCompleted(true);
                 SetCompleteLight();
-                Displayer.SetText($"03");
+                //Displayer.SetText($"03");
             }
         }
         else

@@ -25,8 +25,6 @@ public class LockedPuzzle : Puzzle
             Panel.MaxRotation = LockedMaxRotation;
         }
 
-        PuzzleCompleted = false;
-
         if(InteractableLock != null) 
         {
             InteractableLock.ResetLock();
@@ -92,7 +90,7 @@ public class LockedPuzzle : Puzzle
             InteractableLock.UnlockAnimation(true);
         }
 
-        PuzzleCompleted = true;
+        SetPuzzleCompleted(true);
 
         Panel.MaxRotation = UnlockedMaxRotation;
     }

@@ -8,6 +8,12 @@ public class GameManager : MonoBehaviour
 
     public KeypadPuzzle KeyPad;
 
+    public SimonSaysPuzzle SimonSays;
+    public RadioPuzzle Radio;
+    public WirePuzzle Wires;
+    public SwitchPuzzle Switch;
+    public LockedPuzzle Locked;
+
     private bool SpawnLocationSet = false;
 
     public Vector3 SpawnLocation;
@@ -51,6 +57,20 @@ public class GameManager : MonoBehaviour
         }
 
         ResetTimer();
+
+        InitializePuzzles();
+    }
+
+    private void InitializePuzzles() 
+    {
+        //SimonSays
+        SimonSays.SetPuzzle(SessionData.SimonSaysPattern);
+        SimonSays.SetIndex(0);
+
+        //RadioPuzzle
+        Radio.SetPuzzle(SessionData.RadioValue);
+        Radio.SetIndex(1);
+
     }
 
     private void Update()

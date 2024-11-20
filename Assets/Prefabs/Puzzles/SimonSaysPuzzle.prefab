@@ -188,9 +188,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1e0371dc0c6cf34abf531df590eb888, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PuzzleCompleted: 0
-  CurrentState: 0
   Displayer: {fileID: 846283656410563331}
+  CurrentState: 0
   RedButton: {fileID: 8112713524104426800}
   BlueButton: {fileID: 5615829779455421723}
   GreenButton: {fileID: 2811212800170895594}
@@ -282,6 +281,14 @@ PrefabInstance:
     - target: {fileID: 3919309431674210097, guid: c22de2e83142c804dbb3863a6b25c48a, type: 3}
       propertyPath: ButtonUpSound
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3919309431674210097, guid: c22de2e83142c804dbb3863a6b25c48a, type: 3}
+      propertyPath: m_OnInteractUp.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3919309431674210097, guid: c22de2e83142c804dbb3863a6b25c48a, type: 3}
+      propertyPath: m_OnInteractDown.m_PersistentCalls.m_Calls.Array.size
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3919309431674210097, guid: c22de2e83142c804dbb3863a6b25c48a, type: 3}
       propertyPath: m_OnInteractUp.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -717,6 +724,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3919309431674210097, guid: c22de2e83142c804dbb3863a6b25c48a, type: 3}
+      propertyPath: m_OnInteractUp.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3919309431674210097, guid: c22de2e83142c804dbb3863a6b25c48a, type: 3}
+      propertyPath: m_OnInteractDown.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3919309431674210097, guid: c22de2e83142c804dbb3863a6b25c48a, type: 3}
       propertyPath: m_OnInteractUp.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 846283656410563331}
@@ -889,6 +904,14 @@ PrefabInstance:
     - target: {fileID: 3919309431674210097, guid: c22de2e83142c804dbb3863a6b25c48a, type: 3}
       propertyPath: ButtonUpSound
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3919309431674210097, guid: c22de2e83142c804dbb3863a6b25c48a, type: 3}
+      propertyPath: m_OnInteractUp.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3919309431674210097, guid: c22de2e83142c804dbb3863a6b25c48a, type: 3}
+      propertyPath: m_OnInteractDown.m_PersistentCalls.m_Calls.Array.size
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3919309431674210097, guid: c22de2e83142c804dbb3863a6b25c48a, type: 3}
       propertyPath: m_OnInteractUp.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -1129,6 +1152,14 @@ PrefabInstance:
     - target: {fileID: 3919309431674210097, guid: c22de2e83142c804dbb3863a6b25c48a, type: 3}
       propertyPath: ButtonUpSound
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3919309431674210097, guid: c22de2e83142c804dbb3863a6b25c48a, type: 3}
+      propertyPath: m_OnInteractUp.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3919309431674210097, guid: c22de2e83142c804dbb3863a6b25c48a, type: 3}
+      propertyPath: m_OnInteractDown.m_PersistentCalls.m_Calls.Array.size
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3919309431674210097, guid: c22de2e83142c804dbb3863a6b25c48a, type: 3}
       propertyPath: m_OnInteractUp.m_PersistentCalls.m_Calls.Array.data[0].m_Target

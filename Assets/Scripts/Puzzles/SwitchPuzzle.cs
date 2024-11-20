@@ -12,9 +12,6 @@ public class SwitchAndLight
 public class SwitchPuzzle : Puzzle
 {
     [SerializeField]
-    private CodeDisplayer Displayer;
-
-    [SerializeField]
     private SwitchAndLight[] SwitchAndLights;
 
     
