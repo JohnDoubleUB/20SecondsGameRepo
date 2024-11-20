@@ -1,13 +1,8 @@
 using UnityEngine;
-using UnityEngine.Audio;
-using static UnityEngine.Rendering.DebugUI;
-
 public class MouseInteractableLock : MouseInteractable
 {
     private string LockValue;
     public Puzzle PuzzleBrain;
-
-    public bool Locked { get; private set; } = true;
     
 
     [SerializeField]
@@ -18,7 +13,6 @@ public class MouseInteractableLock : MouseInteractable
 
     public void ResetLock()
     {
-        Locked = false;
         LockAnimator.SetBool("Unlock", false);
     }
 
@@ -29,12 +23,32 @@ public class MouseInteractableLock : MouseInteractable
 
     public void ShakeAnimation() 
     {
+        if (LockAnimator == null)
+        {
+            return;
+        }
+
         LockAnimator.Play("Shake", 0);
+
+        if (LockAudioSource != null)
+        {
+            LockAudioSource.Play();
+        }
     }
 
-    public void UnlockAnimation(bool value) 
+    public void UnlockAnimation(bool value)
     {
+        if (LockAnimator == null)
+        {
+            return;
+        }
+
         LockAnimator.SetBool("Unlock", value);
+
+        if (LockAudioSource != null)
+        {
+            LockAudioSource.Play();
+        }
     }
 
     protected override void OnInteract(bool value)
@@ -44,28 +58,10 @@ public class MouseInteractableLock : MouseInteractable
             return;
         }
 
-        if (!Locked) 
-        {
-            return;
-        }
-
-        if (LockAnimator != null)
-        {
-            LockAnimator.Play("Shake", 0);
-            //LockAnimator.SetBool("Unlock", true);
-        }
-
-        if (LockAudioSource != null) 
-        {
-            LockAudioSource.Play();
-        }
-
         if(PuzzleBrain != null) 
         {
             PuzzleBrain.ButtonValue(LockValue);
         }
-
-        //Locked = false;
     }
 
 }

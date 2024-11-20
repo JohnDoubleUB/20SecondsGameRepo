@@ -47,6 +47,21 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public bool TryAndRemoveItemWithIndex(int indexToFind)
+    {
+        for (int i = 0; i < HeldItems.Count; i++) 
+        {
+            if (HeldItems[i].Index == indexToFind) 
+            {
+                OnItemsHeldUpdate?.Invoke(HeldItems[i], false);
+                HeldItems.RemoveAt(i);
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     private void Awake()
     {
         if (current != null) Debug.LogWarning("Oops! it looks like there might already be a " + GetType().Name + " in this scene!");

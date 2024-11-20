@@ -1,8 +1,12 @@
 using System;
 using UnityEngine;
+using static MouseInteractablePanel;
 
 public class MouseInteractablePanel : MouseInteractable
 {
+    public delegate void PanelMovementChange();
+    public event PanelMovementChange OnPanelMovementChange;
+
     [SerializeField]
     private AudioSource AudioSource;
 
@@ -112,6 +116,7 @@ public class MouseInteractablePanel : MouseInteractable
         {
             if (!AudioSource.isPlaying) 
             {
+                OnPanelMovementChange?.Invoke();
                 AudioSource.Play();
             }
         }

@@ -2,6 +2,7 @@ using NUnit.Framework;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class UIElementManager : MonoBehaviour
 {
@@ -97,10 +98,28 @@ public class UIElementManager : MonoBehaviour
         {
             if (item.Index == SpawnedUIItems[i].Item.Index) 
             {
+                Destroy(SpawnedUIItems[i].gameObject);
                 SpawnedUIItems.RemoveAt(i);
                 break;
             }
         }
+    }
+
+    public void DeleteAllHeldItems() 
+    {
+        for (int i = 0; i < SpawnedUIItems.Count; i++)
+        {
+            UIItem item = SpawnedUIItems[i];
+            
+            if (item == null)
+            {
+                continue;
+            }
+
+            Destroy(item.gameObject);
+        }
+
+        SpawnedUIItems.Clear();
     }
 
     private void OnDestroy()
