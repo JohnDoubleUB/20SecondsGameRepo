@@ -1,8 +1,10 @@
-using System;
 using UnityEngine;
 
 public class LockedPuzzle : Puzzle
 {
+    [SerializeField]
+    private MouseInteractableButton Button;
+
     [SerializeField]
     private MouseInteractablePanel Panel;
 
@@ -12,14 +14,22 @@ public class LockedPuzzle : Puzzle
     [SerializeField]
     private float UnlockedMaxRotation = 180f;
 
+    private bool Unlocked = false;
+
     [SerializeField]
     private MouseInteractableLock InteractableLock;
 
     [SerializeField]
     private int KeyIndex = 0;
 
-    public override void ResetPuzzle()
+    //TODO: Test that this logic works, also add Button reference in inspector
+    public override void ResetPuzzle(bool force = false)
     {
+        if (Unlocked) 
+        {
+            return;
+        }
+
         if (Panel != null)
         {
             Panel.MaxRotation = LockedMaxRotation;
@@ -33,9 +43,21 @@ public class LockedPuzzle : Puzzle
 
     private void Start()
     {
-        if (Panel != null) 
+        if (Panel != null)
         {
             Panel.OnPanelMovementChange += OnPanelMovementChange;
+        }
+
+        if (Button != null)
+        {
+            Button.PuzzleBrain = this;
+            Button.SetButtonValue("B");
+        }
+
+        if (InteractableLock != null) 
+        {
+            InteractableLock.PuzzleBrain = this;
+            InteractableLock.SetLockValue("L");
         }
     }
 
@@ -71,6 +93,16 @@ public class LockedPuzzle : Puzzle
     public override void ButtonValue(string value)
     {
         if (PuzzleCompleted)
+        {
+            return;
+        }
+
+        if (value == "B") 
+        {
+            SetPuzzleCompleted(true);
+        }
+
+        if (Unlocked)
         {
             return;
         }

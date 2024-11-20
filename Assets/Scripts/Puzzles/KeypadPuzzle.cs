@@ -47,7 +47,7 @@ public class KeypadPuzzle : Puzzle
         }
     }
 
-    public override void ResetPuzzle()
+    public override void ResetPuzzle(bool force = false)
     {
         if(PuzzleCompleted) 
         {

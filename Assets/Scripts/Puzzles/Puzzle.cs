@@ -45,7 +45,7 @@ public class Puzzle : MonoBehaviour
 
     }
 
-    public virtual void ResetPuzzle()
+    public virtual void ResetPuzzle(bool force = false)
     {
         PuzzleCode = null;
     }

@@ -109,7 +109,7 @@ public class SimonSaysPuzzle : Puzzle
         }
     }
 
-    public override void ResetPuzzle()
+    public override void ResetPuzzle(bool force = false)
     {
         CurrentState = SimonSaysState.NoInput;
         TargetCode = $"{FullCode[0]}";
