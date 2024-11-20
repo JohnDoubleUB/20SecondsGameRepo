@@ -2,21 +2,47 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
+public class SwitchData 
+{
+    public int[] OnSwitches;
+    public List<int> LinkableSwitches;
+    public List<int> OnSwitchIndexes;
+    public bool[] InitialSwitchPositions;
+}
+
+public class RadioPuzzleData 
+{
+    public float Value1;
+    public bool Value2;
+}
+
 public class SessionData
 {
     //List of all the codes (2 digit sections)
+
+    //Simon says
     const string AllowedSimonSaysColors = "RGBY";//'RGYBR'
     const int SimonSaysCount = 5;
+
+    //Switch count
+    const int enabledSwitchCount = 2;
+    const int switchCount = 5;
 
     string[] Codes;
     char[] ValidCharacters;
     static Random RandomInstance;
     string CompleteCode = string.Empty;
     int CurrentCodeIndex = 0;
-    
+
     //Puzzle data
     public string SimonSaysPattern { get; private set; }
-    public float RadioValue { get; private set; }
+
+    public RadioPuzzleData RadioData { get; private set; }
+
+    //public float RadioValue1 { get; private set; }
+    //public float RadioValue2 { get; private set; }
+
+    public SwitchData SwitchData { get; private set; }
 
     //public string CompletedCode
 
@@ -35,8 +61,13 @@ public class SessionData
 
         Codes = GenerateCodes(codeLength, codeCount, out CompleteCode);
         SimonSaysPattern = GenerateSimonSaysPattern();
-        RadioValue = (float)RandomInstance.NextDouble();
+        RadioData = GenerateRadioPuzzleData();
+        SwitchData = GenerateSwitchPattern();
+    }
 
+    private RadioPuzzleData GenerateRadioPuzzleData() 
+    {
+        return new RadioPuzzleData { Value1 = (float)RandomInstance.NextDouble(), Value2 = RandomInstance.NextDouble() > 0.5f };
     }
 
     private string GenerateSimonSaysPattern() 
@@ -58,6 +89,48 @@ public class SessionData
         }
 
         return result;
+    }
+
+    private SwitchData GenerateSwitchPattern() 
+    {
+        //Determine if it is 2 or 3 
+        int randomIndex;
+
+        int[] onSwitches = new int[switchCount];
+        bool[] initialSwitchPositions = new bool[switchCount];
+
+        List<int> linkableSwitches = new List<int>();
+        List<int> onSwitchIndexes = new List<int>();
+
+        for (int i = 0; i < onSwitches.Length; i++)
+        {
+            linkableSwitches.Add(i);
+            initialSwitchPositions[i] = RandomInstance.NextDouble() > 0.5f;
+        }
+
+        for (int i = 0; i < enabledSwitchCount;)
+        {
+            randomIndex = RandomInstance.Next(0, switchCount);//Random.Range(0, onSwitches.Length);
+
+            if (onSwitches[randomIndex] < 1)
+            {
+                onSwitches[randomIndex] = 1;
+                linkableSwitches.Remove(randomIndex);
+                onSwitchIndexes.Add(randomIndex);
+                if (randomIndex + 1 < onSwitches.Length)
+                {
+                    onSwitches[randomIndex + 1] = 2;
+                }
+
+                if (randomIndex - 1 > 0)
+                {
+                    onSwitches[randomIndex - 1] = 2;
+                }
+                i++;
+            }
+        }
+
+        return new SwitchData { LinkableSwitches = linkableSwitches, OnSwitches = onSwitches, OnSwitchIndexes = onSwitchIndexes, InitialSwitchPositions = initialSwitchPositions };
     }
 
     private string[] GenerateCodes(int codeLength, int codeCount, out string completeCode) 

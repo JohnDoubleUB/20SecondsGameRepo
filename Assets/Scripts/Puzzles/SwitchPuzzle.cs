@@ -17,9 +17,38 @@ public class SwitchPuzzle : Puzzle
     
     public Dictionary<int, IndicatorLight> connectedLights = new Dictionary<int, IndicatorLight>();
 
+    public void SetPuzzle(SwitchData switchData) 
+    {
+        int[] onSwitches = switchData.OnSwitches;
+        bool[] initialSwitchPositions = switchData.InitialSwitchPositions;
+        List<int> linkableSwitches = switchData.LinkableSwitches;
+        List<int> onSwitchIndexes = switchData.OnSwitchIndexes;
+
+        connectedLights.Clear();
+
+        for (int i = 0; i < linkableSwitches.Count && i < onSwitchIndexes.Count; i++)
+        {
+            connectedLights.Add(linkableSwitches[i], SwitchAndLights[onSwitchIndexes[i]].Light);
+        }
+
+        //OnOffInitialForAllPuzzles
+        for (int i = 0; i < SwitchAndLights.Length; i++)
+        {
+            SwitchAndLight switchAndLight = SwitchAndLights[i];
+            switchAndLight.Switch.Index = i;
+            switchAndLight.Switch.PuzzleBrain = this;
+
+            bool shouldStartOn = onSwitches[i] == 1;
+
+            switchAndLight.Switch.SetSwitchValue(shouldStartOn, initialSwitchPositions[i]);
+            switchAndLight.Light.SetLight(shouldStartOn ? LightColor.Green : LightColor.None, 0);
+        }
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        return;
         //Determine if it is 2 or 3 
         int enabledSwitchCount = 2;
         int randomIndex;
@@ -34,7 +63,7 @@ public class SwitchPuzzle : Puzzle
             linkableSwitches.Add(i);
         }
 
-        connectedLights.Clear();
+        
 
         for (int i = 0; i < enabledSwitchCount;) 
         {
@@ -58,11 +87,14 @@ public class SwitchPuzzle : Puzzle
             }
         }
 
+        connectedLights.Clear();
+
         for (int i = 0; i < linkableSwitches.Count && i < onSwitchIndexes.Count ; i++) 
         {
             connectedLights.Add(linkableSwitches[i], SwitchAndLights[onSwitchIndexes[i]].Light);
         }
 
+        //OnOffInitialForAllPuzzles
         for (int i = 0; i < SwitchAndLights.Length; i++) 
         {
             SwitchAndLight switchAndLight = SwitchAndLights[i];
@@ -84,6 +116,11 @@ public class SwitchPuzzle : Puzzle
 
     public override void SwitchValue(bool value, int index)
     {
+        if (PuzzleCompleted) 
+        {
+            return;
+        }
+
         SwitchAndLight switchAndLight = SwitchAndLights[index];
         switchAndLight.Light.SetLight(!switchAndLight.Light.isOn ? LightColor.Green : LightColor.None, 0);
         
@@ -96,5 +133,23 @@ public class SwitchPuzzle : Puzzle
 
             light.SetLight(!light.isOn ? LightColor.Green : LightColor.None, 0);
         }
+
+        if (AreAllLightsOn()) 
+        {
+            SetPuzzleCompleted(true);
+        }
+    }
+
+    private bool AreAllLightsOn() 
+    {
+        for (int i = 0; i < SwitchAndLights.Length; i++) 
+        {
+            if (!SwitchAndLights[i].Light.isOn) 
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 }

@@ -117,11 +117,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e614f0cef57ae040b2feba471cf88ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PuzzleCompleted: 0
+  Displayer: {fileID: 3333431522046503733}
   Panel: {fileID: 8411856615408717761}
   LockedMaxRotation: 3
   UnlockedMaxRotation: 180
   InteractableLock: {fileID: 7171412627114337560}
+  KeyIndex: 0
 --- !u!1001 &1943267232791165301
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -140,7 +141,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3798052972643455552, guid: 28c813e7c4782154397bd81b8a4d3b10, type: 3}
       propertyPath: startVisible
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3899469665985447981, guid: 28c813e7c4782154397bd81b8a4d3b10, type: 3}
       propertyPath: m_Name
@@ -267,6 +268,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2901287213458606419}
     m_Modifications:
+    - target: {fileID: 3919309431674210097, guid: c22de2e83142c804dbb3863a6b25c48a, type: 3}
+      propertyPath: m_OnInteractUp.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3919309431674210097, guid: c22de2e83142c804dbb3863a6b25c48a, type: 3}
+      propertyPath: m_OnInteractDown.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3919309431674210097, guid: c22de2e83142c804dbb3863a6b25c48a, type: 3}
       propertyPath: m_OnInteractUp.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 

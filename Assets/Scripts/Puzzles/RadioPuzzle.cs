@@ -41,15 +41,15 @@ public class RadioPuzzle : Puzzle
 
     private bool InTune = false;
 
-    public void SetPuzzle(float value) 
+    public void SetPuzzle(RadioPuzzleData radioData) 
     {
-        if (Random.value > 0.5f)
+        if (radioData.Value2)
         {
-            randomValue = Random.value.Remap(0, 1, 0.5f + MinimumDistanceFromCenter, 1f);
+            randomValue = radioData.Value1.Remap(0, 1, 0.5f + MinimumDistanceFromCenter, 1f);
         }
         else
         {
-            randomValue = Random.value.Remap(0, 1, 0.5f - MinimumDistanceFromCenter, 0f);
+            randomValue = radioData.Value1.Remap(0, 1, 0.5f - MinimumDistanceFromCenter, 0f);
         }
     }
 

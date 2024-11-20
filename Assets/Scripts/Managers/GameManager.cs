@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour
             SpawnRotation = PlayerCharacter.current.GetCharacterRotation();
         }
 
-        SessionData = new SessionData(4, 1);
+        SessionData = new SessionData(4, 1, 222132);
 
         Debug.Log("Codes! " + string.Join(", ", SessionData.GetAllCodes()));
 
@@ -68,8 +68,13 @@ public class GameManager : MonoBehaviour
         SimonSays.SetIndex(0);
 
         //RadioPuzzle
-        Radio.SetPuzzle(SessionData.RadioValue);
+        Radio.SetPuzzle(SessionData.RadioData);
         Radio.SetIndex(1);
+
+        //SwitchPuzzle
+        Switch.SetPuzzle(SessionData.SwitchData);
+        Switch.SetIndex(2);
+
 
     }
 
