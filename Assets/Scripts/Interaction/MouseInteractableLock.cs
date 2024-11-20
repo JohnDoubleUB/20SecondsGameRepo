@@ -27,6 +27,16 @@ public class MouseInteractableLock : MouseInteractable
         LockValue = value;
     }
 
+    public void ShakeAnimation() 
+    {
+        LockAnimator.Play("Shake", 0);
+    }
+
+    public void UnlockAnimation(bool value) 
+    {
+        LockAnimator.SetBool("Unlock", value);
+    }
+
     protected override void OnInteract(bool value)
     {
         if (!value) 
@@ -41,7 +51,8 @@ public class MouseInteractableLock : MouseInteractable
 
         if (LockAnimator != null)
         {
-            LockAnimator.SetBool("Unlock", true);
+            LockAnimator.Play("Shake", 0);
+            //LockAnimator.SetBool("Unlock", true);
         }
 
         if (LockAudioSource != null) 
@@ -49,9 +60,12 @@ public class MouseInteractableLock : MouseInteractable
             LockAudioSource.Play();
         }
 
-        PuzzleBrain.ButtonValue(LockValue);
+        if(PuzzleBrain != null) 
+        {
+            PuzzleBrain.ButtonValue(LockValue);
+        }
 
-        Locked = false;
+        //Locked = false;
     }
 
 }

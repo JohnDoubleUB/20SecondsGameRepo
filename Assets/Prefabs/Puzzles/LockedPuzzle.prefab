@@ -337,7 +337,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5302907365505196321, guid: e395ad4c14021f741adfabe083c02513, type: 3}
       propertyPath: MaxRotation
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6642128616848597179, guid: e395ad4c14021f741adfabe083c02513, type: 3}
       propertyPath: m_Name
