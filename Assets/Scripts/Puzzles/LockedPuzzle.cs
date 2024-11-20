@@ -38,6 +38,7 @@ public class LockedPuzzle : Puzzle
             Panel.OnPanelMovementChange += OnPanelMovementChange;
         }
     }
+
     //
     private void OnPanelMovementChange()
     {
