@@ -20,14 +20,58 @@ public class LockedPuzzle : Puzzle
     private MouseInteractableLock InteractableLock;
 
     [SerializeField]
+    private PickupItem KeyPrefab;
+
+    [SerializeField]
+    private Transform[] KeySpawnLocations;
+
+    [SerializeField]
     private int KeyIndex = 0;
 
-    //TODO: Test that this logic works, also add Button reference in inspector
-    public override void ResetPuzzle(bool force = false)
+    private int SpawnIndex = -1;
+
+    private PickupItem NewInstance;
+
+    private void Update()
+    {
+        if (NewInstance == null) 
+        {
+            Debug.Log("Picked up!");
+        }
+    }
+
+    public int SpawnLocationCount() 
+    {
+        return KeySpawnLocations.Length;
+    }
+
+    public void SetPuzzle(int index) 
+    {
+        SpawnIndex = index;
+        SpawnNewKey();
+    }
+
+    private void SpawnNewKey() 
+    {
+        if (KeyPrefab != null)
+        {
+            Transform location = KeySpawnLocations[SpawnIndex];
+            NewInstance = Instantiate(KeyPrefab, location.position, location.rotation);
+        }
+    }
+
+    public override void OnReset()
     {
         if (Unlocked) 
         {
             return;
+        }
+
+        Panel.ResetInteractable();
+
+        if (NewInstance == null) 
+        {
+            SpawnNewKey();
         }
 
         if (Panel != null)

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -49,6 +50,7 @@ public class UIElementManager : MonoBehaviour
         }
 
         PlayerController.current.OnItemsHeldUpdate += OnItemsHeldUpdate;
+        PlayerController.current.OnResetInventory += OnResetInventory;
 
         if (PlayerController.current.PickupInteractor == null)
         {
@@ -56,6 +58,11 @@ public class UIElementManager : MonoBehaviour
         }
 
         PlayerController.current.PickupInteractor.OnInteractingItemUpdate += OnInteractingItemUpdate;
+    }
+
+    private void OnResetInventory()
+    {
+        DeleteAllHeldItems();
     }
 
     private void OnInteractingItemUpdate(string interactingItemName)
@@ -128,6 +135,7 @@ public class UIElementManager : MonoBehaviour
         }
 
         PlayerController.current.OnItemsHeldUpdate -= OnItemsHeldUpdate;
+        PlayerController.current.OnResetInventory -= OnResetInventory;
 
         if (PlayerController.current.PickupInteractor == null) 
         {

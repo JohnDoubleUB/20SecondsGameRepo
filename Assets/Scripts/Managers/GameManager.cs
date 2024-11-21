@@ -44,7 +44,12 @@ public class GameManager : MonoBehaviour
             SpawnRotation = PlayerCharacter.current.GetCharacterRotation();
         }
 
-        SessionData = new SessionData(5, 1, 222132);
+        SessionData = new SessionData(5, 1, 222132)
+        {
+            LockedPuzzleSpawnLocationCount = Locked.SpawnLocationCount()
+        };
+
+        SessionData.Initialize();
 
         Debug.Log("Codes! " + string.Join(", ", SessionData.GetAllCodes()));
 
@@ -76,6 +81,7 @@ public class GameManager : MonoBehaviour
         Switch.SetIndex(2);
 
         //TODO: RANDOM NEEDS SETTING UP FOR THIS
+        Locked.SetPuzzle(SessionData.LockedPuzzleKeySpawnIndex);
         Locked.SetIndex(3);
 
         Wires.SetPuzzle(SessionData.WireIndexOrder);
@@ -101,6 +107,13 @@ public class GameManager : MonoBehaviour
         ResetTimer();
 
         KeyPad.ResetPuzzle();
+        Locked.ResetPuzzle();
+
+
+        if (PlayerController.current != null)
+        {
+            PlayerController.current.ResetProgress();
+        }
 
         if (!CompleteReset)
         {

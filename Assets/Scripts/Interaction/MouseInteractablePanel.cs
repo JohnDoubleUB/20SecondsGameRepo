@@ -46,6 +46,13 @@ public class MouseInteractablePanel : MouseInteractable
         }
     }
 
+    protected override void OnResetInteractable()
+    {
+        Vector3 rotation = transform.localRotation.eulerAngles;
+        rotation.y = initialYRotation;
+        transform.localRotation = Quaternion.Euler(rotation);
+    }
+
     private void PanelUnheldUpdate()
     {
         if (rotationYDifference < 0)

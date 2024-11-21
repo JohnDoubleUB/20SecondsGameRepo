@@ -26,6 +26,7 @@ public class WirePuzzle : Puzzle
     {
         PuzzleIndexes = wireIndexes;
         //TODO: Set something with the correct colors
+
         Material[] matchingMaterials = new Material[PuzzleIndexes.Length];
         for (int i = 0; i < wireIndexes.Length; i++)
         {

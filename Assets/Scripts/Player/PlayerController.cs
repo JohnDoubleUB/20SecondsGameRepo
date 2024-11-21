@@ -18,6 +18,9 @@ public class PlayerController : MonoBehaviour
     public delegate void ItemsHeldUpdate(PickedUpItem item, bool pickupOrDrop);
     public event ItemsHeldUpdate OnItemsHeldUpdate;
 
+    public delegate void ResetInventory();
+    public event ResetInventory OnResetInventory;
+
     public PlayerCharacter PlayerCharacter;
 
     public Transform bind;
@@ -60,6 +63,12 @@ public class PlayerController : MonoBehaviour
         }
 
         return false;
+    }
+
+    public void ResetProgress() 
+    {
+        OnResetInventory?.Invoke();
+        HeldItems.Clear();
     }
 
     private void Awake()

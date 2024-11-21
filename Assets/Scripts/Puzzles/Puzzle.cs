@@ -52,10 +52,20 @@ public class Puzzle : MonoBehaviour
 
     public virtual void ResetPuzzle(bool force = false)
     {
-        PuzzleCode = null;
+        OnReset();
+    }
+
+    public virtual void OnReset() 
+    {
+
     }
 
     public virtual void FullReset() 
+    {
+
+    }
+
+    public virtual void OnFullReset() 
     {
 
     }

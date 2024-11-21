@@ -123,6 +123,8 @@ MonoBehaviour:
   LockedMaxRotation: 3
   UnlockedMaxRotation: 180
   InteractableLock: {fileID: 7171412627114337560}
+  KeyPrefab: {fileID: 721257174768259632, guid: a1fe6c7a27811214e84d1ab2cd40c49a, type: 3}
+  KeySpawnLocations: []
   KeyIndex: 0
 --- !u!1001 &1943267232791165301
 PrefabInstance:

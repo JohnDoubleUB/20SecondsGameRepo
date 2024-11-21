@@ -47,17 +47,23 @@ public class KeypadPuzzle : Puzzle
         }
     }
 
-    public override void ResetPuzzle(bool force = false)
-    {
-        if(PuzzleCompleted) 
-        {
-            return;
-        }
 
-        //PuzzleCompleted = false;
+    public override void OnReset()
+    {
         SetNewCurrentCode("");
         m_OnPuzzleReset?.Invoke();
     }
+    //public override void ResetPuzzle(bool force = false)
+    //{
+    //    if(PuzzleCompleted) 
+    //    {
+    //        return;
+    //    }
+
+    //    //PuzzleCompleted = false;
+    //    SetNewCurrentCode("");
+    //    m_OnPuzzleReset?.Invoke();
+    //}
 
     private void Update()
     {

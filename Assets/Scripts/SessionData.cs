@@ -21,35 +21,37 @@ public class SessionData
     //List of all the codes (2 digit sections)
 
     //Simon says
-    const string AllowedSimonSaysColors = "RGBY";//'RGYBR'
-    const int SimonSaysCount = 5;
+    public string AllowedSimonSaysColors = "RGBY";//'RGYBR'
+    public int SimonSaysCount = 5;
 
     //Switch count
-    const int enabledSwitchCount = 2;
-    const int switchCount = 5;
+    public int EnabledSwitchCount = 2;
+    public int SwitchCount = 5;
 
     //Wires
-    const int wireCount = 4;
+    public int WireCount = 4;
+
+    //Locked Puzzle
+    public int LockedPuzzleSpawnLocationCount = 4;
 
     string[] Codes;
     char[] ValidCharacters;
     static Random RandomInstance;
     string CompleteCode = string.Empty;
     int CurrentCodeIndex = 0;
+    int CodeLength;
+    int CodeCount;
 
     //Puzzle data
     public string SimonSaysPattern { get; private set; }
 
     public RadioPuzzleData RadioData { get; private set; }
 
-    //public float RadioValue1 { get; private set; }
-    //public float RadioValue2 { get; private set; }
-
     public SwitchData SwitchData { get; private set; }
 
-    public int[] WireIndexOrder { get; private set; }
+    public int LockedPuzzleKeySpawnIndex { get; private set; }
 
-    //public string CompletedCode
+    public int[] WireIndexOrder { get; private set; }
 
     public SessionData(int codeCount, int codeLength, int? seed = null, char[] validChar = null)
     {
@@ -64,12 +66,18 @@ public class SessionData
             RandomInstance = new Random(seed.Value);
         }
 
-        Codes = GenerateCodes(codeLength, codeCount, out CompleteCode);
+        CodeLength = codeLength;
+        CodeCount = codeCount;
+    }
+
+    public void Initialize() 
+    {
+        Codes = GenerateCodes(CodeLength, CodeCount, out CompleteCode);
         SimonSaysPattern = GenerateSimonSaysPattern();
         RadioData = GenerateRadioPuzzleData();
         SwitchData = GenerateSwitchPattern();
         WireIndexOrder = GenerateWireIndexOrder(); //TODO: this should work however will need checking
-
+        LockedPuzzleKeySpawnIndex = RandomInstance.Next(0, LockedPuzzleSpawnLocationCount);
     }
 
     public void Shuffle<T>(IList<T> list)
@@ -87,7 +95,7 @@ public class SessionData
 
     private int[] GenerateWireIndexOrder() 
     {
-        int[] newArray = new int[wireCount];
+        int[] newArray = new int[WireCount];
 
         for (int i = 0; i < newArray.Length; i++) 
         {
@@ -130,8 +138,8 @@ public class SessionData
         //Determine if it is 2 or 3 
         int randomIndex;
 
-        int[] onSwitches = new int[switchCount];
-        bool[] initialSwitchPositions = new bool[switchCount];
+        int[] onSwitches = new int[SwitchCount];
+        bool[] initialSwitchPositions = new bool[SwitchCount];
 
         List<int> linkableSwitches = new List<int>();
         List<int> onSwitchIndexes = new List<int>();
@@ -142,9 +150,9 @@ public class SessionData
             initialSwitchPositions[i] = RandomInstance.NextDouble() > 0.5f;
         }
 
-        for (int i = 0; i < enabledSwitchCount;)
+        for (int i = 0; i < EnabledSwitchCount;)
         {
-            randomIndex = RandomInstance.Next(0, switchCount);//Random.Range(0, onSwitches.Length);
+            randomIndex = RandomInstance.Next(0, SwitchCount);//Random.Range(0, onSwitches.Length);
 
             if (onSwitches[randomIndex] < 1)
             {
