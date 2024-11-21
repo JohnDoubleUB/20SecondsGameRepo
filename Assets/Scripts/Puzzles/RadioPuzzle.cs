@@ -55,7 +55,7 @@ public class RadioPuzzle : Puzzle
         }
     }
 
-    public override void OnReset()
+    protected override void OnReset()
     {
         SetPuzzleOn(false);
         OnSwitch.SetSwitchValue(false);
@@ -64,7 +64,7 @@ public class RadioPuzzle : Puzzle
         InTune = false;
     }
 
-    public override void OnFullReset()
+    protected override void OnFullReset()
     {
         SetPuzzleOn(false);
         OnSwitch.SetSwitchValue(false);

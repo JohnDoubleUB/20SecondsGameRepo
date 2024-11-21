@@ -21,7 +21,7 @@ public class SwitchPuzzle : Puzzle
 
     private SwitchData Data;
 
-    public override void OnReset() 
+    protected override void OnReset() 
     {
         ResetSwitches();
 
@@ -31,7 +31,7 @@ public class SwitchPuzzle : Puzzle
         }
     }
 
-    public override void OnFullReset()
+    protected override void OnFullReset()
     {
         ResetSwitches();
 

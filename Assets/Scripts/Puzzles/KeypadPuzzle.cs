@@ -48,13 +48,13 @@ public class KeypadPuzzle : Puzzle
     }
 
 
-    public override void OnReset()
+    protected override void OnReset()
     {
         SetNewCurrentCode("");
         m_OnPuzzleReset?.Invoke();
     }
 
-    public override void OnFullReset()
+    protected override void OnFullReset()
     {
         SetNewCurrentCode("");
         m_OnPuzzleReset?.Invoke();

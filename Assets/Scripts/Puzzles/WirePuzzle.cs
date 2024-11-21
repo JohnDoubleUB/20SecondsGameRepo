@@ -25,7 +25,7 @@ public class WirePuzzle : Puzzle
         }
     }
 
-    public override void OnReset()
+    protected override void OnReset()
     {
         if (Panel != null) 
         {
@@ -38,7 +38,7 @@ public class WirePuzzle : Puzzle
         }
     }
 
-    public override void OnFullReset()
+    protected override void OnFullReset()
     {
         if (Panel != null)
         {

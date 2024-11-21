@@ -114,7 +114,7 @@ public class SimonSaysPuzzle : Puzzle
 
 
 
-    public override void OnReset()
+    protected override void OnReset()
     {
         CurrentState = SimonSaysState.NoInput;
         TargetCode = $"{FullCode[0]}";
@@ -126,7 +126,7 @@ public class SimonSaysPuzzle : Puzzle
         }
     }
 
-    public override void OnFullReset()
+    protected override void OnFullReset()
     {
         CurrentState = SimonSaysState.NoInput;
         TargetCode = $"{FullCode[0]}";

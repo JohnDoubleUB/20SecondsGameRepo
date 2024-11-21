@@ -55,7 +55,7 @@ public class Puzzle : MonoBehaviour
 
     }
 
-    public void ResetPuzzle(bool force = false)
+    public void ResetPuzzle()
     {
         if (PuzzleCompleted) 
         {
@@ -78,7 +78,7 @@ public class Puzzle : MonoBehaviour
         OnFullReset();
     }
 
-    public virtual void OnFullReset() 
+    protected virtual void OnFullReset() 
     {
 
     }

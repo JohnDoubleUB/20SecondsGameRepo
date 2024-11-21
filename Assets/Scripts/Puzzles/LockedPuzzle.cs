@@ -52,7 +52,7 @@ public class LockedPuzzle : Puzzle
         }
     }
 
-    public override void OnReset()
+    protected override void OnReset()
     {
         if (Unlocked) 
         {
@@ -77,7 +77,7 @@ public class LockedPuzzle : Puzzle
         //}
     }
 
-    public override void OnFullReset()
+    protected override void OnFullReset()
     {
         Panel.ResetInteractable();
 
