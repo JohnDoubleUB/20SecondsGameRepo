@@ -45,6 +45,11 @@ public class Puzzle : MonoBehaviour
 
     }
 
+    public virtual void ButtonValue(int value) 
+    {
+
+    }
+
     public virtual void ResetPuzzle(bool force = false)
     {
         PuzzleCode = null;

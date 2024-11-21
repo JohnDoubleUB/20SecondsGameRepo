@@ -1,16 +1,19 @@
 using UnityEngine;
 
-public class WirePuzzle : MonoBehaviour
+public class WirePuzzle : Puzzle
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+
+    public void SetPuzzle(int[] wireIndexes) 
     {
-        
+        for (int i = 0; i < wireIndexes.Length; i++) 
+        {
+            //index i connect with point wireIndexes[i]
+            //Boom, shuffled wire connections
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void ButtonValue(int value)
     {
-        
+        //IDK actually, add this in tomorrow
     }
 }

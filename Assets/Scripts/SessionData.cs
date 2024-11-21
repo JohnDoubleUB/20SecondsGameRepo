@@ -28,6 +28,9 @@ public class SessionData
     const int enabledSwitchCount = 2;
     const int switchCount = 5;
 
+    //Wires
+    const int wireCount = 5;
+
     string[] Codes;
     char[] ValidCharacters;
     static Random RandomInstance;
@@ -43,6 +46,8 @@ public class SessionData
     //public float RadioValue2 { get; private set; }
 
     public SwitchData SwitchData { get; private set; }
+
+    public int[] WireIndexOrder { get; private set; }
 
     //public string CompletedCode
 
@@ -63,6 +68,35 @@ public class SessionData
         SimonSaysPattern = GenerateSimonSaysPattern();
         RadioData = GenerateRadioPuzzleData();
         SwitchData = GenerateSwitchPattern();
+        WireIndexOrder = GenerateWireIndexOrder(); //TODO: this should work however will need checking
+
+    }
+
+    public void Shuffle<T>(IList<T> list)
+    {
+        int n = list.Count;
+        while (n > 1)
+        {
+            n--;
+            int k = RandomInstance.Next(n + 1);
+            T value = list[k];
+            list[k] = list[n];
+            list[n] = value;
+        }
+    }
+
+    private int[] GenerateWireIndexOrder() 
+    {
+        int[] newArray = new int[wireCount];
+
+        for (int i = 0; i < newArray.Length; i++) 
+        {
+            newArray[i] = i;
+        }
+
+        Shuffle(newArray);
+
+        return newArray;
     }
 
     private RadioPuzzleData GenerateRadioPuzzleData() 
