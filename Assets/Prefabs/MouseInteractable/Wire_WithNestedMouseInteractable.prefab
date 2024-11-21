@@ -4878,12 +4878,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ControlUntilRelease: 1
+  Index: 0
+  ColouredBodyMesh: {fileID: 5877332792168095857}
   StartAnchor: {fileID: 5563742520448588422}
   EndAnchor: {fileID: 7352113940395181287}
   MaxPullDownAnchor: {fileID: 5914729501450246591}
-  TestObject: {fileID: 493928238732282817}
   WireParent: {fileID: 101973029095498976}
   Wire: {fileID: 7741483959702930380}
+  CloserToCameraOffset: 0.01
   ConnectionPoints: {fileID: 0}
 --- !u!1 &9010565718893294912
 GameObject:

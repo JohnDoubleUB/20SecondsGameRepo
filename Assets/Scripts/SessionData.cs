@@ -29,7 +29,7 @@ public class SessionData
     const int switchCount = 5;
 
     //Wires
-    const int wireCount = 5;
+    const int wireCount = 4;
 
     string[] Codes;
     char[] ValidCharacters;

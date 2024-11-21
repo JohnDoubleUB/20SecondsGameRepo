@@ -3,7 +3,8 @@ public class MouseInteractableLock : MouseInteractable
 {
     private string LockValue;
     public Puzzle PuzzleBrain;
-    
+
+    private bool Unlocked = false;
 
     [SerializeField]
     AudioSource LockAudioSource;
@@ -23,6 +24,11 @@ public class MouseInteractableLock : MouseInteractable
 
     public void ShakeAnimation() 
     {
+        if (Unlocked) 
+        {
+            return;
+        }
+
         if (LockAnimator == null)
         {
             return;
@@ -43,7 +49,8 @@ public class MouseInteractableLock : MouseInteractable
             return;
         }
 
-        LockAnimator.SetBool("Unlock", value);
+        Unlocked = value;
+        LockAnimator.Play(value ? "Unlock" : "Locked");
 
         if (LockAudioSource != null)
         {

@@ -3,6 +3,11 @@ using UnityEngine;
 
 public class MouseInteractableWire : MouseInteractable
 {
+    public int Index;
+
+    [SerializeField]
+    private MeshRenderer ColouredBodyMesh;
+
     [SerializeField]
     private Transform StartAnchor;
 
@@ -13,18 +18,13 @@ public class MouseInteractableWire : MouseInteractable
     private Transform MaxPullDownAnchor;
 
     [SerializeField]
-    private Transform TestObject;
-
-    [SerializeField]
     private Transform WireParent;
 
     [SerializeField]
     private WireController Wire;
 
-    //[SerializeField]
+    [SerializeField]
     private float CloserToCameraOffset = 0.01f;
-
-    Vector2 MousePositionOrigin = Vector2.zero;
 
     Vector3 AnchorStartInitialPositionLocal;
 
@@ -49,15 +49,17 @@ public class MouseInteractableWire : MouseInteractable
         AnchorStartInitialPositionLocal = StartAnchor.localPosition;
         AnchorEndInitialPositionLocal = EndAnchor.transform.localPosition;
         AnchorEndInitialRotationLocal = EndAnchor.transform.localRotation;
-        //EndAnchor.isKinematic = true;
     }
+
+    public Material GetColouredMaterial() 
+    {
+        return ColouredBodyMesh.material;
+    } 
 
     protected override void OnInteract(bool value)
     {
         if (value)
         {
-            //MousePositionOrigin = Camera.main.WorldToScreenPoint(transform.position);
-            MousePositionOrigin = Input.mousePosition;
             DistanceFromCamera = Vector3.Distance(WireParent.transform.position, Camera.main.transform.position) - CloserToCameraOffset;
             InitialMousePositionInWorld = GetMousePositionInWorld();
             AnchorStartOnGrabPositionLocal = StartAnchor.localPosition;
@@ -73,13 +75,6 @@ public class MouseInteractableWire : MouseInteractable
         else 
         {
             CheckForConnectionOrReset();
-
-            //Wire.ResetSegmentsToCachedPositions();
-            //EndAnchor.transform.localPosition = AnchorEndInitialPositionLocal;
-            //EndAnchor.transform.localRotation = AnchorEndInitialRotationLocal;
-
-
-            //EndAnchor.isKinematic = true;
         }
     }
 
@@ -89,8 +84,9 @@ public class MouseInteractableWire : MouseInteractable
         {
             EndAnchor.isKinematic = true;
             ConnectedIndex = index;
-            EndAnchor.transform.position = point.Point.transform.position;
-            EndAnchor.transform.rotation = point.Point.transform.rotation;
+            EndAnchor.transform.SetPositionAndRotation(point.Point.transform.position, point.Point.transform.rotation);
+            //EndAnchor.transform.position = point.Point.transform.position;
+            //EndAnchor.transform.rotation = point.Point.transform.rotation;
             StartAnchor.localPosition = new Vector3(StartAnchor.localPosition.x, MaxPullDownAnchor.localPosition.y, StartAnchor.localPosition.z);
 
             return;
@@ -106,22 +102,20 @@ public class MouseInteractableWire : MouseInteractable
     {
         if (!Held)
         {
-            if (ConnectedIndex == -1) 
+            if (ConnectedIndex == -1)
             {
-            StartAnchor.localPosition = AnchorStartInitialPositionLocal;
-
+                StartAnchor.localPosition = AnchorStartInitialPositionLocal;
             }
-            //EndAnchor.localPosition = AnchorEndInitialPositionLocal;
             return;
         }
 
         WireHeldUpdate();
     }
 
-    private void WireUnHeldUpdate() 
-    {
-        StartAnchor.localPosition = AnchorStartInitialPositionLocal;
-    }
+    //private void WireUnHeldUpdate() 
+    //{
+    //    StartAnchor.localPosition = AnchorStartInitialPositionLocal;
+    //}
 
     private Vector3 GetMousePositionInWorld() 
     {
@@ -139,19 +133,9 @@ public class MouseInteractableWire : MouseInteractable
 
         StartAnchor.localPosition = new Vector3(AnchorStartInitialPositionLocal.x, Mathf.Clamp(AnchorStartOnGrabPositionLocal.y - offset.y, MaxPullDownAnchor.localPosition.y, AnchorStartInitialPositionLocal.y), AnchorStartInitialPositionLocal.z);
 
-        //Vector2 offset = new Vector2((MousePositionOrigin.x - currentMousePos.x + 0.2f) * 0.01f, (MousePositionOrigin.y - currentMousePos.y + 0.2f) * 0.01f);
-
-        //Vector3 lookPosition = (WireParent.transform.forward * offset.x) + (-WireParent.transform.up * offset.y);
-
-        TestObject.position = mousePositionInWorld;
-
         EndAnchor.position = mousePositionInWorld;
 
-
         lastPositionInWorld = mousePositionInWorld;
-        //SetLookAtX(dialObject.transform, dialObject.transform.position + lookPosition, MinMaxCumulativeRotation);
-
-
     }
 
 }

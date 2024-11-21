@@ -6,14 +6,17 @@ using UnityEngine.Rendering;
 [System.Serializable]
 public class ConnectionPoint 
 {
-    public int IntendedId;
     public MouseInteractableWire Wire;
     public Transform Point;
+    public MeshRenderer Mesh;
     public float LastDistance;
 }
 
 public class WireConnectionPoints : MonoBehaviour
 {
+    public delegate void AllWiresConnected(int[] wireIndexes);
+    public event AllWiresConnected OnAllWiresConnected;
+
     [SerializeField]
     private ConnectionPoint[] ConnectionPoints;
 
@@ -28,6 +31,22 @@ public class WireConnectionPoints : MonoBehaviour
 
     [SerializeField]
     private float MaxValidDistance = 2f;
+
+    public void SetMaterialForPoints(Material[] materials) 
+    {
+        for (int i = 0; i < materials.Length && i < ConnectionPoints.Length; i++) 
+        {
+            ConnectionPoint p = ConnectionPoints[i];
+            
+            if (p.Mesh == null) 
+            {
+                continue;
+            }
+
+            p.Mesh.material = materials[i];
+        }
+
+    }
 
     public bool TryConnectToNearestPoint(Vector3 position, MouseInteractableWire wire, out ConnectionPoint point, out int index)
     {
@@ -62,11 +81,30 @@ public class WireConnectionPoints : MonoBehaviour
             point.Wire = wire;
             PlayAudio(PlugSound);
 
+            CheckAndReportIfAllConnected();
             return true;
         }
 
         PlayAudio(UnplugSound);
         return false;
+    }
+
+    private void CheckAndReportIfAllConnected() 
+    {
+        int[] wireIndexes = new int[ConnectionPoints.Length];
+
+        for (int i = 0; i < ConnectionPoints.Length; i++) 
+        {
+            MouseInteractableWire wire = ConnectionPoints[i].Wire;
+            if (wire == null) 
+            {
+                return;
+            }
+
+            wireIndexes[i] = wire.Index;
+        }
+
+        OnAllWiresConnected?.Invoke(wireIndexes);
     }
 
     public void PlayAudio(AudioResource sound) 
