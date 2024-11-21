@@ -5,6 +5,7 @@ public class WirePuzzle : Puzzle
 
     public void SetPuzzle(int[] wireIndexes) 
     {
+        Debug.Log("Wire puzzle indexes " + wireIndexes);
         for (int i = 0; i < wireIndexes.Length; i++) 
         {
             //index i connect with point wireIndexes[i]

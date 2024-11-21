@@ -75,6 +75,8 @@ public class GameManager : MonoBehaviour
         Switch.SetPuzzle(SessionData.SwitchData);
         Switch.SetIndex(2);
 
+        Locked.SetIndex(3);
+
 
     }
 

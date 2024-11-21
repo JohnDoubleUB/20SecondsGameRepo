@@ -123,7 +123,8 @@ public class LockedPuzzle : Puzzle
             InteractableLock.UnlockAnimation(true);
         }
 
-        SetPuzzleCompleted(true);
+        Unlocked = true;
+        //SetPuzzleCompleted(true);
 
         Panel.MaxRotation = UnlockedMaxRotation;
     }
