@@ -6,7 +6,7 @@ public class Puzzle : MonoBehaviour
     [SerializeField]
     protected CodeDisplayer Displayer;
 
-    private string PuzzleCode = null;
+    protected string PuzzleCode = null;
     public int PuzzleIndex { get; private set; } = -1;
     public bool PuzzleCompleted { get; private set; } = false;
 

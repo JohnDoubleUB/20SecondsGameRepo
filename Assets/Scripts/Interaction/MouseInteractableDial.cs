@@ -43,6 +43,11 @@ public class MouseInteractableDial : MouseInteractable
         CumulativeRotationX = InitialCumulativeRotationX;
     }
 
+    protected override void OnResetInteractable()
+    {
+        ResetDial();
+    }
+
     protected override void OnInteract(bool value)
     {
         if (value)

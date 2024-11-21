@@ -2,9 +2,11 @@ using UnityEngine;
 
 public class RadioPuzzle : Puzzle
 {
-
     [SerializeField]
     private IndicatorLight CompleteLight;
+
+    [SerializeField]
+    private MouseInteractablePanel Panel;
 
     [SerializeField]
     private IndicatorLight OnLight;
@@ -51,6 +53,24 @@ public class RadioPuzzle : Puzzle
         {
             randomValue = radioData.Value1.Remap(0, 1, 0.5f - MinimumDistanceFromCenter, 0f);
         }
+    }
+
+    public override void OnReset()
+    {
+        SetPuzzleOn(false);
+        OnSwitch.SetSwitchValue(false);
+        Dial.ResetInteractable();
+        Panel.ResetInteractable();
+        InTune = false;
+    }
+
+    public override void OnFullReset()
+    {
+        SetPuzzleOn(false);
+        OnSwitch.SetSwitchValue(false);
+        Dial.ResetInteractable();
+        Panel.ResetInteractable();
+        InTune = false;
     }
 
     private void Start()
@@ -108,7 +128,6 @@ public class RadioPuzzle : Puzzle
             {
                 SetPuzzleCompleted(true);
                 SetCompleteLight();
-                //Displayer.SetText($"03");
             }
         }
         else
@@ -119,8 +138,12 @@ public class RadioPuzzle : Puzzle
 
     public override void SwitchValue(bool value, int index)
     {
-        PuzzleOn = !PuzzleOn;
+        SetPuzzleOn(!PuzzleOn);
+    }
 
+    private void SetPuzzleOn(bool value) 
+    {
+        PuzzleOn = value;
         OnLight.SetLight(PuzzleOn ? LightColor.Green : LightColor.None, 0);
         SetCompleteLight();
 
@@ -136,7 +159,7 @@ public class RadioPuzzle : Puzzle
     {
         if(PuzzleOn) 
         {
-            Displayer.SetText(PuzzleCompleted ? "03" : "ERROR");
+            Displayer.SetText(PuzzleCompleted ? PuzzleCode : "ERROR");
         }
         else 
         {

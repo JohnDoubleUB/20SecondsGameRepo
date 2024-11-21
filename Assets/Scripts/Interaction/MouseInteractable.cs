@@ -25,6 +25,7 @@ public class MouseInteractable : MonoBehaviour
 
     }
 
+    //TODO: Not super needed, but if it could have an optional bool to indicate if sounds should play when this triggers that'd be cool!
     protected virtual void OnInteract(bool value) 
     {
 
