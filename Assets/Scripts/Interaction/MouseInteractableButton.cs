@@ -40,7 +40,7 @@ public class MouseInteractableButton : MouseInteractable
         } 
     }
 
-    protected override void OnInteract(bool value)
+    protected override void OnInteract(bool value, bool triggeredByReset = false)
     {
         if (ButtonAnimator != null) 
         {
@@ -62,7 +62,10 @@ public class MouseInteractableButton : MouseInteractable
            
         }
 
-        PlayerButtonSound(value);
+        if (!triggeredByReset) 
+        {
+            PlayerButtonSound(value);
+        }
     }
 
     private void PlayerButtonSound(bool down)

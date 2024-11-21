@@ -56,7 +56,7 @@ public class MouseInteractableWire : MouseInteractable
         return ColouredBodyMesh.material;
     } 
 
-    protected override void OnInteract(bool value)
+    protected override void OnInteract(bool value, bool triggeredByReset = false)
     {
         if (value)
         {
@@ -70,13 +70,13 @@ public class MouseInteractableWire : MouseInteractable
         }
         else 
         {
-            CheckForConnectionOrReset();
+            CheckForConnectionOrReset(triggeredByReset);
         }
     }
 
-    private void CheckForConnectionOrReset() 
+    private void CheckForConnectionOrReset(bool triggeredByReset) 
     {
-        if(ConnectionPoints != null && ConnectionPoints.TryConnectToNearestPoint(lastPositionInWorld, this, out ConnectionPoint point, out int index)) 
+        if(ConnectionPoints != null && ConnectionPoints.TryConnectToNearestPoint(lastPositionInWorld, this, out ConnectionPoint point, out int index, !triggeredByReset)) 
         {
             EndAnchor.isKinematic = true;
             ConnectedIndex = index;

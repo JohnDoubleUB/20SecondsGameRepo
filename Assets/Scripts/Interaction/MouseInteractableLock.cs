@@ -59,7 +59,7 @@ public class MouseInteractableLock : MouseInteractable
         }
     }
 
-    protected override void OnInteract(bool value)
+    protected override void OnInteract(bool value, bool triggeredByReset = false)
     {
         if (!value) 
         {

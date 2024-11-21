@@ -76,7 +76,7 @@ public class SessionData
         SimonSaysPattern = GenerateSimonSaysPattern();
         RadioData = GenerateRadioPuzzleData();
         SwitchData = GenerateSwitchPattern();
-        WireIndexOrder = GenerateWireIndexOrder(); //TODO: this should work however will need checking
+        WireIndexOrder = GenerateWireIndexOrder();
         LockedPuzzleKeySpawnIndex = RandomInstance.Next(0, LockedPuzzleSpawnLocationCount);
     }
 

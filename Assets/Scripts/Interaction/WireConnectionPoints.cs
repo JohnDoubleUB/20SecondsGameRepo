@@ -48,7 +48,7 @@ public class WireConnectionPoints : MonoBehaviour
 
     }
 
-    public bool TryConnectToNearestPoint(Vector3 position, MouseInteractableWire wire, out ConnectionPoint point, out int index)
+    public bool TryConnectToNearestPoint(Vector3 position, MouseInteractableWire wire, out ConnectionPoint point, out int index, bool playSound = true)
     {
         point = null;
         index = -1;
@@ -79,13 +79,21 @@ public class WireConnectionPoints : MonoBehaviour
         if(point != null) 
         {
             point.Wire = wire;
-            PlayAudio(PlugSound);
+            
+            if (playSound)
+            {
+                PlayAudio(PlugSound);
+            }
 
             CheckAndReportIfAllConnected();
             return true;
         }
 
-        PlayAudio(UnplugSound);
+        if (playSound) 
+        {
+            PlayAudio(UnplugSound);
+        }
+        
         return false;
     }
 

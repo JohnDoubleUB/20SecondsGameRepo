@@ -19,10 +19,6 @@ public class UIElementManager : MonoBehaviour
 
     private List<UIItem> SpawnedUIItems = new List<UIItem>();
 
-    //TODO: Think about how held items are going to be stored in the hud
-
-    //public void ClearAllItems
-
     private void Awake()
     {
         if (current != null) Debug.LogWarning("Oops! it looks like there might already be a " + GetType().Name + " in this scene!");

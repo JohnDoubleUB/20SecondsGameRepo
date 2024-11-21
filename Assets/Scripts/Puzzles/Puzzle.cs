@@ -65,7 +65,7 @@ public class Puzzle : MonoBehaviour
         OnReset();
     }
 
-    public virtual void OnReset() 
+    protected virtual void OnReset() 
     {
 
     }
