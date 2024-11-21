@@ -14,33 +14,58 @@ public class SwitchPuzzle : Puzzle
     [SerializeField]
     private SwitchAndLight[] SwitchAndLights;
 
+    [SerializeField]
+    private MouseInteractablePanel Panel;
     
     public Dictionary<int, IndicatorLight> connectedLights = new Dictionary<int, IndicatorLight>();
 
+    private SwitchData Data;
+
+    public override void OnReset() 
+    {
+        ResetSwitches();
+
+        if (Panel != null) 
+        {
+            Panel.ResetInteractable();
+        }
+    }
+
+    public override void OnFullReset()
+    {
+        ResetSwitches();
+
+        if (Panel != null)
+        {
+            Panel.ResetInteractable();
+        }
+    }
+
     public void SetPuzzle(SwitchData switchData) 
     {
-        int[] onSwitches = switchData.OnSwitches;
-        bool[] initialSwitchPositions = switchData.InitialSwitchPositions;
-        List<int> linkableSwitches = switchData.LinkableSwitches;
-        List<int> onSwitchIndexes = switchData.OnSwitchIndexes;
+        Data = switchData;
 
         connectedLights.Clear();
 
-        for (int i = 0; i < linkableSwitches.Count && i < onSwitchIndexes.Count; i++)
+        for (int i = 0; i < Data.LinkableSwitches.Count && i < Data.OnSwitchIndexes.Count; i++)
         {
-            connectedLights.Add(linkableSwitches[i], SwitchAndLights[onSwitchIndexes[i]].Light);
+            connectedLights.Add(Data.LinkableSwitches[i], SwitchAndLights[Data.OnSwitchIndexes[i]].Light);
         }
 
-        //OnOffInitialForAllPuzzles
+        ResetSwitches();
+    }
+
+    private void ResetSwitches() 
+    {
         for (int i = 0; i < SwitchAndLights.Length; i++)
         {
             SwitchAndLight switchAndLight = SwitchAndLights[i];
             switchAndLight.Switch.Index = i;
             switchAndLight.Switch.PuzzleBrain = this;
 
-            bool shouldStartOn = onSwitches[i] == 1;
+            bool shouldStartOn = Data.OnSwitches[i] == 1;
 
-            switchAndLight.Switch.SetSwitchValue(shouldStartOn, initialSwitchPositions[i]);
+            switchAndLight.Switch.SetSwitchValue(shouldStartOn, Data.InitialSwitchPositions[i]);
             switchAndLight.Light.SetLight(shouldStartOn ? LightColor.Green : LightColor.None, 0);
         }
     }
@@ -48,64 +73,6 @@ public class SwitchPuzzle : Puzzle
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        return;
-        //Determine if it is 2 or 3 
-        int enabledSwitchCount = 2;
-        int randomIndex;
-
-        int[] onSwitches = new int[SwitchAndLights.Length];
-
-        List<int> linkableSwitches = new List<int>();
-        List<int> onSwitchIndexes = new List<int>();
-
-        for (int i = 0; i < onSwitches.Length; i++) 
-        {
-            linkableSwitches.Add(i);
-        }
-
-        
-
-        for (int i = 0; i < enabledSwitchCount;) 
-        {
-            randomIndex = Random.Range(0, onSwitches.Length);
-
-            if (onSwitches[randomIndex] < 1) 
-            {
-                onSwitches[randomIndex] = 1;
-                linkableSwitches.Remove(randomIndex);
-                onSwitchIndexes.Add(randomIndex);
-                if (randomIndex+1 < onSwitches.Length) 
-                {
-                    onSwitches[randomIndex+1] = 2;
-                }
-
-                if (randomIndex - 1 > 0) 
-                {
-                    onSwitches[randomIndex - 1] = 2;
-                }
-                i++;
-            }
-        }
-
-        connectedLights.Clear();
-
-        for (int i = 0; i < linkableSwitches.Count && i < onSwitchIndexes.Count ; i++) 
-        {
-            connectedLights.Add(linkableSwitches[i], SwitchAndLights[onSwitchIndexes[i]].Light);
-        }
-
-        //OnOffInitialForAllPuzzles
-        for (int i = 0; i < SwitchAndLights.Length; i++) 
-        {
-            SwitchAndLight switchAndLight = SwitchAndLights[i];
-            switchAndLight.Switch.Index = i;
-            switchAndLight.Switch.PuzzleBrain = this;
-
-            bool shouldStartOn = onSwitches[i] == 1;
-
-            switchAndLight.Switch.SetSwitchValue(shouldStartOn, Random.value > 0.5f);
-            switchAndLight.Light.SetLight(shouldStartOn ? LightColor.Green : LightColor.None, 0);
-        }
     }
 
     // Update is called once per frame

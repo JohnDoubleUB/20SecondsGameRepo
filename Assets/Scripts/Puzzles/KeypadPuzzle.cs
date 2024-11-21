@@ -53,17 +53,12 @@ public class KeypadPuzzle : Puzzle
         SetNewCurrentCode("");
         m_OnPuzzleReset?.Invoke();
     }
-    //public override void ResetPuzzle(bool force = false)
-    //{
-    //    if(PuzzleCompleted) 
-    //    {
-    //        return;
-    //    }
 
-    //    //PuzzleCompleted = false;
-    //    SetNewCurrentCode("");
-    //    m_OnPuzzleReset?.Invoke();
-    //}
+    public override void OnFullReset()
+    {
+        SetNewCurrentCode("");
+        m_OnPuzzleReset?.Invoke();
+    }
 
     private void Update()
     {

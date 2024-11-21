@@ -123,9 +123,13 @@ public class WireConnectionPoints : MonoBehaviour
         Audio.Play();
     }
 
-    public void ClearIndex(int index) 
+    public void ClearIndex(int index, bool playSound = true) 
     {
         ConnectionPoints[index].Wire = null;
-        PlayAudio(UnplugSound);
+        
+        if (playSound) 
+        {
+            PlayAudio(UnplugSound); 
+        }
     }
 }

@@ -65,11 +65,7 @@ public class MouseInteractableWire : MouseInteractable
             AnchorStartOnGrabPositionLocal = StartAnchor.localPosition;
             EndAnchor.isKinematic = false;
 
-            if(ConnectedIndex != -1 && ConnectionPoints != null) 
-            {
-                ConnectionPoints.ClearIndex(ConnectedIndex);
-                ConnectedIndex = -1;
-            }
+            BreakConnection();
 
         }
         else 
@@ -85,13 +81,31 @@ public class MouseInteractableWire : MouseInteractable
             EndAnchor.isKinematic = true;
             ConnectedIndex = index;
             EndAnchor.transform.SetPositionAndRotation(point.Point.transform.position, point.Point.transform.rotation);
-            //EndAnchor.transform.position = point.Point.transform.position;
-            //EndAnchor.transform.rotation = point.Point.transform.rotation;
             StartAnchor.localPosition = new Vector3(StartAnchor.localPosition.x, MaxPullDownAnchor.localPosition.y, StartAnchor.localPosition.z);
 
             return;
         }
 
+        ResetCable();
+    }
+
+    protected override void OnResetInteractable()
+    {
+        BreakConnection(false);
+        ResetCable();
+    }
+
+    private void BreakConnection(bool playSound = true) 
+    {
+        if (ConnectedIndex != -1 && ConnectionPoints != null)
+        {
+            ConnectionPoints.ClearIndex(ConnectedIndex, playSound);
+            ConnectedIndex = -1;
+        }
+    }
+
+    private void ResetCable() 
+    {
         ConnectedIndex = -1;
         Wire.ResetSegmentsToCachedPositions();
         EndAnchor.transform.localPosition = AnchorEndInitialPositionLocal;
@@ -111,11 +125,6 @@ public class MouseInteractableWire : MouseInteractable
 
         WireHeldUpdate();
     }
-
-    //private void WireUnHeldUpdate() 
-    //{
-    //    StartAnchor.localPosition = AnchorStartInitialPositionLocal;
-    //}
 
     private Vector3 GetMousePositionInWorld() 
     {

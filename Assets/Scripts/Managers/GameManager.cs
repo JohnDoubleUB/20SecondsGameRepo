@@ -80,10 +80,11 @@ public class GameManager : MonoBehaviour
         Switch.SetPuzzle(SessionData.SwitchData);
         Switch.SetIndex(2);
 
-        //TODO: RANDOM NEEDS SETTING UP FOR THIS
+        //LockPuzzle
         Locked.SetPuzzle(SessionData.LockedPuzzleKeySpawnIndex);
         Locked.SetIndex(3);
 
+        //WiresPuzzle
         Wires.SetPuzzle(SessionData.WireIndexOrder);
         Wires.SetIndex(4);
 
@@ -108,6 +109,8 @@ public class GameManager : MonoBehaviour
 
         KeyPad.ResetPuzzle();
         Locked.ResetPuzzle();
+        Wires.ResetPuzzle();
+        Switch.ResetPuzzle();
 
 
         if (PlayerController.current != null)

@@ -158,7 +158,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02b3173064cd2a44e8d0b52842b029d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PuzzleCompleted: 0
   Displayer: {fileID: 9207494823753608065}
   SwitchAndLights:
   - Light: {fileID: 6170368121880734461}
@@ -171,7 +170,7 @@ MonoBehaviour:
     Switch: {fileID: 3210427296744646039}
   - Light: {fileID: 3209492273758769206}
     Switch: {fileID: 8051214383568875008}
-  indexLinks: []
+  Panel: {fileID: 7586694299040197086}
 --- !u!1 &4086589990915108799
 GameObject:
   m_ObjectHideFlags: 0
@@ -570,6 +569,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8262512886023452844, guid: e395ad4c14021f741adfabe083c02513, type: 3}
   m_PrefabInstance: {fileID: 2368590368225151231}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7586694299040197086 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5302907365505196321, guid: e395ad4c14021f741adfabe083c02513, type: 3}
+  m_PrefabInstance: {fileID: 2368590368225151231}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e6024bd4d03803418b778feac6be5c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2634681140922589184
 PrefabInstance:
   m_ObjectHideFlags: 0

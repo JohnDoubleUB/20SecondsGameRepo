@@ -797,6 +797,7 @@ MonoBehaviour:
   - {fileID: 3423706347112559121}
   - {fileID: 969521262695403865}
   - {fileID: 3055973349136555137}
+  Panel: {fileID: 2621146837742318280}
   WireConnectionPoints: {fileID: 4032671262586581486}
 --- !u!1001 &1282815226343025920
 PrefabInstance:
@@ -1216,6 +1217,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8262512886023452844, guid: e395ad4c14021f741adfabe083c02513, type: 3}
   m_PrefabInstance: {fileID: 7923970356710839273}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2621146837742318280 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5302907365505196321, guid: e395ad4c14021f741adfabe083c02513, type: 3}
+  m_PrefabInstance: {fileID: 7923970356710839273}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e6024bd4d03803418b778feac6be5c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8014463154705519342
 PrefabInstance:
   m_ObjectHideFlags: 0

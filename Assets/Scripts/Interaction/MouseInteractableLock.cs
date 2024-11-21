@@ -12,9 +12,10 @@ public class MouseInteractableLock : MouseInteractable
     [SerializeField]
     Animator LockAnimator;
 
-    public void ResetLock()
+    protected override void OnResetInteractable()
     {
-        LockAnimator.SetBool("Unlock", false);
+        LockAnimator.Play("Locked", 0);
+        Unlocked = false;
     }
 
     public void SetLockValue(string value)

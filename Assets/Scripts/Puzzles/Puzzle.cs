@@ -14,13 +14,18 @@ public class Puzzle : MonoBehaviour
     {
         PuzzleCompleted = value;
 
-        if (PuzzleCompleted) 
+        if (PuzzleCompleted)
         {
-            if (PuzzleCode == null && GameManager.current.SessionData.TryGetNextUnusedCode(out string code)) 
+            if (PuzzleCode == null && GameManager.current.SessionData.TryGetNextUnusedCode(out string code))
             {
                 PuzzleCode = code;
                 Displayer.SetText(code);
             }
+        }
+        else 
+        {
+            PuzzleCode = null;
+            Displayer.SetText("");
         }
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -52,6 +57,11 @@ public class Puzzle : MonoBehaviour
 
     public virtual void ResetPuzzle(bool force = false)
     {
+        if (PuzzleCompleted) 
+        {
+            return;
+        }
+
         OnReset();
     }
 
@@ -62,7 +72,10 @@ public class Puzzle : MonoBehaviour
 
     public virtual void FullReset() 
     {
-
+        PuzzleCode = null;
+        Displayer.SetText("");
+        PuzzleCompleted = false;
+        OnFullReset();
     }
 
     public virtual void OnFullReset() 

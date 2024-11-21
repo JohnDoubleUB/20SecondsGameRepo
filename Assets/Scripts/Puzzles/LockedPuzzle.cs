@@ -32,14 +32,6 @@ public class LockedPuzzle : Puzzle
 
     private PickupItem NewInstance;
 
-    private void Update()
-    {
-        if (NewInstance == null) 
-        {
-            Debug.Log("Picked up!");
-        }
-    }
-
     public int SpawnLocationCount() 
     {
         return KeySpawnLocations.Length;
@@ -79,10 +71,38 @@ public class LockedPuzzle : Puzzle
             Panel.MaxRotation = LockedMaxRotation;
         }
 
-        if(InteractableLock != null) 
+        //if(InteractableLock != null) 
+        //{
+        //    InteractableLock.ResetLock();
+        //}
+    }
+
+    public override void OnFullReset()
+    {
+        Panel.ResetInteractable();
+
+        if (NewInstance != null)
         {
-            InteractableLock.ResetLock();
+            Destroy(NewInstance.gameObject);
+            NewInstance = null;
         }
+
+        if (Panel != null)
+        {
+            Panel.MaxRotation = LockedMaxRotation;
+        }
+
+        if (InteractableLock != null)
+        {
+            InteractableLock.ResetInteractable();
+        }
+
+        if (Button != null) 
+        {
+            Button.ResetInteractable();
+        }
+
+        Unlocked = false;
     }
 
     private void Start()
