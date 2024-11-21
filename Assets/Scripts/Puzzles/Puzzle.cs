@@ -55,7 +55,7 @@ public class Puzzle : MonoBehaviour
 
     }
 
-    public virtual void ResetPuzzle(bool force = false)
+    public void ResetPuzzle(bool force = false)
     {
         if (PuzzleCompleted) 
         {

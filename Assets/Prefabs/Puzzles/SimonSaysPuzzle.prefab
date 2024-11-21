@@ -190,6 +190,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Displayer: {fileID: 846283656410563331}
   CurrentState: 0
+  Panel: {fileID: 5128143919430756792}
   RedButton: {fileID: 8112713524104426800}
   BlueButton: {fileID: 5615829779455421723}
   GreenButton: {fileID: 2811212800170895594}
@@ -261,6 +262,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e395ad4c14021f741adfabe083c02513, type: 3}
+--- !u!114 &5128143919430756792 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5302907365505196321, guid: e395ad4c14021f741adfabe083c02513, type: 3}
+  m_PrefabInstance: {fileID: 1062116819210504345}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e6024bd4d03803418b778feac6be5c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &8941670766177513525 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8262512886023452844, guid: e395ad4c14021f741adfabe083c02513, type: 3}

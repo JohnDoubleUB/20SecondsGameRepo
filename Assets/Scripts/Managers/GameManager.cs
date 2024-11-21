@@ -111,6 +111,7 @@ public class GameManager : MonoBehaviour
         Locked.ResetPuzzle();
         Wires.ResetPuzzle();
         Switch.ResetPuzzle();
+        SimonSays.ResetPuzzle();
 
 
         if (PlayerController.current != null)

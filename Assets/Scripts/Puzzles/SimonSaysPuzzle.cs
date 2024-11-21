@@ -21,6 +21,9 @@ public class SimonSaysPuzzle : Puzzle
     private float timer = 0;
 
     [SerializeField]
+    private MouseInteractablePanel Panel;
+
+    [SerializeField]
     private MouseInteractableButton RedButton;
 
     [SerializeField]
@@ -109,11 +112,30 @@ public class SimonSaysPuzzle : Puzzle
         }
     }
 
-    public override void ResetPuzzle(bool force = false)
+
+
+    public override void OnReset()
     {
         CurrentState = SimonSaysState.NoInput;
         TargetCode = $"{FullCode[0]}";
         CurrentCode = "";
+        
+        if (Panel != null) 
+        {
+            Panel.ResetInteractable();
+        }
+    }
+
+    public override void OnFullReset()
+    {
+        CurrentState = SimonSaysState.NoInput;
+        TargetCode = $"{FullCode[0]}";
+        CurrentCode = "";
+
+        if (Panel != null)
+        {
+            Panel.ResetInteractable();
+        }
     }
 
     private void Incorrect()
