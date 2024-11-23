@@ -1524,12 +1524,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _activeFlags: 0
   AssignAsCurrentSingleton: 1
-  UIDataContextObject: {fileID: 0}
+  UIDataContextObject: {fileID: 11400000, guid: ce262d019f8bf3d40ba5db052552f353, type: 2}
   UIDataContext:
-    Contexts:
-    - Menu
-    - Pause
-    - Game
+    Contexts: []
     CaseSensitiveContexts: 0
   UIContexts:
   - Key: Menu

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -24,6 +25,11 @@ namespace UIManagerLibrary.Scripts
 
         private Dictionary<string, List<UIContextObject>> _UIContexts = new Dictionary<string, List<UIContextObject>>();
 
+        [SerializeField]
+        private bool onlyInitializeIfNotSet = true;
+
+        private bool firstTimeSet = false;
+
         #region Unity Lifecycle
 
         private void Awake()
@@ -35,6 +41,12 @@ namespace UIManagerLibrary.Scripts
 
         private void Start()
         {
+            if (firstTimeSet && onlyInitializeIfNotSet)
+            {
+                Debug.LogWarning("Context already set, skipping initialize.");
+                return;
+            }
+
             _InitializeContexts();
         }
 
@@ -63,6 +75,8 @@ namespace UIManagerLibrary.Scripts
                 bool contextEnabled = (_activeFlags & bitMask) != 0;
                 foreach (UIContextObject contextObject in kVP.Value) contextObject.SetDisplayAndActive(contextEnabled, true);
             }
+
+            firstTimeSet = true;
         }
 
         private void _ClearUIContexts()
@@ -103,7 +117,7 @@ namespace UIManagerLibrary.Scripts
                 contextData = UIDataContextObject;
                 return true;
             }
-            else if (UIDataContext != null) 
+            else if (UIDataContext != null)
             {
                 contextData = UIDataContext;
                 return true;
@@ -112,12 +126,19 @@ namespace UIManagerLibrary.Scripts
             return false;
         }
 
+        public void LogSomething(object message)
+        {
+            Debug.Log(message);
+        }
+
         public void SetActiveContexts(bool active, params string[] contexts)
         {
             foreach (string context in contexts)
             {
                 SetAllContextsOfType(context, active);
             }
+
+            firstTimeSet = true;
         }
 
         public void SetActiveContexts(bool active, bool immediate, params string[] contexts)
@@ -126,6 +147,8 @@ namespace UIManagerLibrary.Scripts
             {
                 SetAllContextsOfType(context, active, immediate);
             }
+
+            firstTimeSet = true;
         }
 
         public void ToggleActiveContexts(params string[] contexts)
@@ -134,22 +157,30 @@ namespace UIManagerLibrary.Scripts
             {
                 ToggleContext(context);
             }
+
+            firstTimeSet = true;
         }
 
         //These are incase we want to directly refer to the UIManager in buttons and call this in onclick event for the UI
         public void ToggleContext(string context)
         {
             ToggleAllContextsOfType(context);
+
+            firstTimeSet = true;
         }
 
         public void EnableContext(string context)
         {
             SetAllContextsOfType(context, true);
+
+            firstTimeSet = true;
         }
 
         public void DisableContext(string context)
         {
             SetAllContextsOfType(context, false);
+
+            firstTimeSet = true;
         }
 
         //Helper methods
@@ -166,15 +197,15 @@ namespace UIManagerLibrary.Scripts
                 return;
             }
 
-            foreach (UIContextObject contextObject in _UIContexts[context]) 
-            { 
-                contextObject.SetDisplayAndActive(active, immediate); 
+            foreach (UIContextObject contextObject in _UIContexts[context])
+            {
+                contextObject.SetDisplayAndActive(active, immediate);
             }
         }
 
         private void ToggleAllContextsOfType(string context)
         {
-            if (ContextIsCaseSensitive == false) 
+            if (ContextIsCaseSensitive == false)
             {
                 context = context.ToLower();
             }
@@ -185,9 +216,9 @@ namespace UIManagerLibrary.Scripts
                 return;
             }
 
-            foreach (UIContextObject contextObject in _UIContexts[context]) 
-            { 
-                contextObject.SetDisplayAndActive(!contextObject.Display); 
+            foreach (UIContextObject contextObject in _UIContexts[context])
+            {
+                contextObject.SetDisplayAndActive(!contextObject.Display);
             }
         }
     }
