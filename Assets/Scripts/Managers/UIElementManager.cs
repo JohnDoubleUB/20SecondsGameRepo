@@ -21,6 +21,10 @@ public class UIElementManager : MonoBehaviour
 
     private List<UIItem> SpawnedUIItems = new List<UIItem>();
 
+    public char PasswordGapCharacter = '_';
+
+    private string CurrentCode = string.Empty;
+
     private void Awake()
     {
         if (current != null) Debug.LogWarning("Oops! it looks like there might already be a " + GetType().Name + " in this scene!");
@@ -32,6 +36,28 @@ public class UIElementManager : MonoBehaviour
         if (TimerText != null)
         {
             TimerText.text = $"Time: {System.Math.Round(GameManager.current.CurrentTime, 2)}";
+        }
+
+        if (GameManager.current.SessionData == null)
+        {
+            if (!string.IsNullOrEmpty(CurrentCode)) 
+            {
+                CurrentCode = string.Empty;
+            }
+
+            return;
+        }
+
+        if (CurrentCode != GameManager.current.SessionData.CurrentCode) 
+        {
+            CurrentCode = GameManager.current.SessionData.CurrentCode;
+            if(CodeText != null) 
+            {
+                CodeText.text = CurrentCode.PadRight(
+                    GameManager.current.SessionData.CodeCount * GameManager.current.SessionData.CodeLength,
+                    PasswordGapCharacter
+                    );
+            }
         }
     }
 

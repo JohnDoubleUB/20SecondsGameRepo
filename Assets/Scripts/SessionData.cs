@@ -38,9 +38,10 @@ public class SessionData
     char[] ValidCharacters;
     static Random RandomInstance;
     string CompleteCode = string.Empty;
-    int CurrentCodeIndex = 0;
-    int CodeLength;
-    int CodeCount;
+    public int CurrentCodeIndex { get; private set; } = 0;
+    public int CodeLength { get; private set; }
+    public int CodeCount { get; private set; }
+    public string CurrentCode { get; private set; } = string.Empty;
 
     //Puzzle data
     public string SimonSaysPattern { get; private set; }
@@ -199,6 +200,7 @@ public class SessionData
         if (CurrentCodeIndex < Codes.Length) 
         {
             code = Codes[CurrentCodeIndex];
+            CurrentCode += code;
             CurrentCodeIndex++;
             return true;
         }

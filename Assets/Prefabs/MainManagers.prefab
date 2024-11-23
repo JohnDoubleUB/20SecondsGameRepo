@@ -70,7 +70,7 @@ MonoBehaviour:
   SpawnRotation: {x: 0, y: 0}
   CompleteReset: 1
   LoadEnvironmentAudio: 1
-  timer: 10
+  timer: 20
 --- !u!114 &464646648368702738
 MonoBehaviour:
   m_ObjectHideFlags: 0

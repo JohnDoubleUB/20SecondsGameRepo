@@ -1210,7 +1210,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 10, y: -80}
-  m_SizeDelta: {x: 280, y: 50}
+  m_SizeDelta: {x: 411.82, y: 50}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &7457200298079253621
 CanvasRenderer:
@@ -1400,6 +1400,7 @@ MonoBehaviour:
   CodeText: {fileID: 8479069227026831752}
   ItemDisplayParent: {fileID: 9215017745252655209}
   UIItemPrefab: {fileID: 7741590894364137996, guid: a50849d47e10eed45b3eec25c2027404, type: 3}
+  PasswordGapCharacter: 95
 --- !u!1 &7752457446490418127
 GameObject:
   m_ObjectHideFlags: 0

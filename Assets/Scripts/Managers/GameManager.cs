@@ -60,16 +60,19 @@ public class GameManager : MonoBehaviour
     {
         GameStarted = true;
 
-        SessionData = new SessionData(5, 1)
+        SessionData newSession = new SessionData(5, 1)
         {
             LockedPuzzleSpawnLocationCount = Locked.SpawnLocationCount()
         };
 
-        SessionData.Initialize();
+        newSession.Initialize();
+
+        SessionData = newSession;
 
         Debug.Log("Codes! " + string.Join(", ", SessionData.GetAllCodes()));
 
         string completeCode = SessionData.GetCompleteCode();
+
         Debug.Log("Complete Code! " + completeCode);
 
         if (KeyPad != null)
