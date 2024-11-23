@@ -376,6 +376,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PuzzleCameraTransform: {fileID: 7866618693820668884}
+  EnableCenteredCode: 1
 --- !u!65 &5920833579109334609
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -4,6 +4,7 @@ public class PuzzleArea : MonoBehaviour
 {
     public Transform PuzzleCameraTransform;
 
+    public bool EnableCenteredCode = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -20,10 +21,20 @@ public class PuzzleArea : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         PlayerController.current.SetPuzzle(this);
+        
+        if (EnableCenteredCode) 
+        {
+            UIElementManager.current.ToggleCodeDisplayCenter(true);
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
         PlayerController.current.ClearPuzzle(this);
+
+        if (EnableCenteredCode)
+        {
+            UIElementManager.current.ToggleCodeDisplayCenter(false);
+        }
     }
 }

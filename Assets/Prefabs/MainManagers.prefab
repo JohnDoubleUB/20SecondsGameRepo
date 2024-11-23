@@ -71,6 +71,7 @@ MonoBehaviour:
   CompleteReset: 1
   LoadEnvironmentAudio: 1
   timer: 20
+  TimeBetweenRestarts: 3
 --- !u!114 &464646648368702738
 MonoBehaviour:
   m_ObjectHideFlags: 0

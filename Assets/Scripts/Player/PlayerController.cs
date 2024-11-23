@@ -51,6 +51,18 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void DisablePlayerInput(bool value) 
+    {
+        if (value)
+        {
+            ControllerInput.Player.Disable();
+        }
+        else 
+        {
+            ControllerInput.Player.Enable();
+        }
+    }
+
     public void SetInGame(bool value)
     {
         if (value)

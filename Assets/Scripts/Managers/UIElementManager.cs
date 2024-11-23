@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIElementManager : MonoBehaviour
 {
@@ -12,6 +14,10 @@ public class UIElementManager : MonoBehaviour
     public TextMeshProUGUI ItemText;
 
     public TextMeshProUGUI CodeText;
+    public TextMeshProUGUI CodeText2;
+
+    [SerializeField]
+    private Image DeathStatic;
 
     [SerializeField]
     private GameObject ItemDisplayParent;
@@ -25,10 +31,29 @@ public class UIElementManager : MonoBehaviour
 
     private string CurrentCode = string.Empty;
 
+    public Color DeathStaticColor;
+
     private void Awake()
     {
         if (current != null) Debug.LogWarning("Oops! it looks like there might already be a " + GetType().Name + " in this scene!");
         current = this;
+    }
+
+    public void ToggleCodeDisplayCenter(bool center)
+    {
+        CodeText.gameObject.SetActive(!center);
+        CodeText2.gameObject.SetActive(center);
+    }
+
+    private void SetStaticColor(float value)
+    {
+        Color newColor = new Color(DeathStaticColor.r, DeathStaticColor.g, DeathStaticColor.b, value);
+        DeathStatic.color = newColor;
+    }
+
+    private void UpdateStaticColor() 
+    {
+        SetStaticColor(Mathf.Clamp(GameManager.current.DeathEffectAmount, 0, 0.95f));
     }
 
     private void Update()
@@ -38,26 +63,31 @@ public class UIElementManager : MonoBehaviour
             TimerText.text = $"Time: {System.Math.Round(GameManager.current.CurrentTime, 2)}";
         }
 
+        UpdateStaticColor();
+
         if (GameManager.current.SessionData == null)
         {
             if (!string.IsNullOrEmpty(CurrentCode)) 
             {
                 CurrentCode = string.Empty;
             }
-
+            
             return;
         }
 
         if (CurrentCode != GameManager.current.SessionData.CurrentCode) 
         {
             CurrentCode = GameManager.current.SessionData.CurrentCode;
-            if(CodeText != null) 
-            {
-                CodeText.text = CurrentCode.PadRight(
+            
+            string value = CurrentCode.PadRight(
                     GameManager.current.SessionData.CodeCount * GameManager.current.SessionData.CodeLength,
                     PasswordGapCharacter
                     );
-            }
+
+
+
+            CodeText.text = value;
+            CodeText2.text = value;
         }
     }
 
@@ -67,6 +97,8 @@ public class UIElementManager : MonoBehaviour
         {
             ItemText.text = "";
         }
+
+        ToggleCodeDisplayCenter(false);
 
         if (PlayerController.current == null)
         {

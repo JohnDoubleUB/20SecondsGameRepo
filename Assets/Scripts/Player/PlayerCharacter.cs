@@ -11,6 +11,9 @@ public class PlayerCharacter : MonoBehaviour
 
     public PlayerController PlayerController;
 
+    [SerializeField]
+    private Animator CameraAnimator;
+
 
     [HideInInspector]
     public Vector3 moveDirection = Vector3.zero;
@@ -37,6 +40,11 @@ public class PlayerCharacter : MonoBehaviour
     private bool isJumping;
     private bool isCrouching;
     private bool groundedLastFrame;
+
+    public void PlayAnimation(string name)
+    {
+        CameraAnimator.Play(name, 0);
+    }
 
     public bool CanPlayerLook() 
     { 

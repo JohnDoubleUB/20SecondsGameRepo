@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
 
     public Transform MainMenuCameraPos;
 
+    public float DeathEffectAmount { get; private set; } = 0;
+
     [SerializeField]
     private bool GameStarted = false;
 
@@ -29,6 +31,10 @@ public class GameManager : MonoBehaviour
     public bool LoadEnvironmentAudio = true;
 
     public float timer = 5;
+
+    public float TimeBetweenRestarts = 5f;
+
+    private float RestartTimer = 0;
     public float CurrentTime { get; private set; }
 
     private void Awake()
@@ -148,6 +154,23 @@ public class GameManager : MonoBehaviour
     {
         if (!GameStarted) 
         {
+            DeathEffectAmount = 0;
+            return;
+        }
+
+        KeyPad.CodeIsValid = SessionData.AllCodesGiven();
+
+        //Debug.Log("Time " + RestartTimer);
+
+        if (RestartTimer > 0)
+        {
+            RestartTimer = Mathf.Max(0, RestartTimer - Time.deltaTime);
+
+            if (RestartTimer == 0) 
+            {
+                ResetGame();
+            }
+
             return;
         }
 
@@ -159,12 +182,30 @@ public class GameManager : MonoBehaviour
         {
             TriggerPlayerDeath();
         }
+
+        if (CurrentTime > 3)
+        {
+            DeathEffectAmount = CurrentTime.Remap(20, 3, 0, 0.2f);
+        }
+        else 
+        {
+            DeathEffectAmount = CurrentTime.Remap(3, 0.3f, 0.2f, 1f);
+        }
     }
 
     public void TriggerPlayerDeath() 
     {
+
         //Exta stuff for death
-        ResetGame();
+        if (PlayerController.current != null)
+        {
+            PlayerController.current.ClearPuzzle();
+            PlayerController.current.DisablePlayerInput(true);
+        }
+        
+        PlayerCharacter.current.PlayAnimation("Death");
+        RestartTimer = TimeBetweenRestarts;
+        Debug.Log("Restart timer is " + RestartTimer);
     }
 
     public void ResetAllPuzzles() 
@@ -199,6 +240,8 @@ public class GameManager : MonoBehaviour
             {
                 PlayerController.current.ClearPuzzle();
             }
+
+            UIElementManager.current.ToggleCodeDisplayCenter(false);
         }
         catch { }
     }
@@ -211,6 +254,9 @@ public class GameManager : MonoBehaviour
     public void ResetGame()
     {
         ResetTimer();
+
+        PlayerCharacter.current.PlayAnimation("Idle");
+        PlayerController.current.DisablePlayerInput(false);
 
         ResetAllPuzzles();
 

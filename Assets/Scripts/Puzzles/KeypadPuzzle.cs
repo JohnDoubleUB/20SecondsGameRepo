@@ -6,6 +6,8 @@ using UnityEngine.Events;
 
 public class KeypadPuzzle : Puzzle
 {
+    public bool CodeIsValid = false;
+
     private string Password = "";
 
     public string SuccessMessage = "Access Granted!";
@@ -109,7 +111,7 @@ public class KeypadPuzzle : Puzzle
 
     private void Enter() 
     {
-        if(CurrentCode == Password) 
+        if(CurrentCode == Password && CodeIsValid) 
         {
             Displayer.SetText(SuccessMessage);
             SetPuzzleCompleted(true);
