@@ -6,6 +6,9 @@ public class Puzzle : MonoBehaviour
     [SerializeField]
     protected CodeDisplayer Displayer;
 
+    [SerializeField]
+    protected bool ShouldShowCodepart = true;
+
     protected string PuzzleCode = null;
     public int PuzzleIndex { get; private set; } = -1;
     public bool PuzzleCompleted { get; private set; } = false;
@@ -16,6 +19,11 @@ public class Puzzle : MonoBehaviour
 
         if (PuzzleCompleted)
         {
+            if(!ShouldShowCodepart) 
+            {
+                return;
+            }
+
             if (PuzzleCode == null && GameManager.current.SessionData.TryGetNextUnusedCode(out string code))
             {
                 PuzzleCode = code;
