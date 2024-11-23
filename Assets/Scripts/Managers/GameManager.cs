@@ -1,3 +1,4 @@
+using UIManagerLibrary.Scripts;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -13,6 +14,11 @@ public class GameManager : MonoBehaviour
     public WirePuzzle Wires;
     public SwitchPuzzle Switch;
     public LockedPuzzle Locked;
+
+    public Transform MainMenuCameraPos;
+
+    [SerializeField]
+    private bool GameStarted = false;
 
     private bool SpawnLocationSet = false;
 
@@ -44,7 +50,17 @@ public class GameManager : MonoBehaviour
             SpawnRotation = PlayerCharacter.current.GetCharacterRotation();
         }
 
-        SessionData = new SessionData(5, 1, 222132)
+        PlayerController.current.BindCameraToPoint(MainMenuCameraPos);
+
+        UIManager.current.SetActiveContexts(true, true, "Menu");
+        //StartGame();
+    }
+
+    public void StartGame() 
+    {
+        GameStarted = true;
+
+        SessionData = new SessionData(5, 1)
         {
             LockedPuzzleSpawnLocationCount = Locked.SpawnLocationCount()
         };
@@ -56,7 +72,7 @@ public class GameManager : MonoBehaviour
         string completeCode = SessionData.GetCompleteCode();
         Debug.Log("Complete Code! " + completeCode);
 
-        if(KeyPad != null) 
+        if (KeyPad != null)
         {
             KeyPad.SetPassword(completeCode);
         }
@@ -64,6 +80,24 @@ public class GameManager : MonoBehaviour
         ResetTimer();
 
         InitializePuzzles();
+
+        ResetPlayerProgress();
+
+
+        ResetPlayerToStart();
+
+        UIManager.current.SetActiveContexts(false, true, "Menu");
+        UIManager.current.SetActiveContexts(true, "Game");
+
+        PlayerController.current.SetInGame(true);
+        PlayerController.current.BindToCameraToCharacter();
+    }
+
+    public void QuitToMenu() 
+    {
+        UnInitializeAllPuzzles();
+        SessionData = null;
+        GameStarted = false;
     }
 
     private void InitializePuzzles() 
@@ -87,12 +121,33 @@ public class GameManager : MonoBehaviour
         //WiresPuzzle
         Wires.SetPuzzle(SessionData.WireIndexOrder);
         Wires.SetIndex(4);
+    }
 
+    private void UnInitializeAllPuzzles() 
+    {
+        //SimonSays
+        SimonSays.FullReset();
 
+        //RadioPuzzle
+        Radio.FullReset();
+
+        //SwitchPuzzle
+        Switch.FullReset();
+
+        //LockPuzzle
+        Locked.FullReset();
+
+        //WiresPuzzle
+        Wires.FullReset();
     }
 
     private void Update()
     {
+        if (!GameStarted) 
+        {
+            return;
+        }
+
         if (CurrentTime > 0)
         {
             CurrentTime = Mathf.Max(0, CurrentTime - Time.deltaTime);
@@ -105,32 +160,44 @@ public class GameManager : MonoBehaviour
 
     public void TriggerPlayerDeath() 
     {
-        ResetTimer();
+        //Exta stuff for death
+        ResetGame();
+    }
 
+    public void ResetAllPuzzles() 
+    {
         KeyPad.ResetPuzzle();
         Locked.ResetPuzzle();
         Wires.ResetPuzzle();
         Switch.ResetPuzzle();
         SimonSays.ResetPuzzle();
         Radio.ResetPuzzle();
+    }
 
-
+    public void ResetPlayerProgress() 
+    {
         if (PlayerController.current != null)
         {
             PlayerController.current.ResetProgress();
         }
+    }
 
-        if (!CompleteReset)
+    public void ResetPlayerToStart() 
+    {
+        try
         {
-            return;
-        }
+            //Huh?
+            if (PlayerCharacter.current != null && SpawnLocation != null && SpawnRotation != null)
+            {
+                PlayerCharacter.current.SetCharacterPosition(SpawnLocation, SpawnRotation);
+            }
 
-        if (PlayerController.current != null)
-        {
-            PlayerController.current.ClearPuzzle();
+            if (PlayerController.current != null)
+            {
+                PlayerController.current.ClearPuzzle();
+            }
         }
-
-        ResetGame();
+        catch { }
     }
 
     public void ResetTimer()
@@ -140,9 +207,15 @@ public class GameManager : MonoBehaviour
 
     public void ResetGame()
     {
-        if (PlayerCharacter.current != null)
+        ResetTimer();
+
+        ResetAllPuzzles();
+
+        ResetPlayerProgress();
+
+        if (CompleteReset)
         {
-            PlayerCharacter.current.SetCharacterPosition(SpawnLocation, SpawnRotation);
+            ResetPlayerToStart();
         }
     }
 }

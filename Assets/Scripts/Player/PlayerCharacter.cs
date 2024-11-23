@@ -40,11 +40,6 @@ public class PlayerCharacter : MonoBehaviour
 
     public bool CanPlayerLook() 
     { 
-        //if (PlayerController != null)
-        //{
-        //    return false;
-        //}
-
         return !PlayerController.PuzzleAreaActive;
     }
 

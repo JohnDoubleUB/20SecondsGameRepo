@@ -1,0 +1,89 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2031481263733719273
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1387577581385023168}
+  - component: {fileID: 8228989046884080087}
+  - component: {fileID: 8509275123055181151}
+  - component: {fileID: 464646648368702738}
+  m_Layer: 0
+  m_Name: MainManagers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1387577581385023168
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2031481263733719273}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.92, y: 1, z: -2.13}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8228989046884080087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2031481263733719273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3a4f3337c5c01b45ab69b5600e56eb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8509275123055181151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2031481263733719273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8267996a10c9e484e8eae6e09645d845, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  KeyPad: {fileID: 0}
+  SimonSays: {fileID: 0}
+  Radio: {fileID: 0}
+  Wires: {fileID: 0}
+  Switch: {fileID: 0}
+  Locked: {fileID: 0}
+  MainMenuCameraPos: {fileID: 1387577581385023168}
+  GameStarted: 0
+  SpawnLocation: {x: 0, y: 0, z: 0}
+  SpawnRotation: {x: 0, y: 0}
+  CompleteReset: 1
+  LoadEnvironmentAudio: 1
+  timer: 10
+--- !u!114 &464646648368702738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2031481263733719273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3197e654333a1ca4b8ac8daef65e0154, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SoundVolumeMultiplier: 1
+  AudioMixer: {fileID: 24100000, guid: 74404f449a3fd224b9f15a4e4d3345e1, type: 2}
+  pitchVariation: 0.2
+  audioClipPrefab: {fileID: 0}

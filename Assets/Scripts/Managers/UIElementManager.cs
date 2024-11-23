@@ -11,6 +11,8 @@ public class UIElementManager : MonoBehaviour
 
     public TextMeshProUGUI ItemText;
 
+    public TextMeshProUGUI CodeText;
+
     [SerializeField]
     private GameObject ItemDisplayParent;
 
@@ -54,6 +56,11 @@ public class UIElementManager : MonoBehaviour
         }
 
         PlayerController.current.PickupInteractor.OnInteractingItemUpdate += OnInteractingItemUpdate;
+    }
+
+    public void PlayGame() 
+    {
+        GameManager.current.StartGame();
     }
 
     private void OnResetInventory()
@@ -121,6 +128,11 @@ public class UIElementManager : MonoBehaviour
         }
 
         SpawnedUIItems.Clear();
+    }
+
+    public void Quit() 
+    {
+        //TODO: Implement return to menu
     }
 
     private void OnDestroy()

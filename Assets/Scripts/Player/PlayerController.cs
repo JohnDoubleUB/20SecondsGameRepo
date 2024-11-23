@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using UIManagerLibrary.Scripts;
 using UnityEngine;
 using static UnityEngine.InputSystem.InputAction;
 
@@ -50,11 +51,29 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void SetInGame(bool value)
+    {
+        if (value)
+        {
+            ControllerInput.Player.Enable();
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            UIManager.current.SetActiveContexts(true, "Game");
+        }
+        else
+        {
+            ControllerInput.Player.Disable();
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            UIManager.current.SetActiveContexts(false, "Game");
+        }
+    }
+
     public bool TryAndRemoveItemWithIndex(int indexToFind)
     {
-        for (int i = 0; i < HeldItems.Count; i++) 
+        for (int i = 0; i < HeldItems.Count; i++)
         {
-            if (HeldItems[i].Index == indexToFind) 
+            if (HeldItems[i].Index == indexToFind)
             {
                 OnItemsHeldUpdate?.Invoke(HeldItems[i], false);
                 HeldItems.RemoveAt(i);
@@ -65,7 +84,7 @@ public class PlayerController : MonoBehaviour
         return false;
     }
 
-    public void ResetProgress() 
+    public void ResetProgress()
     {
         OnResetInventory?.Invoke();
         HeldItems.Clear();
@@ -76,27 +95,22 @@ public class PlayerController : MonoBehaviour
         if (current != null) Debug.LogWarning("Oops! it looks like there might already be a " + GetType().Name + " in this scene!");
         current = this;
     }
-    
+
     void Start()
     {
         ControllerInput = InputManager.current.Input;
         InitializeBind();
-
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        SetInGame(false);
     }
 
     public void SetPuzzle(PuzzleArea puzzleArea)
     {
-        if(CurrentPuzzleArea != null)
+        if (CurrentPuzzleArea != null)
         {
             return;
         }
 
         CurrentPuzzleArea = puzzleArea;
-
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
     }
 
     public void ClearPuzzle(PuzzleArea puzzleArea)
@@ -112,7 +126,7 @@ public class PlayerController : MonoBehaviour
         PositionInteractor.SetButton(false);
     }
 
-    public void ClearPuzzle() 
+    public void ClearPuzzle()
     {
         CurrentPuzzleArea = null;
 
@@ -127,6 +141,15 @@ public class PlayerController : MonoBehaviour
     {
     }
 
+    public void BindToCameraToCharacter()
+    {
+        bind = PlayerCharacter.CameraTransform;
+    }
+
+    public void BindCameraToPoint(Transform transform) 
+    {
+        bind = transform;
+    } 
 
     private bool ValidPuzzleArea()
     {
@@ -142,7 +165,7 @@ public class PlayerController : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (bind == null) 
+        if (bind == null || bind.gameObject == GameManager.current.MainMenuCameraPos)
         {
             return;
         }
@@ -156,9 +179,21 @@ public class PlayerController : MonoBehaviour
 
         if (validPuzzleArea)
         {
+            if (!Cursor.visible) 
+            {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
+
             transform.SetPositionAndRotation(CurrentPuzzleArea.PuzzleCameraTransform.position, CurrentPuzzleArea.PuzzleCameraTransform.rotation);
             return;
         }
+
+        //if (Cursor.visible)
+        //{
+        //    Cursor.lockState = CursorLockMode.Locked;
+        //    Cursor.visible = false;
+        //}
 
         transform.SetPositionAndRotation(bind.position, bind.rotation);
     }
@@ -175,7 +210,7 @@ public class PlayerController : MonoBehaviour
 
         PlayerCharacter.InitializeBind(this);
 
-        bind = PlayerCharacter.CameraTransform;
+        //bind = PlayerCharacter.CameraTransform;
     }
 
     private void UninitializeBind() 
