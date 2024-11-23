@@ -217,6 +217,10 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2008327496645114391, guid: cfb29a874e8870e499d0d4c0a8a491a8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6837668049887930151, guid: cfb29a874e8870e499d0d4c0a8a491a8, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
