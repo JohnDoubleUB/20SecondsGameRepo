@@ -146,6 +146,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PuzzleCameraTransform: {fileID: 228902546916662917}
+  EnableCenteredCode: 0
 --- !u!114 &6574931902359975243
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -159,6 +160,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Displayer: {fileID: 9207494823753608065}
+  ShouldShowCodepart: 1
   SwitchAndLights:
   - Light: {fileID: 6170368121880734461}
     Switch: {fileID: 7567492884556723646}
@@ -521,7 +523,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8262512886023452844, guid: e395ad4c14021f741adfabe083c02513, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.1869998
+      value: -0.187
       objectReference: {fileID: 0}
     - target: {fileID: 8262512886023452844, guid: e395ad4c14021f741adfabe083c02513, type: 3}
       propertyPath: m_LocalPosition.y
@@ -529,7 +531,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8262512886023452844, guid: e395ad4c14021f741adfabe083c02513, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.24000001
+      value: 0.234
       objectReference: {fileID: 0}
     - target: {fileID: 8262512886023452844, guid: e395ad4c14021f741adfabe083c02513, type: 3}
       propertyPath: m_LocalRotation.w
