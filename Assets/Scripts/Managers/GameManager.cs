@@ -17,6 +17,9 @@ public class GameManager : MonoBehaviour
 
     public Transform MainMenuCameraPos;
 
+    [SerializeField]
+    private AudioSource MainAmbience;
+
     public float DeathEffectAmount { get; private set; } = 0;
 
     [SerializeField]
@@ -36,6 +39,16 @@ public class GameManager : MonoBehaviour
 
     private float RestartTimer = 0;
     public float CurrentTime { get; private set; }
+
+    private void PlayMainAmbience() 
+    {
+        if (MainAmbience == null) 
+        {
+            return;
+        }
+
+        MainAmbience.Play();
+    }
 
     private void Awake()
     {
@@ -248,6 +261,7 @@ public class GameManager : MonoBehaviour
 
     public void ResetTimer()
     {
+        PlayMainAmbience();
         CurrentTime = timer;
     }
 

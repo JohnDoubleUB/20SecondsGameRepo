@@ -76,7 +76,7 @@ MonoBehaviour:
   isEnabled: 1
   widthPixelation: 256
   heightPixelation: 256
-  colorPrecision: 15
+  colorPrecision: 40
 --- !u!114 &1751191877892308520
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -84,15 +84,15 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2383335051778954496}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 31898a7a07ac44b2ac17a1ef9d941fb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   volumeProfile: {fileID: 11400000, guid: 7bbe35cdf5d69e14abbb03eccedaa5bd, type: 2}
   isEnabled: 1
-  patternIndex: 1
-  ditherThreshold: 3.53
+  patternIndex: 0
+  ditherThreshold: 11.55
   ditherStrength: 1.37
   ditherScale: 4.67
 --- !u!114 &8856375836934367210
@@ -109,22 +109,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   volumeProfile: {fileID: 11400000, guid: 7bbe35cdf5d69e14abbb03eccedaa5bd, type: 2}
   isEnabled: 1
-  scanlinesWeight: 1.94
-  noiseWeight: -3.71
-  screenBendX: 3
-  screenBendY: 3.78
-  vignetteAmount: 1.22
-  vignetteSize: 1.68
-  vignetteRounding: 7.91
-  vignetteSmoothing: 0.4
-  scanLinesDensity: 201.4
-  scanLinesSpeed: -10
+  scanlinesWeight: 0.29
+  noiseWeight: 1.41
+  screenBendX: 20
+  screenBendY: 20
+  vignetteAmount: 0
+  vignetteSize: 0
+  vignetteRounding: 1
+  vignetteSmoothing: 0.34
+  scanLinesDensity: 50
+  scanLinesSpeed: 0.001
   noiseAmount: 250
   chromaticRed: {x: 0.002, y: -0.002}
   chromaticGreen: {x: -0.002, y: 0.002}
   chromaticBlue: {x: 0, y: 0}
-  grilleOpacity: 0.2
-  grilleCounterOpacity: 0.93
+  grilleOpacity: 0
+  grilleCounterOpacity: 0
   grilleResolution: 640
   grilleCounterResolution: 380
   grilleBrightness: 16
