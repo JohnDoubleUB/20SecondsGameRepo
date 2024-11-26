@@ -107,6 +107,14 @@ public class WireController : MonoBehaviour
 #endif
 
 
+    public void ResetSegmentsToCachedPositions()
+    {
+        for (int i = 0; i < CachedSegmentPositions.Length - 1; i++) //Ignore the last segment
+        {
+            segments[i].position = CachedSegmentPositions[i];
+        }
+    }
+
 #if UNITY_EDITOR
     private void Start()
     {
@@ -116,14 +124,6 @@ public class WireController : MonoBehaviour
         for(int i = 0; i < CachedSegmentPositions.Length -1; i++) //Ignore the last segment
         {
             CachedSegmentPositions[i] = segments[i].position;
-        }
-    }
-
-    public void ResetSegmentsToCachedPositions() 
-    {
-        for (int i = 0; i < CachedSegmentPositions.Length - 1; i++) //Ignore the last segment
-        {
-           segments[i].position = CachedSegmentPositions[i];
         }
     }
 
