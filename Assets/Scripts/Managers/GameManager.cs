@@ -1,11 +1,16 @@
 using UIManagerLibrary.Scripts;
+using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static UnityEngine.Rendering.DebugUI;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager current;
     public SessionData SessionData;
+
+    public delegate void CurrentCodeUpdate(string currentCodeUpdate);
+    public event CurrentCodeUpdate OnCurrentCodeUpdate;
 
     public KeypadPuzzle KeyPad;
 
@@ -20,9 +25,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private AudioSource MainAmbience;
 
-    public float DeathEffectAmount { get; private set; } = 0;
+    public char PasswordGapCharacter = '_';
 
-    [SerializeField]
+    public float DeathEffectAmount { get; private set; } = 0;
     public bool GameStarted { get; private set; }
 
     private bool SpawnLocationSet = false;
@@ -40,6 +45,44 @@ public class GameManager : MonoBehaviour
     private float RestartTimer = 0;
     public float CurrentTime { get; private set; }
 
+    public bool Paused { get; private set; }
+
+    public void PauseToggle() 
+    {
+        if (!GameStarted) 
+        {
+            return;
+        }
+
+        Paused = !Paused;
+
+        UIManager.current.SetActiveContexts(Paused, "Pause");
+    }
+
+    public bool TryGetNextUnusedCode(out string code)
+    {
+        if (SessionData == null) 
+        {
+            code = null;
+            return false;
+        }
+
+        bool result = SessionData.TryGetNextUnusedCode(out code);
+
+        if (result) 
+        {
+            NotifyOfCodeUpdate();
+        }
+
+        return result;
+    }
+
+    private void NotifyOfCodeUpdate() 
+    {
+        string value = SessionData.CurrentCode.PadRight(SessionData.CodeCount * SessionData.CodeLength, PasswordGapCharacter);
+        OnCurrentCodeUpdate?.Invoke(value);
+    }
+
     private void PlayMainAmbience() 
     {
         if (MainAmbience == null) 
@@ -48,6 +91,16 @@ public class GameManager : MonoBehaviour
         }
 
         MainAmbience.Play();
+    }
+
+    private void StopMainAmbience() 
+    {
+        if (MainAmbience == null)
+        {
+            return;
+        }
+
+        MainAmbience.Stop();
     }
 
     private void Awake()
@@ -71,6 +124,9 @@ public class GameManager : MonoBehaviour
 
         PlayerController.current.BindCameraToPoint(MainMenuCameraPos);
 
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
         UIManager.current.SetActiveContexts(true, true, "Menu");
         //StartGame();
     }
@@ -89,6 +145,8 @@ public class GameManager : MonoBehaviour
         newSession.Initialize();
 
         SessionData = newSession;
+
+        NotifyOfCodeUpdate();
 
         Debug.Log("Codes! " + string.Join(", ", SessionData.GetAllCodes()));
 
@@ -111,9 +169,13 @@ public class GameManager : MonoBehaviour
         ResetPlayerToStart();
 
         UIManager.current.SetActiveContexts(false, true, "Menu");
-        UIManager.current.SetActiveContexts(true, "Game");
 
         PlayerController.current.SetInGame(true);
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        UIManager.current.SetActiveContexts(true, "Game");
+
         PlayerController.current.BindToCameraToCharacter();
     }
 
@@ -122,6 +184,18 @@ public class GameManager : MonoBehaviour
         UnInitializeAllPuzzles();
         SessionData = null;
         GameStarted = false;
+
+        ResetPlayerToStart();
+
+        PlayerController.current.SetInGame(false);
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
+        UIManager.current.SetActiveContexts(false, true ,"Game", "Pause");
+        UIManager.current.SetActiveContexts(true, "Menu");
+        Paused = false;
+        StopMainAmbience();
     }
 
     private void InitializePuzzles() 

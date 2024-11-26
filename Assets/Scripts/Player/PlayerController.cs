@@ -32,10 +32,8 @@ public class PlayerController : MonoBehaviour
 
     public List<PickedUpItem> HeldItems = new List<PickedUpItem>();
 
-    private bool Paused;
+    private bool Paused { get { return GameManager.current.Paused; } }
     private bool InPuzzle;
-
-
 
     public bool PuzzleAreaActive
     {
@@ -62,16 +60,10 @@ public class PlayerController : MonoBehaviour
         if (value)
         {
             ControllerInput.Player.Enable();
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-            UIManager.current.SetActiveContexts(true, "Game");
         }
         else
         {
             ControllerInput.Player.Disable();
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-            UIManager.current.SetActiveContexts(false, "Game");
         }
     }
 
@@ -127,18 +119,17 @@ public class PlayerController : MonoBehaviour
     {
         ControllerInput = InputManager.current.Input;
         InitializeBind();
-        SetInGame(false);
+
+        ControllerInput.Player.Disable();
 
         ControllerInput.PauseMenu.Pause.performed += OnPausePerformed;
     }
 
     private void OnPausePerformed(CallbackContext obj)
     {
-        Paused = !Paused;
-        UIManager.current.SetActiveContexts(Paused, "Pause");
+        GameManager.current.PauseToggle();
         PlayerCharacter.Movement(Vector2.zero);
         PlayerCharacter.Look(Vector2.zero);
-
     }
 
     public void SetPuzzle(PuzzleArea puzzleArea)

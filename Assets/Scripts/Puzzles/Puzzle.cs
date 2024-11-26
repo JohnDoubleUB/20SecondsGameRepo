@@ -24,7 +24,7 @@ public class Puzzle : MonoBehaviour
                 return;
             }
 
-            if (PuzzleCode == null && GameManager.current.SessionData.TryGetNextUnusedCode(out string code))
+            if (PuzzleCode == null && GameManager.current.TryGetNextUnusedCode(out string code))
             {
                 PuzzleCode = code;
                 Displayer.SetText(code);
