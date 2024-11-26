@@ -1535,6 +1535,11 @@ MonoBehaviour:
     Value: {fileID: 1010555254119891739}
   - Key: Game
     Value: {fileID: 4543689894903105070}
+  - Key: Pause
+    Value: {fileID: 4875593141586665876}
+  - Key: Pause
+    Value: {fileID: 8163465324416752461}
+  onlyInitializeIfNotSet: 1
 --- !u!1 &7752457446490418127
 GameObject:
   m_ObjectHideFlags: 0

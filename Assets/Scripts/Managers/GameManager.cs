@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
     public float DeathEffectAmount { get; private set; } = 0;
 
     [SerializeField]
-    private bool GameStarted = false;
+    public bool GameStarted { get; private set; }
 
     private bool SpawnLocationSet = false;
 
@@ -78,6 +78,8 @@ public class GameManager : MonoBehaviour
     public void StartGame() 
     {
         GameStarted = true;
+
+        PlayerCharacter.current.PlayDeath(false);
 
         SessionData newSession = new SessionData(5, 1)
         {
@@ -213,10 +215,9 @@ public class GameManager : MonoBehaviour
         if (PlayerController.current != null)
         {
             PlayerController.current.ClearPuzzle();
-            PlayerController.current.DisablePlayerInput(true);
         }
-        
-        PlayerCharacter.current.PlayAnimation("Death");
+
+        PlayerCharacter.current.PlayDeath(true);
         RestartTimer = TimeBetweenRestarts;
         Debug.Log("Restart timer is " + RestartTimer);
     }
@@ -269,8 +270,7 @@ public class GameManager : MonoBehaviour
     {
         ResetTimer();
 
-        PlayerCharacter.current.PlayAnimation("Idle");
-        PlayerController.current.DisablePlayerInput(false);
+        PlayerCharacter.current.PlayDeath(false);
 
         ResetAllPuzzles();
 
