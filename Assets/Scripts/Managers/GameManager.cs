@@ -131,6 +131,11 @@ public class GameManager : MonoBehaviour
         //StartGame();
     }
 
+    public void IntroCutscene() 
+    {
+        //TODO: Add cutscene in here
+    }
+
     public void StartGame() 
     {
         GameStarted = true;
