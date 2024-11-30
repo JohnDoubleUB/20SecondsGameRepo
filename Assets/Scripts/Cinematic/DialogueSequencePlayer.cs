@@ -46,6 +46,11 @@ public class DialogueSequencePlayer : MonoBehaviour
         current = this;
     }
 
+    private void Start()
+    {
+
+    }
+
     private bool SetDialogueText(string text) 
     {
         if (DialogueText == null) 

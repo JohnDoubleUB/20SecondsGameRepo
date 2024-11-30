@@ -4,6 +4,7 @@ using UnityEngine.Audio;
 [CreateAssetMenu(fileName = "DialogueSequenceData", menuName = "Scriptable Objects/DialogueSequenceData")]
 public class DialogueSequenceData : ScriptableObject
 {
+    public bool skippable = false;
     public DialogueSection[] DialogueSections;
 }
 
