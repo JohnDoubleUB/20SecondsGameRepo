@@ -173,7 +173,7 @@ public class GameManager : MonoBehaviour
 
         ResetPlayerToStart();
 
-        UIManager.current.SetActiveContexts(false, true, "Menu");
+        
 
         PlayerController.current.SetInGame(true);
 

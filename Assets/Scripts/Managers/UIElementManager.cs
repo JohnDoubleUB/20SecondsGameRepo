@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using TMPro;
+using UIManagerLibrary.Scripts;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,6 +9,9 @@ using UnityEngine.UI;
 public class UIElementManager : MonoBehaviour
 {
     public static UIElementManager current;
+
+    [SerializeField]
+    private DialogueSequenceData IntroSequence;
 
     public TextMeshProUGUI TimerText;
 
@@ -99,7 +103,9 @@ public class UIElementManager : MonoBehaviour
 
     public void PlayGame() 
     {
-        GameManager.current.StartGame();
+        UIManager.current.SetActiveContexts(false, true, "Menu");
+        DialogueSequencePlayer.current.StartDialogueSequence(IntroSequence, () => { GameManager.current.StartGame(); });
+        //GameManager.current.StartGame();
     }
 
     private void OnResetInventory()
