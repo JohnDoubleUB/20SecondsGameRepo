@@ -38,6 +38,7 @@ public class DialogueSequencePlayer : MonoBehaviour
         OnFinishCallback = onFinishCallback;
         Sequence = sequence;
         DialogueSectionIndex = -1;
+        DialogueLineIndex = -1;
     }
 
     private void Awake()
@@ -53,6 +54,11 @@ public class DialogueSequencePlayer : MonoBehaviour
 
     private void OnSkip()
     {
+        if (Sequence == null || !Sequence.skippable) 
+        {
+            return;
+        }
+
         DialogueAudioSource.Stop();
         DialogueTimer = 0;
     }

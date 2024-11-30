@@ -49,6 +49,9 @@ public class GameManager : MonoBehaviour
 
     public bool GameIsWon { get; private set; } = false;
 
+    [SerializeField]
+    private DialogueSequenceData OutroSequence;
+
     public void PauseToggle() 
     {
         if (!GameStarted) 
@@ -64,6 +67,7 @@ public class GameManager : MonoBehaviour
     public void CompleteGame() 
     {
         GameIsWon = true;
+        RestartTimer = TimeBetweenRestarts;
         MainAmbience.Stop();
 
     }
@@ -189,7 +193,7 @@ public class GameManager : MonoBehaviour
         PlayerController.current.BindToCameraToCharacter();
     }
 
-    public void QuitToMenu() 
+    public void QuitToMenu(bool withEndingCutscene = false) 
     {
         GameIsWon = false;
         UnInitializeAllPuzzles();
@@ -203,10 +207,18 @@ public class GameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
-        UIManager.current.SetActiveContexts(false, true ,"Game", "Pause");
-        UIManager.current.SetActiveContexts(true, "Menu");
         Paused = false;
         StopMainAmbience();
+
+        UIManager.current.SetActiveContexts(false, true, "Game", "Pause");
+
+        if (withEndingCutscene) 
+        {
+            DialogueSequencePlayer.current.StartDialogueSequence(OutroSequence, () => { UIManager.current.SetActiveContexts(true, true, "Menu"); });
+            return;
+        }
+
+        UIManager.current.SetActiveContexts(true, "Menu");
     }
 
     private void InitializePuzzles() 
@@ -265,7 +277,7 @@ public class GameManager : MonoBehaviour
 
             //UnInitializeAllPuzzles();
             //PlayerController.current.SetInGame(false);
-            QuitToMenu();
+            QuitToMenu(true);
 
 
             return;

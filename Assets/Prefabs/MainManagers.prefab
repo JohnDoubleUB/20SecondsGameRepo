@@ -67,13 +67,14 @@ MonoBehaviour:
   Locked: {fileID: 0}
   MainMenuCameraPos: {fileID: 1387577581385023168}
   MainAmbience: {fileID: 7636207859749284648}
-  GameStarted: 0
+  PasswordGapCharacter: 95
   SpawnLocation: {x: 0, y: 0, z: 0}
   SpawnRotation: {x: 0, y: 0}
   CompleteReset: 1
   LoadEnvironmentAudio: 1
   timer: 20
   TimeBetweenRestarts: 3
+  OutroSequence: {fileID: 11400000, guid: 0cbde8b4a4e865c41b709f009bb024b2, type: 2}
 --- !u!114 &464646648368702738
 MonoBehaviour:
   m_ObjectHideFlags: 0
