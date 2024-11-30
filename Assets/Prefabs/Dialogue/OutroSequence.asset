@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac6fd355d7de447478dc05a16964263d, type: 3}
   m_Name: OutroSequence
   m_EditorClassIdentifier: 
+  skippable: 0
   DialogueSections:
   - TimePerWord: 0
     LoopAudioResources: 0
@@ -25,8 +26,9 @@ MonoBehaviour:
       EndDelay: 0
   - TimePerWord: 0
     LoopAudioResources: 0
-    AudioResources: []
+    AudioResources:
+    - {fileID: 8300000, guid: be43178de428a3d42bc8ea416fbb8635, type: 3}
     DialogueLines:
-    - Line: ...
+    - Line: Time to get out of here
       Audio: {fileID: 0}
-      EndDelay: 0
+      EndDelay: 3

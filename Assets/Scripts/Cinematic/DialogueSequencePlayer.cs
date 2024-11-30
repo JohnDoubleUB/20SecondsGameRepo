@@ -48,7 +48,13 @@ public class DialogueSequencePlayer : MonoBehaviour
 
     private void Start()
     {
+        PlayerController.current.OnSkipButtonPressed += OnSkip;
+    }
 
+    private void OnSkip()
+    {
+        DialogueAudioSource.Stop();
+        DialogueTimer = 0;
     }
 
     private bool SetDialogueText(string text) 

@@ -4,10 +4,16 @@ using UnityEngine;
 public class Puzzle : MonoBehaviour
 {
     [SerializeField]
+    protected AudioSource SuccessPlayer;
+
+    [SerializeField]
     protected CodeDisplayer Displayer;
 
     [SerializeField]
     protected bool ShouldShowCodepart = true;
+
+    [SerializeField]
+    private bool CompletingShouldFinishGame = false;
 
     protected string PuzzleCode = null;
     public int PuzzleIndex { get; private set; } = -1;
@@ -21,12 +27,25 @@ public class Puzzle : MonoBehaviour
         {
             if(!ShouldShowCodepart) 
             {
+                SuccessPlayer.Play();
+
+                if (CompletingShouldFinishGame) 
+                {
+                    GameManager.current.CompleteGame();
+                }
+
                 return;
             }
 
             if (PuzzleCode == null && GameManager.current.TryGetNextUnusedCode(out string code))
             {
                 PuzzleCode = code;
+
+                if (SuccessPlayer != null) 
+                {
+                    SuccessPlayer.Play();
+                }
+
                 Displayer.SetText(code);
             }
         }

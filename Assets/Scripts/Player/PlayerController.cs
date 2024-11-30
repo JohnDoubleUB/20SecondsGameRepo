@@ -10,6 +10,9 @@ public class PlayerController : MonoBehaviour
 {
     public static PlayerController current;
 
+    public delegate void SkipButtonPressed();
+    public event SkipButtonPressed OnSkipButtonPressed;
+
     public delegate void ItemsHeldUpdate(PickedUpItem item, bool pickupOrDrop);
     public event ItemsHeldUpdate OnItemsHeldUpdate;
 
@@ -123,6 +126,12 @@ public class PlayerController : MonoBehaviour
         ControllerInput.Player.Disable();
 
         ControllerInput.PauseMenu.Pause.performed += OnPausePerformed;
+        ControllerInput.PauseMenu.Skip.performed += SkipPerformed;
+    }
+
+    private void SkipPerformed(CallbackContext obj)
+    {
+        OnSkipButtonPressed?.Invoke();
     }
 
     private void OnPausePerformed(CallbackContext obj)
@@ -293,10 +302,12 @@ public class PlayerController : MonoBehaviour
         ControllerInput.Player.Attack.canceled -= OnAttackCanceled;
 
         ControllerInput.PauseMenu.Pause.performed -= OnPausePerformed;
+        ControllerInput.PauseMenu.Skip.performed -= SkipPerformed;
         ControllerInput.Player.Move.performed -= OnMovement;
         ControllerInput.Player.Move.canceled -= OnMovement;
         ControllerInput.Player.Look.performed -= OnLook;
         ControllerInput.Player.Look.canceled -= OnLook;
+
     }
 
     private void OnAttackPerformed(CallbackContext obj)

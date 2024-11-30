@@ -47,6 +47,8 @@ public class GameManager : MonoBehaviour
 
     public bool Paused { get; private set; }
 
+    public bool GameIsWon { get; private set; } = false;
+
     public void PauseToggle() 
     {
         if (!GameStarted) 
@@ -57,6 +59,13 @@ public class GameManager : MonoBehaviour
         Paused = !Paused;
 
         UIManager.current.SetActiveContexts(Paused, "Pause");
+    }
+
+    public void CompleteGame() 
+    {
+        GameIsWon = true;
+        MainAmbience.Stop();
+
     }
 
     public bool TryGetNextUnusedCode(out string code)
@@ -131,15 +140,11 @@ public class GameManager : MonoBehaviour
         //StartGame();
     }
 
-    public void IntroCutscene() 
-    {
-        //TODO: Add cutscene in here
-    }
-
     public void StartGame() 
     {
+        GameIsWon = false;
         GameStarted = true;
-
+        
         PlayerCharacter.current.PlayDeath(false);
 
         SessionData newSession = new SessionData(5, 1)
@@ -186,6 +191,7 @@ public class GameManager : MonoBehaviour
 
     public void QuitToMenu() 
     {
+        GameIsWon = false;
         UnInitializeAllPuzzles();
         SessionData = null;
         GameStarted = false;
@@ -242,10 +248,29 @@ public class GameManager : MonoBehaviour
 
         //WiresPuzzle
         Wires.FullReset();
+
+        //Keypad
+        KeyPad.FullReset();
     }
 
     private void Update()
     {
+        if (GameIsWon) 
+        {
+            if (RestartTimer > 0) 
+            {
+                RestartTimer = Mathf.Max(0, RestartTimer - Time.deltaTime);
+                return;
+            }
+
+            //UnInitializeAllPuzzles();
+            //PlayerController.current.SetInGame(false);
+            QuitToMenu();
+
+
+            return;
+        }
+
         if (!GameStarted) 
         {
             DeathEffectAmount = 0;

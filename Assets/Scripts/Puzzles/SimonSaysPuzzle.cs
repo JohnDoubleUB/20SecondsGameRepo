@@ -136,6 +136,12 @@ public class SimonSaysPuzzle : Puzzle
         {
             Panel.ResetInteractable();
         }
+
+        foreach (IndicatorLight l in IndicatorLight)
+        {
+            l.blink = true;
+            l.SetLight(LightColor.None, 1);
+        }
     }
 
     private void Incorrect()
