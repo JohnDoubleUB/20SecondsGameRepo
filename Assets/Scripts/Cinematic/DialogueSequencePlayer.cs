@@ -111,6 +111,7 @@ public class DialogueSequencePlayer : MonoBehaviour
                 newAudioSource.loop = looping;
                 newAudioSource.Play();
                 BackgroundAudioSources.Add(newAudioSource);
+                
             }
             else 
             {
