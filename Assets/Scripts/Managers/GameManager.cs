@@ -64,6 +64,11 @@ public class GameManager : MonoBehaviour
         UIManager.current.SetActiveContexts(Paused, "Pause");
     }
 
+    public void EndGamePrematurely() 
+    {
+        CurrentTime = 0.01f;
+    }
+
     public void CompleteGame() 
     {
         GameIsWon = true;
