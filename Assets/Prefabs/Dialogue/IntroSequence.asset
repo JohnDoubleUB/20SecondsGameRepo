@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skippable: 1
   DialogueSections:
-  - TimePerWord: 0.5
+  - StopPreviousSectionAudio: 0
+    TimePerWord: 0.5
     LoopAudioResources: 0
     AudioResources:
     - Resource: {fileID: 8300000, guid: 2fcf27079092c2944a80c79f08f92d0d, type: 3}
@@ -31,7 +32,8 @@ MonoBehaviour:
     - Line: I don't get paid enough for this.
       Audio: {fileID: 0}
       EndDelay: 1
-  - TimePerWord: 0.5
+  - StopPreviousSectionAudio: 0
+    TimePerWord: 0.5
     LoopAudioResources: 1
     AudioResources: []
     DialogueLines:
@@ -41,7 +43,8 @@ MonoBehaviour:
     - Line: Well here I am, where do I..
       Audio: {fileID: 0}
       EndDelay: 1
-  - TimePerWord: 0.5
+  - StopPreviousSectionAudio: 1
+    TimePerWord: 0.5
     LoopAudioResources: 1
     AudioResources:
     - Resource: {fileID: 8300000, guid: dd413f8c393a8f8469edd01f570fd57d, type: 3}

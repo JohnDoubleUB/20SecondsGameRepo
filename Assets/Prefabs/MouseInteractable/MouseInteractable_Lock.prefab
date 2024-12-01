@@ -105,6 +105,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ControlUntilRelease: 0
   PuzzleBrain: {fileID: 0}
+  LockedSound: {fileID: 8300000, guid: 4724f30c75b4e7f42859cd5ea8603fe6, type: 3}
+  UnlockedSound: {fileID: 8300000, guid: 1e22479f0d8c1f749b7d97247cc12a5e, type: 3}
   LockAudioSource: {fileID: 4553925688545073282}
   LockAnimator: {fileID: 474433066031148757}
 --- !u!95 &474433066031148757
@@ -142,7 +144,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.262
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -186,7 +188,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0

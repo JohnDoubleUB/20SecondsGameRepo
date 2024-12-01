@@ -49,6 +49,8 @@ MonoBehaviour:
   Name: Key
   Index: 0
   Icon: {fileID: 0}
+  Audio: {fileID: 8300000, guid: 7dc46a93a247798429e8d5d304a36546, type: 3}
+  AudioVolume: 0.5
 --- !u!65 &4365924198085164912
 BoxCollider:
   m_ObjectHideFlags: 0

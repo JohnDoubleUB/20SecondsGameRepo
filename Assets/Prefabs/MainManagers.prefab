@@ -89,8 +89,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SoundVolumeMultiplier: 1
   AudioMixer: {fileID: 24100000, guid: 74404f449a3fd224b9f15a4e4d3345e1, type: 2}
+  DefaultAudioMixerGroup: {fileID: 24300002, guid: 74404f449a3fd224b9f15a4e4d3345e1, type: 2}
   pitchVariation: 0.2
-  audioClipPrefab: {fileID: 0}
+  audioClipPrefab: {fileID: 8952288608576449186, guid: aac6e58ba3e427140b765cac4c06ca49, type: 3}
 --- !u!1 &5942860678482554409
 GameObject:
   m_ObjectHideFlags: 0

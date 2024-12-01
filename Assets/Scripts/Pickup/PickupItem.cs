@@ -1,10 +1,13 @@
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class PickupItem : MonoBehaviour
 {
     public string Name;
     public int Index;
     public Sprite Icon;
+    public AudioClip Audio;
+    public float AudioVolume = 0.2f;
 
     public PickedUpItem GetPickedUpItem() 
     {
@@ -14,6 +17,10 @@ public class PickupItem : MonoBehaviour
     public PickedUpItem Pickup() 
     {
         PickedUpItem item = GetPickedUpItem();
+        if(AudioManager.current) 
+        {
+            AudioManager.current.PlayClipAt(Audio, transform.position, AudioVolume);
+        }
         Destroy(gameObject);
         return item;
     }
