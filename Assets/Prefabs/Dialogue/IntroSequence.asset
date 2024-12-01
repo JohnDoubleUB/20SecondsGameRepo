@@ -17,8 +17,10 @@ MonoBehaviour:
   - TimePerWord: 0.5
     LoopAudioResources: 0
     AudioResources:
-    - {fileID: 8300000, guid: be43178de428a3d42bc8ea416fbb8635, type: 3}
-    - {fileID: 8300000, guid: 2fcf27079092c2944a80c79f08f92d0d, type: 3}
+    - Resource: {fileID: 8300000, guid: 2fcf27079092c2944a80c79f08f92d0d, type: 3}
+      Pitch: 1
+    - Resource: {fileID: 8300000, guid: be43178de428a3d42bc8ea416fbb8635, type: 3}
+      Pitch: 1
     DialogueLines:
     - Line: I don't think anyones been down here in decades.
       Audio: {fileID: 0}
@@ -42,7 +44,8 @@ MonoBehaviour:
   - TimePerWord: 0.5
     LoopAudioResources: 1
     AudioResources:
-    - {fileID: 8300000, guid: dd413f8c393a8f8469edd01f570fd57d, type: 3}
+    - Resource: {fileID: 8300000, guid: dd413f8c393a8f8469edd01f570fd57d, type: 3}
+      Pitch: 1
     DialogueLines:
     - Line: Wait whats happening. Who locked the door?
       Audio: {fileID: 8300000, guid: 563751376badc11499c3e1b2ab2f033e, type: 3}

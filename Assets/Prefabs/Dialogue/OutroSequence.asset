@@ -30,7 +30,8 @@ MonoBehaviour:
   - TimePerWord: 0.5
     LoopAudioResources: 0
     AudioResources:
-    - {fileID: 8300000, guid: be43178de428a3d42bc8ea416fbb8635, type: 3}
+    - Resource: {fileID: 8300000, guid: be43178de428a3d42bc8ea416fbb8635, type: 3}
+      Pitch: 2
     DialogueLines:
     - Line: Time to get out of here..
       Audio: {fileID: 0}

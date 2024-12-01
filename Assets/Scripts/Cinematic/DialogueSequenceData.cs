@@ -17,10 +17,18 @@ public class DialogueLine
 }
 
 [System.Serializable]
+public class CustomAudioResource 
+{
+    public AudioResource Resource;
+    public float Pitch = 1f;
+}
+
+[System.Serializable]
 public class DialogueSection 
 {
+    public bool StopPreviousSectionAudio = false;
     public float TimePerWord = 0.5f;
     public bool LoopAudioResources = true;
-    public AudioResource[] AudioResources;
+    public CustomAudioResource[] AudioResources;
     public DialogueLine[] DialogueLines;
 }

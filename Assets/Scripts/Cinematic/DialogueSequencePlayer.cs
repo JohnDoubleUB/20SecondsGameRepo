@@ -87,7 +87,7 @@ public class DialogueSequencePlayer : MonoBehaviour
         BackgroundAudioSources.Clear();
     }
 
-    private void SetDialogueSectionAudio(bool looping, AudioResource[] audioResources) 
+    private void SetDialogueSectionAudio(bool looping, CustomAudioResource[] audioResources, bool stopPreviousSectionAudio = false) 
     {
         int audioResourceLength = audioResources.Length;
         int currentAudioSourceLength = BackgroundAudioSources.Count;
@@ -97,6 +97,11 @@ public class DialogueSequencePlayer : MonoBehaviour
             foreach (AudioSource source in BackgroundAudioSources) 
             {
                 source.loop = false;
+
+                if(stopPreviousSectionAudio) 
+                {
+                    source.Stop();
+                }
                 //source.Stop();
                 //source.resource = null;
             }
@@ -107,16 +112,18 @@ public class DialogueSequencePlayer : MonoBehaviour
             if (BackgroundAudioSources.Count < i + 1)
             {
                 AudioSource newAudioSource = InstantiateBackgroundAudioSource();
-                newAudioSource.resource = audioResources[i];
+                newAudioSource.resource = audioResources[i].Resource;
                 newAudioSource.loop = looping;
+                newAudioSource.pitch = audioResources[i].Pitch;
                 newAudioSource.Play();
                 BackgroundAudioSources.Add(newAudioSource);
                 
             }
             else 
             {
-                BackgroundAudioSources[i].resource = audioResources[i];
+                BackgroundAudioSources[i].resource = audioResources[i].Resource;
                 BackgroundAudioSources[i].loop = looping;
+                BackgroundAudioSources[i].pitch = audioResources[i].Pitch;
                 BackgroundAudioSources[i].Play();
             }
         }
@@ -243,7 +250,7 @@ public class DialogueSequencePlayer : MonoBehaviour
             }
 
             DialogueSection newSection = Sequence.DialogueSections[DialogueSectionIndex];
-            SetDialogueSectionAudio(newSection.LoopAudioResources, newSection.AudioResources);
+            SetDialogueSectionAudio(newSection.LoopAudioResources, newSection.AudioResources, newSection.StopPreviousSectionAudio);
 
             //STryIncrementDialogueSectionetup new looping audio (if any)
             DialogueLineIndex = 1;
