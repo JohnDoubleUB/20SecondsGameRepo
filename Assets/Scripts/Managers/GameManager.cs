@@ -144,6 +144,16 @@ public class GameManager : MonoBehaviour
         //StartGame();
     }
 
+    private void EnableEnvironmentalEffects(bool enable) 
+    {
+        if(EnvironmentalEffectManager.current == null) 
+        {
+            return; 
+        }
+
+        EnvironmentalEffectManager.current.EnableEffects(enable);
+    }
+
     public void StartGame() 
     {
         GameIsWon = false;
@@ -190,11 +200,14 @@ public class GameManager : MonoBehaviour
         Cursor.visible = false;
         UIManager.current.SetActiveContexts(true, "Game");
 
+        EnableEnvironmentalEffects(true);
+
         PlayerController.current.BindToCameraToCharacter();
     }
 
     public void QuitToMenu(bool withEndingCutscene = false) 
     {
+        EnableEnvironmentalEffects(false);
         GameIsWon = false;
         UnInitializeAllPuzzles();
         SessionData = null;
@@ -384,6 +397,8 @@ public class GameManager : MonoBehaviour
 
     public void ResetGame()
     {
+        EnableEnvironmentalEffects(true);
+
         ResetTimer();
 
         PlayerCharacter.current.PlayDeath(false);
