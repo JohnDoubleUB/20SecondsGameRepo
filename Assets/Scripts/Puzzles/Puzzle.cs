@@ -4,6 +4,9 @@ using UnityEngine;
 public class Puzzle : MonoBehaviour
 {
     [SerializeField]
+    protected ParticleSystem SuccessParticleSystem;
+
+    [SerializeField]
     protected AudioSource SuccessPlayer;
 
     [SerializeField]
@@ -25,9 +28,14 @@ public class Puzzle : MonoBehaviour
 
         if (PuzzleCompleted)
         {
-            if(!ShouldShowCodepart) 
+            if (!ShouldShowCodepart)
             {
                 SuccessPlayer.Play();
+
+                if (SuccessParticleSystem != null) 
+                {
+                    SuccessParticleSystem.Play();
+                }
 
                 if (CompletingShouldFinishGame) 
                 {
@@ -44,6 +52,11 @@ public class Puzzle : MonoBehaviour
                 if (SuccessPlayer != null) 
                 {
                     SuccessPlayer.Play();
+                }
+
+                if (SuccessParticleSystem != null) 
+                {
+                    SuccessParticleSystem.Play();
                 }
 
                 Displayer.SetText(code);
