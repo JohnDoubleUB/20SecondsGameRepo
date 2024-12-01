@@ -72,7 +72,7 @@ public class GameManager : MonoBehaviour
     public void CompleteGame() 
     {
         GameIsWon = true;
-        RestartTimer = TimeBetweenRestarts;
+        RestartTimer = TimeBetweenRestarts * 2;
         MainAmbience.Stop();
         EnableEnvironmentalEffects(false, false);
         DeathEffectAmount = 0;
