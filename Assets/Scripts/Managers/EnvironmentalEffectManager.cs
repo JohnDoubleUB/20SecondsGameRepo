@@ -26,11 +26,11 @@ public class EnvironmentalEffectManager : MonoBehaviour
 
     private float Timer;
 
-    public void EnableEffects(bool enable) 
+    public void EnableEffects(bool enable, bool clearParticlesImmediate = true) 
     {
         EffectsEnabled = enable;
         Timer = 0;
-        EnableFog(enable);
+        EnableFog(enable, clearParticlesImmediate);
         DirectionalLight.color = LightDefaultColor;
     }
 
@@ -60,19 +60,22 @@ public class EnvironmentalEffectManager : MonoBehaviour
 
     }
 
-    private void EnableFog(bool enabled) 
+    private void EnableFog(bool enabled, bool clearParticlesImmediate = true) 
     {
         foreach(ParticleSystem system in FogEffects) 
         {
-            if (enabled)
+            if(clearParticlesImmediate) 
             {
                 system.Clear();
+            }
+
+            if (enabled)
+            {
                 system.Play();
             }
             else 
             {
                 system.Stop();
-                system.Clear();
             }
         }
     }

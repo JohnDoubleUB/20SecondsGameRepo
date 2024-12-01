@@ -69,6 +69,8 @@ public class GameManager : MonoBehaviour
         GameIsWon = true;
         RestartTimer = TimeBetweenRestarts;
         MainAmbience.Stop();
+        EnableEnvironmentalEffects(false, false);
+        DeathEffectAmount = 0;
 
     }
 
@@ -144,14 +146,14 @@ public class GameManager : MonoBehaviour
         //StartGame();
     }
 
-    private void EnableEnvironmentalEffects(bool enable) 
+    private void EnableEnvironmentalEffects(bool enable, bool clearParticlesImmediate = true) 
     {
         if(EnvironmentalEffectManager.current == null) 
         {
             return; 
         }
 
-        EnvironmentalEffectManager.current.EnableEffects(enable);
+        EnvironmentalEffectManager.current.EnableEffects(enable, clearParticlesImmediate);
     }
 
     public void StartGame() 
