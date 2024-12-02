@@ -32,8 +32,12 @@ public class DialogueSequencePlayer : MonoBehaviour
     [SerializeField]
     private GameObject BackgroundAudioObject;
 
+    [SerializeField]
+    private Animator TextAnimator;
+
     public void StartDialogueSequence(DialogueSequenceData sequence, Action onFinishCallback = null) 
     {
+        ScreenEffectManager.current.PlayTransition();
         UIManager.current.SetActiveContexts(true, true, "Cinematic");
         OnFinishCallback = onFinishCallback;
         Sequence = sequence;
@@ -187,7 +191,8 @@ public class DialogueSequencePlayer : MonoBehaviour
 
     private void SetDialogue(DialogueLine dialogue, DialogueSection section) 
     {
-        
+        ScreenEffectManager.current.PlayTransition();
+        TextAnimator.Play("Appear", 0);
         SetDialogueText(dialogue.Line);
 
         Debug.Log("Set Dialogue: " + dialogue.Line);
@@ -208,6 +213,8 @@ public class DialogueSequencePlayer : MonoBehaviour
     private void OnSequenceEnd() 
     {
         DestroyAllBackgroundAudioSources();
+
+        ScreenEffectManager.current.PlayTransition();
 
         Sequence = null;
 

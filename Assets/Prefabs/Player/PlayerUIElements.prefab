@@ -1086,7 +1086,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: Test
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: cf8462be4885e5a4b9d2c734f03e0d24, type: 2}
   m_sharedMaterial: {fileID: -6763782189769456709, guid: cf8462be4885e5a4b9d2c734f03e0d24, type: 2}
@@ -1706,6 +1706,7 @@ MonoBehaviour:
   DialogueAudioSource: {fileID: 6525889174868900072}
   BackgroundMixerGroup: {fileID: 24300002, guid: 74404f449a3fd224b9f15a4e4d3345e1, type: 2}
   BackgroundAudioObject: {fileID: 4307767492929829154}
+  TextAnimator: {fileID: 7310365212998569358}
 --- !u!1 &7426283282500192900
 GameObject:
   m_ObjectHideFlags: 0
@@ -1716,6 +1717,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3943416244384128804}
   - component: {fileID: 8952280288116529876}
+  - component: {fileID: 7310365212998569358}
   m_Layer: 0
   m_Name: SafeArea
   m_TagString: Untagged
@@ -1751,6 +1753,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7426283282500192900}
   m_CullTransparentMesh: 1
+--- !u!95 &7310365212998569358
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7426283282500192900}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d44fa2f4095730e4a9a4bc0b08f0c2b1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &7590627603362346312
 GameObject:
   m_ObjectHideFlags: 0

@@ -31,6 +31,8 @@ public class CustomButton : UIBehaviour, IEventSystemHandler, IPointerDownHandle
     [SerializeField]
     private float BodyHighlightTimer = 0.2f;
 
+    [SerializeField]
+    private bool PlayScreenTransitionEffectOnOver = true;
 
     private void Start()
     {
@@ -55,6 +57,11 @@ public class CustomButton : UIBehaviour, IEventSystemHandler, IPointerDownHandle
         //Text.outlineWidth = outlineHoverWidth;
         Text.outlineColor = HighlightColor;
         Text.color = PressBodyColor;
+
+        if(PlayScreenTransitionEffectOnOver) 
+        {
+            ScreenEffectManager.current.PlayTransition();
+        }
     }
 
     public void OnPointerExit(PointerEventData eventData)
