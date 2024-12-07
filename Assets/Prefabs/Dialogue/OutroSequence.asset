@@ -12,22 +12,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac6fd355d7de447478dc05a16964263d, type: 3}
   m_Name: OutroSequence
   m_EditorClassIdentifier: 
-  skippable: 1
+  skippable: 0
   DialogueSections:
-  - TimePerWord: 0.5
+  - StopPreviousSectionAudio: 0
+    TimePerWord: 0.5
     LoopAudioResources: 0
     AudioResources: []
     DialogueLines:
     - Line: Okay..
       Audio: {fileID: 0}
-      EndDelay: 0
+      EndDelay: 0.5
     - Line: I think its stopped.
       Audio: {fileID: 0}
       EndDelay: 0
     - Line: ...
       Audio: {fileID: 8300000, guid: 563751376badc11499c3e1b2ab2f033e, type: 3}
       EndDelay: 0
-  - TimePerWord: 0.5
+  - StopPreviousSectionAudio: 0
+    TimePerWord: 0.5
     LoopAudioResources: 0
     AudioResources:
     - Resource: {fileID: 8300000, guid: be43178de428a3d42bc8ea416fbb8635, type: 3}
@@ -36,3 +38,23 @@ MonoBehaviour:
     - Line: Time to get out of here..
       Audio: {fileID: 0}
       EndDelay: 1
+  - StopPreviousSectionAudio: 1
+    TimePerWord: 0
+    LoopAudioResources: 0
+    AudioResources: []
+    DialogueLines:
+    - Line: 
+      Audio: {fileID: 0}
+      EndDelay: 5
+    - Line: Programming, Implementation - JohnDoubleUB
+      Audio: {fileID: 0}
+      EndDelay: 4
+    - Line: 3D Modelling, Texturing, Environment Design - Raulski
+      Audio: {fileID: 0}
+      EndDelay: 4
+    - Line: Sound Design and Music Composition - Delgado
+      Audio: {fileID: 0}
+      EndDelay: 4
+    - Line: Thanks for Playing!
+      Audio: {fileID: 0}
+      EndDelay: 2

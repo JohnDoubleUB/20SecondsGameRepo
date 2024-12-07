@@ -112,6 +112,11 @@ public class Puzzle : MonoBehaviour
 
     public virtual void FullReset() 
     {
+        if (SuccessPlayer != null) 
+        {
+            SuccessPlayer.Stop();
+        }
+
         PuzzleCode = null;
         Displayer.SetText("");
         PuzzleCompleted = false;

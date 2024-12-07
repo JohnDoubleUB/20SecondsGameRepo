@@ -981,6 +981,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4286c8ff9b1162345a6827af1175149e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SuccessParticleSystem: {fileID: 0}
   SuccessPlayer: {fileID: -296562603899827354}
   Displayer: {fileID: 1005966310628293032}
   ShouldShowCodepart: 0

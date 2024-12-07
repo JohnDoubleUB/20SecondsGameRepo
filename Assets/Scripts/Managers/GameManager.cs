@@ -23,6 +23,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private AudioSource MainAmbience;
 
+    [SerializeField]
+    private AudioSource MainOutroAmbience;
+
     public char PasswordGapCharacter = '_';
 
     public float DeathEffectAmount { get; private set; } = 0;
@@ -72,6 +75,7 @@ public class GameManager : MonoBehaviour
         GameIsWon = true;
         RestartTimer = TimeBetweenRestarts * 2;
         MainAmbience.Stop();
+        MainOutroAmbience.Play();
         EnableEnvironmentalEffects(false, false);
         DeathEffectAmount = 0;
 
@@ -161,6 +165,7 @@ public class GameManager : MonoBehaviour
 
     public void StartGame() 
     {
+        MainOutroAmbience.Stop();
         GameIsWon = false;
         GameStarted = true;
         
@@ -232,10 +237,14 @@ public class GameManager : MonoBehaviour
 
         if (withEndingCutscene) 
         {
-            DialogueSequencePlayer.current.StartDialogueSequence(OutroSequence, () => { UIManager.current.SetActiveContexts(true, true, "Menu"); });
+            DialogueSequencePlayer.current.StartDialogueSequence(OutroSequence, () => { 
+                UIManager.current.SetActiveContexts(true, true, "Menu"); 
+                //MainOutroAmbience.Stop(); 
+            });
             return;
         }
 
+        MainOutroAmbience.Stop();
         UIManager.current.SetActiveContexts(true, "Menu");
     }
 
