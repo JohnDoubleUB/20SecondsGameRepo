@@ -146,7 +146,7 @@ public class GameManager : MonoBehaviour
 
         PlayerController.current.BindCameraToPoint(MainMenuCameraPos);
 
-        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
         UIManager.current.SetActiveContexts(true, true, "Menu");
@@ -232,7 +232,7 @@ public class GameManager : MonoBehaviour
 
         PlayerController.current.SetInGame(false);
 
-        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
         Paused = false;
