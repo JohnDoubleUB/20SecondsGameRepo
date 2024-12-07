@@ -4,6 +4,9 @@ using UnityEngine;
 public class Puzzle : MonoBehaviour
 {
     [SerializeField]
+    private PuzzleArea Area;
+
+    [SerializeField]
     protected ParticleSystem SuccessParticleSystem;
 
     [SerializeField]
@@ -68,6 +71,17 @@ public class Puzzle : MonoBehaviour
             Displayer.SetText("");
         }
     }
+
+    public void PuzzleBecameActive(bool active) 
+    {
+        OnPuzzleBecameActive(active);
+    }
+
+    protected virtual void OnPuzzleBecameActive(bool active) 
+    {
+        
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -78,6 +92,14 @@ public class Puzzle : MonoBehaviour
     void Update()
     {
         
+    }
+
+    protected void Awake()
+    {
+        if (Area != null) 
+        {
+            Area.OnPlayerInteractUpdate += PuzzleBecameActive;
+        }
     }
 
     public virtual void ButtonValue(string value)
