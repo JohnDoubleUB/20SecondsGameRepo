@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac6fd355d7de447478dc05a16964263d, type: 3}
   m_Name: IntroSequence
   m_EditorClassIdentifier: 
-  skippable: 1
+  SequenceName: Intro
+  skippableIfSeenBefore: 1
+  skippable: 0
   DialogueSections:
   - StopPreviousSectionAudio: 0
     TimePerWord: 0.5

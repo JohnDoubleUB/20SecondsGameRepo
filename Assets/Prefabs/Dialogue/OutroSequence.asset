@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac6fd355d7de447478dc05a16964263d, type: 3}
   m_Name: OutroSequence
   m_EditorClassIdentifier: 
+  SequenceName: Outro
+  skippableIfSeenBefore: 1
   skippable: 0
   DialogueSections:
   - StopPreviousSectionAudio: 0
@@ -46,15 +48,24 @@ MonoBehaviour:
     - Line: 
       Audio: {fileID: 0}
       EndDelay: 5
-    - Line: Programming, Implementation - JohnDoubleUB
+    - Line: 'Progamming and Implementation by:'
       Audio: {fileID: 0}
-      EndDelay: 4
-    - Line: 3D Modelling, Texturing, Environment Design - Raulski
+      EndDelay: 1.5
+    - Line: JohnDoubleUB
       Audio: {fileID: 0}
-      EndDelay: 4
-    - Line: Sound Design and Music Composition - Delgado
+      EndDelay: 2.5
+    - Line: 'Sound Design and Music Composition By:'
       Audio: {fileID: 0}
-      EndDelay: 4
-    - Line: Thanks for Playing!
+      EndDelay: 1.5
+    - Line: Delgado
+      Audio: {fileID: 0}
+      EndDelay: 2.5
+    - Line: '3D Modelling, Texturing and Environment By:'
+      Audio: {fileID: 0}
+      EndDelay: 1.5
+    - Line: Raulski
+      Audio: {fileID: 0}
+      EndDelay: 2.5
+    - Line: Thanks for playing!
       Audio: {fileID: 0}
       EndDelay: 2

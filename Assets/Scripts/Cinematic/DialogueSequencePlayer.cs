@@ -58,7 +58,7 @@ public class DialogueSequencePlayer : MonoBehaviour
 
     private void OnSkip()
     {
-        if (Sequence == null || !Sequence.skippable) 
+        if (Sequence == null || !Sequence.IsSkippable()) 
         {
             return;
         }
@@ -215,6 +215,8 @@ public class DialogueSequencePlayer : MonoBehaviour
         DestroyAllBackgroundAudioSources();
 
         ScreenEffectManager.current.PlayTransition();
+
+        Sequence.SaveAsSeen();
 
         Sequence = null;
 
