@@ -103,6 +103,7 @@ public class UIElementManager : MonoBehaviour
 
     public void PlayGame() 
     {
+        GameManager.current.StopOutroAmbience();
         UIManager.current.SetActiveContexts(false, true, "Menu");
         DialogueSequencePlayer.current.StartDialogueSequence(IntroSequence, () => { GameManager.current.StartGame(); });
         //GameManager.current.StartGame();

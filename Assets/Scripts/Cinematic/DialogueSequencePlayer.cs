@@ -13,6 +13,8 @@ public class DialogueSequencePlayer : MonoBehaviour
 
     public TextMeshProUGUI DialogueText;
 
+    public TextMeshProUGUI SkipText;
+
     public DialogueSequenceData Sequence { get; private set; }
     private Action OnFinishCallback = null;
 
@@ -39,6 +41,7 @@ public class DialogueSequencePlayer : MonoBehaviour
     {
         ScreenEffectManager.current.PlayTransition();
         UIManager.current.SetActiveContexts(true, true, "Cinematic");
+        SkipText.gameObject.SetActive(sequence.IsSkippable());
         OnFinishCallback = onFinishCallback;
         Sequence = sequence;
         DialogueSectionIndex = -1;

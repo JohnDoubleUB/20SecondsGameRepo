@@ -163,9 +163,14 @@ public class GameManager : MonoBehaviour
         EnvironmentalEffectManager.current.EnableEffects(enable, clearParticlesImmediate);
     }
 
-    public void StartGame() 
+    public void StopOutroAmbience() 
     {
         MainOutroAmbience.Stop();
+    }
+
+    public void StartGame() 
+    {
+        StopOutroAmbience();
         GameIsWon = false;
         GameStarted = true;
         
@@ -244,7 +249,7 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        MainOutroAmbience.Stop();
+        StopOutroAmbience();
         UIManager.current.SetActiveContexts(true, "Menu");
     }
 
