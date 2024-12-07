@@ -207,7 +207,7 @@ public class PlayerController : MonoBehaviour
         {
             if (!Cursor.visible) 
             {
-                Cursor.lockState = CursorLockMode.None;
+                Cursor.lockState = CursorLockMode.Confined;
                 Cursor.visible = true;
             }
 
@@ -225,7 +225,7 @@ public class PlayerController : MonoBehaviour
         {
             if (!Cursor.visible)
             {
-                Cursor.lockState = CursorLockMode.None;
+                Cursor.lockState = CursorLockMode.Confined;
                 Cursor.visible = true;
             }
         }
