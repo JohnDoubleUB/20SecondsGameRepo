@@ -1,10 +1,16 @@
 using System;
 using UnityEngine;
+using static MouseInteractablePanel;
 
 public class MouseInteractablePanel : MouseInteractable
 {
+    public delegate void PanelMovementChange();
+    public event PanelMovementChange OnPanelMovementChange;
+
     [SerializeField]
     private AudioSource AudioSource;
+
+    public float MaxRotation = 180;
 
     Vector3 MousePositionOrigin = Vector3.zero;
     float range = 500;
@@ -29,7 +35,7 @@ public class MouseInteractablePanel : MouseInteractable
         ControlUntilRelease = true;
     }
 
-    protected override void OnInteract(bool value)
+    protected override void OnInteract(bool value, bool triggeredByReset = false)
     {
         if (value)
         {
@@ -38,6 +44,13 @@ public class MouseInteractablePanel : MouseInteractable
             Min = MousePositionOrigin.x - range;
             initialYRotation = transform.localRotation.eulerAngles.y;
         }
+    }
+
+    protected override void OnResetInteractable()
+    {
+        Vector3 rotation = transform.localRotation.eulerAngles;
+        rotation.y = 0;//initialYRotation;
+        transform.localRotation = Quaternion.Euler(rotation);
     }
 
     private void PanelUnheldUpdate()
@@ -58,7 +71,7 @@ public class MouseInteractablePanel : MouseInteractable
 
         Vector3 rotation = transform.localRotation.eulerAngles;
 
-        rotation.y = Mathf.Clamp(rotation.y + rotationYDifference, 0, 180);
+        rotation.y = Mathf.Clamp(rotation.y + rotationYDifference, 0, MaxRotation);
         transform.localRotation = Quaternion.Euler(rotation);
 
         if (rotation.y == 180 || rotation.y == 0)
@@ -90,7 +103,7 @@ public class MouseInteractablePanel : MouseInteractable
         float remappedRange = positionClamped.Remap(Min, Max, 1, 0);
 
         // Get the current rotation angles
-        rotation.y = Mathf.Clamp(initialYRotation + remappedRange.Remap(0, 1, -180, 180), 0, 180);
+        rotation.y = Mathf.Clamp(initialYRotation + remappedRange.Remap(0, 1, -MaxRotation, MaxRotation), 0, MaxRotation);
         transform.localRotation = Quaternion.Euler(rotation);
 
         rotationChange = Mathf.SmoothDamp(rotationChange, rotation.y - rotationYLastFrame, ref rotationVelocity, 0.02f);
@@ -110,6 +123,7 @@ public class MouseInteractablePanel : MouseInteractable
         {
             if (!AudioSource.isPlaying) 
             {
+                OnPanelMovementChange?.Invoke();
                 AudioSource.Play();
             }
         }

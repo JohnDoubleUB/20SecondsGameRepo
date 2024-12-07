@@ -6,6 +6,8 @@ using UnityEngine.Events;
 
 public class KeypadPuzzle : Puzzle
 {
+    public bool CodeIsValid = false;
+
     private string Password = "";
 
     public string SuccessMessage = "Access Granted!";
@@ -20,8 +22,6 @@ public class KeypadPuzzle : Puzzle
     private string[] buttons = new string[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "OK", "0", "X" };
 
     public MouseInteractableButton[] KeypadButtons;
-
-    public CodeDisplayer Displayer;
 
     [SerializeField]
     private UnityEvent m_OnPuzzleSuccess = new UnityEvent();
@@ -49,14 +49,15 @@ public class KeypadPuzzle : Puzzle
         }
     }
 
-    public override void ResetPuzzle()
-    {
-        if(PuzzleCompleted) 
-        {
-            return;
-        }
 
-        //PuzzleCompleted = false;
+    protected override void OnReset()
+    {
+        SetNewCurrentCode("");
+        m_OnPuzzleReset?.Invoke();
+    }
+
+    protected override void OnFullReset()
+    {
         SetNewCurrentCode("");
         m_OnPuzzleReset?.Invoke();
     }
@@ -110,10 +111,10 @@ public class KeypadPuzzle : Puzzle
 
     private void Enter() 
     {
-        if(CurrentCode == Password) 
+        if(CurrentCode == Password && CodeIsValid) 
         {
             Displayer.SetText(SuccessMessage);
-            PuzzleCompleted = true;
+            SetPuzzleCompleted(true);
             m_OnPuzzleSuccess?.Invoke();
         }
         else

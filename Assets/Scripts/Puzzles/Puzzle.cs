@@ -2,10 +2,40 @@ using UnityEngine;
 
 //The brain of each puzzle
 public class Puzzle : MonoBehaviour
-
 {
+    [SerializeField]
+    protected CodeDisplayer Displayer;
 
-    public bool PuzzleCompleted = false;
+    [SerializeField]
+    protected bool ShouldShowCodepart = true;
+
+    protected string PuzzleCode = null;
+    public int PuzzleIndex { get; private set; } = -1;
+    public bool PuzzleCompleted { get; private set; } = false;
+
+    public void SetPuzzleCompleted(bool value) 
+    {
+        PuzzleCompleted = value;
+
+        if (PuzzleCompleted)
+        {
+            if(!ShouldShowCodepart) 
+            {
+                return;
+            }
+
+            if (PuzzleCode == null && GameManager.current.SessionData.TryGetNextUnusedCode(out string code))
+            {
+                PuzzleCode = code;
+                Displayer.SetText(code);
+            }
+        }
+        else 
+        {
+            PuzzleCode = null;
+            Displayer.SetText("");
+        }
+    }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -28,8 +58,44 @@ public class Puzzle : MonoBehaviour
 
     }
 
-    public virtual void ResetPuzzle()
+    public virtual void ButtonValue(int value) 
     {
 
+    }
+
+    public void ResetPuzzle()
+    {
+        if (PuzzleCompleted) 
+        {
+            return;
+        }
+
+        OnReset();
+    }
+
+    protected virtual void OnReset() 
+    {
+
+    }
+
+    public virtual void FullReset() 
+    {
+        PuzzleCode = null;
+        Displayer.SetText("");
+        PuzzleCompleted = false;
+        OnFullReset();
+    }
+
+    protected virtual void OnFullReset() 
+    {
+
+    }
+
+    public void SetIndex(int index)
+    {
+        if (PuzzleIndex == -1) 
+        {
+            PuzzleIndex = index;
+        }
     }
 }

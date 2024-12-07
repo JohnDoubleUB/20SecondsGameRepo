@@ -12,59 +12,67 @@ public class SwitchAndLight
 public class SwitchPuzzle : Puzzle
 {
     [SerializeField]
-    private CodeDisplayer Displayer;
-
-    [SerializeField]
     private SwitchAndLight[] SwitchAndLights;
 
     [SerializeField]
-    private IndicatorLight[] ShuffledLights;
+    private MouseInteractablePanel Panel;
+    
+    public Dictionary<int, IndicatorLight> connectedLights = new Dictionary<int, IndicatorLight>();
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private SwitchData Data;
+
+    protected override void OnReset() 
     {
-        //Determine if it is 2 or 3 
-        int enabledSwitchCount = 2;//Random.value > 0.7f ? 2 : 3;
+        ResetSwitches();
 
-        int linkedSwitchCount = 3;
-
-        int[] onSwitches = new int[SwitchAndLights.Length];
-
-        for (int i = 0; i < enabledSwitchCount;) 
+        if (Panel != null) 
         {
-            int randomIndex = Random.Range(0, onSwitches.Length);
+            Panel.ResetInteractable();
+        }
+    }
 
-            if (onSwitches[randomIndex] < 1) 
-            {
+    protected override void OnFullReset()
+    {
+        ResetSwitches();
 
-                onSwitches[randomIndex] = 1;
-                if(randomIndex+1 < onSwitches.Length) 
-                {
-                    onSwitches[randomIndex+1] = 2;
-                }
+        if (Panel != null)
+        {
+            Panel.ResetInteractable();
+        }
+    }
 
-                if (randomIndex - 1 > 0) 
-                {
-                    onSwitches[randomIndex - 1] = 2;
-                }
-                i++;
-            }
+    public void SetPuzzle(SwitchData switchData) 
+    {
+        Data = switchData;
+
+        connectedLights.Clear();
+
+        for (int i = 0; i < Data.LinkableSwitches.Count && i < Data.OnSwitchIndexes.Count; i++)
+        {
+            connectedLights.Add(Data.LinkableSwitches[i], SwitchAndLights[Data.OnSwitchIndexes[i]].Light);
         }
 
-        ShuffledLights = SwitchAndLights.Select(x => x.Light).ToArray();
-        ShuffledLights.Shuffle();
+        ResetSwitches();
+    }
 
-        for (int i = 0; i < SwitchAndLights.Length; i++) 
+    private void ResetSwitches() 
+    {
+        for (int i = 0; i < SwitchAndLights.Length; i++)
         {
             SwitchAndLight switchAndLight = SwitchAndLights[i];
             switchAndLight.Switch.Index = i;
             switchAndLight.Switch.PuzzleBrain = this;
 
-            bool shouldStartOn = onSwitches[i] == 1;
+            bool shouldStartOn = Data.OnSwitches[i] == 1;
 
-            switchAndLight.Switch.SetSwitchValue(shouldStartOn, Random.value > 0.5f);
+            switchAndLight.Switch.SetSwitchValue(shouldStartOn, Data.InitialSwitchPositions[i]);
             switchAndLight.Light.SetLight(shouldStartOn ? LightColor.Green : LightColor.None, 0);
         }
+    }
+
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
     }
 
     // Update is called once per frame
@@ -75,13 +83,40 @@ public class SwitchPuzzle : Puzzle
 
     public override void SwitchValue(bool value, int index)
     {
+        if (PuzzleCompleted) 
+        {
+            return;
+        }
+
         SwitchAndLight switchAndLight = SwitchAndLights[index];
         switchAndLight.Light.SetLight(!switchAndLight.Light.isOn ? LightColor.Green : LightColor.None, 0);
         
-        IndicatorLight shuffledLight = ShuffledLights[index];
-        if (shuffledLight != switchAndLight.Light) 
+        if(connectedLights.TryGetValue(index, out IndicatorLight light)) 
         {
-            shuffledLight.SetLight(!shuffledLight.isOn ? LightColor.Green : LightColor.None, 0);
+            if (light == null) 
+            {
+                return;
+            }
+
+            light.SetLight(!light.isOn ? LightColor.Green : LightColor.None, 0);
         }
+
+        if (AreAllLightsOn()) 
+        {
+            SetPuzzleCompleted(true);
+        }
+    }
+
+    private bool AreAllLightsOn() 
+    {
+        for (int i = 0; i < SwitchAndLights.Length; i++) 
+        {
+            if (!SwitchAndLights[i].Light.isOn) 
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 }

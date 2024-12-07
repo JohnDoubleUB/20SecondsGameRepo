@@ -21,7 +21,7 @@ public class SimonSaysPuzzle : Puzzle
     private float timer = 0;
 
     [SerializeField]
-    private CodeDisplayer Displayer;
+    private MouseInteractablePanel Panel;
 
     [SerializeField]
     private MouseInteractableButton RedButton;
@@ -37,6 +37,12 @@ public class SimonSaysPuzzle : Puzzle
 
     [SerializeField]
     private IndicatorLight[] IndicatorLight;
+
+    public void SetPuzzle(string value) 
+    {
+        FullCode = value;
+        ResetPuzzle();
+    }
 
     private void Update()
     {
@@ -106,9 +112,30 @@ public class SimonSaysPuzzle : Puzzle
         }
     }
 
-    public override void ResetPuzzle()
+
+
+    protected override void OnReset()
     {
-        base.ResetPuzzle();
+        CurrentState = SimonSaysState.NoInput;
+        TargetCode = $"{FullCode[0]}";
+        CurrentCode = "";
+        
+        if (Panel != null) 
+        {
+            Panel.ResetInteractable();
+        }
+    }
+
+    protected override void OnFullReset()
+    {
+        CurrentState = SimonSaysState.NoInput;
+        TargetCode = $"{FullCode[0]}";
+        CurrentCode = "";
+
+        if (Panel != null)
+        {
+            Panel.ResetInteractable();
+        }
     }
 
     private void Incorrect()
@@ -160,7 +187,7 @@ public class SimonSaysPuzzle : Puzzle
                 l.SetLight(LightColor.Green, 0);
             }
 
-            PuzzleCompleted = true;
+            SetPuzzleCompleted(true);
 
             return;
         }

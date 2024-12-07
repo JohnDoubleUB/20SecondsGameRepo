@@ -5,6 +5,13 @@ public class Headbob : MonoBehaviour
 {
     public bool enableVariableWalkSpeed;
 
+    public float minTiltAmount = 0.5f;
+    public float maxTiltAmount = 1.0f;
+
+
+    public float minBobAmount = 0.05f;
+    public float maxBobAmount = 1.0f;
+
     public float walkingBobbingSpeed = 5f;
     public float bobbingAmount = 0.1f;
     public float tiltAmount = 2f;
@@ -48,6 +55,10 @@ public class Headbob : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        tiltAmount = GameManager.current.DeathEffectAmount.Remap(0, 1, minTiltAmount, maxTiltAmount);
+        bobbingAmount = GameManager.current.DeathEffectAmount.Remap(0, 1, minBobAmount, maxBobAmount);
+
+
         FootstepUpdate();
     }
 

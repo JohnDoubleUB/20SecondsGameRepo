@@ -21,9 +21,9 @@ public class MouseInteractableSwitch : MouseInteractable
 
     private bool SwitchInversion = false;
 
-    protected override void OnInteract(bool value)
+    protected override void OnInteract(bool value, bool triggeredByReset = false)
     {
-        if (!value) 
+        if (!value)
         {
             return;
         }
@@ -35,10 +35,13 @@ public class MouseInteractableSwitch : MouseInteractable
             PuzzleBrain.SwitchValue(toggle, Index);
         }
 
-        PlayButtonSound();
+        if (!triggeredByReset)
+        {
+            PlayButtonSound();
+        }
     }
 
-    public void SetSwitchValue(bool value) 
+    public void SetSwitchValue(bool value)
     {
         toggle = value;
 
@@ -61,7 +64,7 @@ public class MouseInteractableSwitch : MouseInteractable
 
     private void PlayButtonSound()
     {
-        if (ButtonAudio == null) 
+        if (ButtonAudio == null)
         {
             return;
         }

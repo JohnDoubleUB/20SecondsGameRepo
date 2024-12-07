@@ -12,37 +12,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4265a041954897941afec871c608473b, type: 3}
   m_Name: Crt
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   scanlinesWeight:
     m_OverrideState: 1
-    m_Value: 1.94
+    m_Value: 1.59
   noiseWeight:
     m_OverrideState: 1
-    m_Value: -3.71
+    m_Value: 1.41
   screenBendX:
     m_OverrideState: 1
-    m_Value: 3
+    m_Value: 20
   screenBendY:
     m_OverrideState: 1
-    m_Value: 3.78
+    m_Value: 20
   vignetteAmount:
     m_OverrideState: 1
-    m_Value: 1.22
+    m_Value: 0
   vignetteSize:
     m_OverrideState: 1
-    m_Value: 1.68
+    m_Value: 0
   vignetteRounding:
     m_OverrideState: 1
-    m_Value: 7.91
+    m_Value: 1
   vignetteSmoothing:
     m_OverrideState: 1
-    m_Value: 0.4
+    m_Value: 0.34
   scanlinesDensity:
     m_OverrideState: 1
-    m_Value: 201.4
+    m_Value: 1
   scanlinesSpeed:
     m_OverrideState: 1
-    m_Value: 201.4
+    m_Value: 1
   noiseAmount:
     m_OverrideState: 1
     m_Value: 250
@@ -57,10 +57,10 @@ MonoBehaviour:
     m_Value: {x: 0, y: 0}
   grilleOpacity:
     m_OverrideState: 1
-    m_Value: 0.2
+    m_Value: 0
   grilleCounterOpacity:
     m_OverrideState: 1
-    m_Value: 0.93
+    m_Value: 0.12
   grilleResolution:
     m_OverrideState: 1
     m_Value: 640
@@ -91,7 +91,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35a1bd58dd7548198609eabd8ae2bb7d, type: 3}
   m_Name: Pixelation
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   widthPixelation:
     m_OverrideState: 1
     m_Value: 256
@@ -100,7 +100,7 @@ MonoBehaviour:
     m_Value: 256
   colorPrecision:
     m_OverrideState: 1
-    m_Value: 15
+    m_Value: 40
 --- !u!114 &-758010384845797820
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -119,13 +119,13 @@ MonoBehaviour:
     m_Value: 1
   ditherThreshold:
     m_OverrideState: 1
-    m_Value: 3.53
+    m_Value: 2.66
   ditherStrength:
     m_OverrideState: 0
-    m_Value: 1.37
+    m_Value: 2.66
   ditherScale:
     m_OverrideState: 1
-    m_Value: 4.67
+    m_Value: 7.46
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0

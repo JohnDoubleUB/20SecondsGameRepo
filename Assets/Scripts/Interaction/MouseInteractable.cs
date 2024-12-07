@@ -14,7 +14,19 @@ public class MouseInteractable : MonoBehaviour
         }
     }
 
-    protected virtual void OnInteract(bool value) 
+    public void ResetInteractable() 
+    {
+        Interact(false);
+        OnResetInteractable();
+    }
+
+    protected virtual void OnResetInteractable() 
+    {
+
+    }
+
+    //TODO: May be a sound or two that isn't effected not sure, probably buttons (triggerByReset)
+    protected virtual void OnInteract(bool value, bool triggeredByReset = false) 
     {
 
     }
