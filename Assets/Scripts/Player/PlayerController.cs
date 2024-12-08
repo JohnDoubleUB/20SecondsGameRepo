@@ -8,6 +8,8 @@ using static UnityEngine.InputSystem.InputAction;
 
 public class PlayerController : MonoBehaviour
 {
+    private Vector3 InitialPosition;
+
     public static PlayerController current;
 
     public delegate void SkipButtonPressed();
@@ -44,6 +46,11 @@ public class PlayerController : MonoBehaviour
         {
             return ValidPuzzleArea();
         }
+    }
+
+    public void ResetPosition() 
+    {
+        transform.position = InitialPosition;
     }
 
     public void DisablePlayerInput(bool value) 
@@ -116,6 +123,8 @@ public class PlayerController : MonoBehaviour
     {
         if (current != null) Debug.LogWarning("Oops! it looks like there might already be a " + GetType().Name + " in this scene!");
         current = this;
+
+        InitialPosition = transform.position;
     }
 
     void Start()
