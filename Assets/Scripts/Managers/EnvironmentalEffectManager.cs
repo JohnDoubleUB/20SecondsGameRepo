@@ -5,6 +5,24 @@ public class EnvironmentalEffectManager : MonoBehaviour
     public static EnvironmentalEffectManager current;
 
     [SerializeField]
+    private ReactiveCageLight[] CageLights;
+
+    private Material CageLightMaterial;
+
+    [SerializeField]
+    [ColorUsage(true, true)]
+    private Color CageLightDefaultColor = Color.white;
+
+    [SerializeField]
+    [ColorUsage(true, true)]
+    private Color CageLightMinColor = Color.white;
+
+    [SerializeField]
+    [ColorUsage(true, true)]
+    private Color CageLightMaxColor = Color.red;
+
+
+    [SerializeField]
     private float SineFrequency = 5f;
 
     [SerializeField]
@@ -32,6 +50,7 @@ public class EnvironmentalEffectManager : MonoBehaviour
         Timer = 0;
         EnableFog(enable, clearParticlesImmediate);
         DirectionalLight.color = LightDefaultColor;
+        SetCageLightColor(CageLightDefaultColor);
     }
 
     private void Awake()
@@ -40,6 +59,30 @@ public class EnvironmentalEffectManager : MonoBehaviour
         current = this;
 
         EnableFog(false);
+
+        InitializeCageLights();
+    }
+
+    private void InitializeCageLights() 
+    {
+        if(CageLights.Length < 1) 
+        {
+            return;
+        }
+
+        CageLightMaterial = CageLights[0].Renderer.material;
+
+        foreach(ReactiveCageLight cageLight in CageLights) 
+        {
+            cageLight.Renderer.material = CageLightMaterial;
+        }
+
+        SetCageLightColor(CageLightDefaultColor);
+    }
+
+    private void SetCageLightColor(Color color) 
+    {
+        CageLightMaterial.SetColor("_EmissionColor", color);
     }
 
     private void Update()
@@ -56,6 +99,7 @@ public class EnvironmentalEffectManager : MonoBehaviour
         float normalizedValue = (sineValue + 1f) / 2f;
 
         DirectionalLight.color = Color.Lerp(LightColorMin, LightColorMax, normalizedValue);
+        SetCageLightColor(Color.Lerp(CageLightMinColor, CageLightMaxColor, normalizedValue));
         //float currentValue = Mathf.Lerp(0, 1, normalizedValue);
 
     }
