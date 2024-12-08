@@ -989,7 +989,7 @@ MonoBehaviour:
   ShouldShowCodepart: 0
   CompletingShouldFinishGame: 1
   CodeIsValid: 0
-  SuccessMessage: Deactivating!
+  SuccessMessage: Correct!
   DeniedMessage: Incorrect!
   MessageDisplayTime: 0.5
   PasswordGapCharacter: 95
