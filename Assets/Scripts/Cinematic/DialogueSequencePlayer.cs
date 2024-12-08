@@ -198,18 +198,18 @@ public class DialogueSequencePlayer : MonoBehaviour
         TextAnimator.Play("Appear", 0);
         SetDialogueText(dialogue.Line);
 
-        Debug.Log("Set Dialogue: " + dialogue.Line);
+        //Debug.Log("Set Dialogue: " + dialogue.Line);
 
         if (SetDialogueLineAudio(dialogue.Audio)) 
         {
             DialogueTimer = dialogue.EndDelay;
-            Debug.Log("Dialogue Time: " + DialogueTimer);
+            //Debug.Log("Dialogue Time: " + DialogueTimer);
             return;
         }
 
         DialogueTimer = (dialogue.Line.Split(' ').Length * section.TimePerWord) + dialogue.EndDelay;
 
-        Debug.Log("Dialogue Time: " + DialogueTimer);
+        //Debug.Log("Dialogue Time: " + DialogueTimer);
 
     }
 
