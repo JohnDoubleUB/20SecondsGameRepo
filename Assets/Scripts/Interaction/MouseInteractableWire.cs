@@ -102,7 +102,7 @@ public class MouseInteractableWire : MouseInteractable
             return;
         }
 
-        Debug.Log("Reset because not connected!");
+        //Debug.Log("Reset because not connected!");
 
         ResetCable();
     }

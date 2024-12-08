@@ -148,7 +148,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 53
+  controlID: 163
   draggingID: 0
 --- !u!114 &7
 MonoBehaviour:
@@ -174,7 +174,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 54
+  controlID: 53
   draggingID: 0
 --- !u!114 &8
 MonoBehaviour:
@@ -200,7 +200,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 50}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 55
+  controlID: 54
   draggingID: 0
 --- !u!114 &9
 MonoBehaviour:
@@ -252,7 +252,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 50}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 120
+  controlID: 127
   draggingID: 0
 --- !u!114 &11
 MonoBehaviour:
@@ -2292,7 +2292,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 760bcbfff4c9cbff768fccffe090ccff9a93ccff78a6ccffd2cfccff3a60faff8260faff86cafaff12cbfaff18cbfaff38cbfaff3ccbfaff54cbfaff60cbfaff64cbfaff7ccbfaff88cbfaff8ccbfaffa4cbfaffb0cbfaffb4cbfaffcccbfaffd0cbfaff62effcffeefafffff0ac000078f50000faf50000860f0100b66e05000290050016910500
+      m_ExpandedIDs: ecc9ffff56cbffff1ccefffff2e0fffffafaffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -2587,7 +2587,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Textures/tomb/tomb_plaque
+    - Assets
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -2597,15 +2597,15 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Textures/tomb/tomb_plaque
+  - Assets
   m_LastFoldersGridSize: 16
   m_LastProjectPath: E:\UnityProjects\20SecondsGame
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 684}
-    m_SelectedIDs: 08ca0000
-    m_LastClickedID: 51720
+    scrollPos: {x: 0, y: 79}
+    m_SelectedIDs: 50c90000
+    m_LastClickedID: 51536
     m_ExpandedIDs: 000000003cc900003ec9000040c9000042c9000044c9000046c9000048c900004ac900004cc900004ec9000050c9000052c90000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -2663,7 +2663,7 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 1
+    m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: c6230000547700004e88000070900000689000003ee90000a4a5010082e8000026990000388c0000929f0000428c000016e801002e9900004607000088aa00005aac0000feaa00005c6d020000000000aac70000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -2689,7 +2689,7 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
     m_NewAssetIndexInList: -1
-    m_ScrollPosition: {x: 0, y: 0}
+    m_ScrollPosition: {x: 0, y: 251.5}
     m_GridSize: 16
   m_SkipHiddenPackages: 0
   m_DirectoriesAreaWidth: 141
