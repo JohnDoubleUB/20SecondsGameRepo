@@ -231,6 +231,7 @@ public class GameManager : MonoBehaviour
         ResetPlayerToStart();
 
         PlayerController.current.SetInGame(false);
+        PlayerController.current.ResetPosition();
 
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
