@@ -35,7 +35,6 @@ Transform:
   - {fileID: 3262737664964632433}
   - {fileID: 6184890228260258744}
   - {fileID: 6254009483555107016}
-  - {fileID: 7364640302134206504}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3991798543303866825
@@ -50,10 +49,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21319ef953721384db71253d3d2cfc30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OffBackgroundColor: {r: 0.13207546, g: 0.13207546, b: 0.13207546, a: 1}
+  OnBackgroundColor: {r: 1.6415094, g: 1.5723661, b: 0.19357419, a: 1}
   StartPoint: {fileID: 3262737664964632433}
   EndPoint: {fileID: 6184890228260258744}
   Needle: {fileID: 5519368920360442153}
   NeedlePosition: 0.5
+  LightRenderer: {fileID: 5080509675483827111}
 --- !u!1 &3914350904985681547
 GameObject:
   m_ObjectHideFlags: 0
@@ -415,7 +417,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: d66dc3f16ecc9f1479e892451c181da6, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: d4a7c4fb452531e49a8a8432d2bbf8aa, type: 2}
+      objectReference: {fileID: 2100000, guid: b4e9557df6c98f648a07a26cd27520ee, type: 2}
     - target: {fileID: 919132149155446097, guid: d66dc3f16ecc9f1479e892451c181da6, type: 3}
       propertyPath: m_Name
       value: breaker_radio_panel
@@ -425,86 +427,13 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d66dc3f16ecc9f1479e892451c181da6, type: 3}
+--- !u!23 &5080509675483827111 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: d66dc3f16ecc9f1479e892451c181da6, type: 3}
+  m_PrefabInstance: {fileID: 5854693809358935843}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6254009483555107016 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: d66dc3f16ecc9f1479e892451c181da6, type: 3}
   m_PrefabInstance: {fileID: 5854693809358935843}
-  m_PrefabAsset: {fileID: 0}
---- !u!1001 &7043291342335723459
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 6433499377542648419}
-    m_Modifications:
-    - target: {fileID: -8679921383154817045, guid: 401a46accc6a50547937c44c405e58c0, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.06550806
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 401a46accc6a50547937c44c405e58c0, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.06550806
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 401a46accc6a50547937c44c405e58c0, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.055680588
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 401a46accc6a50547937c44c405e58c0, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.0211
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 401a46accc6a50547937c44c405e58c0, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 401a46accc6a50547937c44c405e58c0, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 401a46accc6a50547937c44c405e58c0, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 401a46accc6a50547937c44c405e58c0, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 401a46accc6a50547937c44c405e58c0, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 401a46accc6a50547937c44c405e58c0, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 401a46accc6a50547937c44c405e58c0, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 401a46accc6a50547937c44c405e58c0, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 401a46accc6a50547937c44c405e58c0, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: 401a46accc6a50547937c44c405e58c0, type: 3}
-      propertyPath: m_Name
-      value: breaker_radio_display
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: 401a46accc6a50547937c44c405e58c0, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 401a46accc6a50547937c44c405e58c0, type: 3}
---- !u!4 &7364640302134206504 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 401a46accc6a50547937c44c405e58c0, type: 3}
-  m_PrefabInstance: {fileID: 7043291342335723459}
   m_PrefabAsset: {fileID: 0}
