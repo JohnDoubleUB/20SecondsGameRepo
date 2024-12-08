@@ -14,22 +14,49 @@ public class IndicatorLight : MonoBehaviour
     public bool blink = true;
 
     [SerializeField]
-    private Material Red;
-    [SerializeField]
-    private Material Green;
-    [SerializeField]
-    private Material Blue;
-    [SerializeField]
-    private Material Yellow;
-    [SerializeField]
-    private Material None;
+    [ColorUsage(true, true)]
+    private Color NoneColor = Color.grey;
 
     [SerializeField]
-    private MeshRenderer Renderer;
+    [ColorUsage(true, true)]
+    private Color RedColor = Color.red;
+
+    [SerializeField]
+    [ColorUsage(true, true)]
+    private Color GreenColor = Color.green;
+
+    [SerializeField]
+    [ColorUsage(true, true)]
+    private Color YellowColor = Color.yellow;
+
+    [SerializeField]
+    [ColorUsage(true, true)]
+    private Color BlueColor = Color.blue;
+
+    [SerializeField]
+    private MeshRenderer LightRenderer;
+
+    private Material LightMaterial;
 
     private float interval = 0;
 
     public bool isOn { get; private set; }
+
+    private void Awake()
+    {
+        if (LightRenderer == null) 
+        {
+            return;
+        }
+
+        LightMaterial = LightRenderer.material;
+        SetLightColor(NoneColor);
+    }
+
+    private void SetLightColor(Color color) 
+    {
+        LightMaterial.SetColor("_EmissionColor", color);
+    }
 
     private void Update()
     {
@@ -43,11 +70,8 @@ public class IndicatorLight : MonoBehaviour
             interval -= Time.deltaTime;
             return;
         }
-        
-        if(Renderer.material != None) 
-        {
-            Renderer.material = None;
-        }
+
+        SetLightColor(NoneColor);
     }
     public LightColor StringToLight(char color)
     {
@@ -78,23 +102,23 @@ public class IndicatorLight : MonoBehaviour
         switch (color)
         {
             case LightColor.None:
-                Renderer.material = None;
+                SetLightColor(NoneColor);
                 isOn = false;
                 break;
             case LightColor.Red:
-                Renderer.material = Red;
+                SetLightColor(RedColor);
                 isOn = true;
                 break;
             case LightColor.Green:
-                Renderer.material = Green;
+                SetLightColor(GreenColor);
                 isOn = true;
                 break;
             case LightColor.Blue:
-                Renderer.material = Blue;
+                SetLightColor(BlueColor);
                 isOn = true;
                 break;
             case LightColor.Yellow:
-                Renderer.material = Yellow;
+                SetLightColor(YellowColor);
                 isOn = true;
                 break;
         }
