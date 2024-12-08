@@ -189,6 +189,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1e0371dc0c6cf34abf531df590eb888, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Area: {fileID: 0}
   SuccessParticleSystem: {fileID: 6014967823455351222}
   SuccessPlayer: {fileID: -353639061867499265}
   Displayer: {fileID: 846283656410563331}

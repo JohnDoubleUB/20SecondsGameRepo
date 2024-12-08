@@ -187,11 +187,11 @@ public class GameManager : MonoBehaviour
 
         NotifyOfCodeUpdate();
 
-        Debug.Log("Codes! " + string.Join(", ", SessionData.GetAllCodes()));
+        //Debug.Log("Codes! " + string.Join(", ", SessionData.GetAllCodes()));
 
         string completeCode = SessionData.GetCompleteCode();
 
-        Debug.Log("Complete Code! " + completeCode);
+        //Debug.Log("Complete Code! " + completeCode);
 
         if (KeyPad != null)
         {
@@ -367,7 +367,7 @@ public class GameManager : MonoBehaviour
 
         PlayerCharacter.current.PlayDeath(true);
         RestartTimer = TimeBetweenRestarts;
-        Debug.Log("Restart timer is " + RestartTimer);
+        //Debug.Log("Restart timer is " + RestartTimer);
     }
 
     public void ResetAllPuzzles() 

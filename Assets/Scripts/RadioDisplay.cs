@@ -1,7 +1,18 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class RadioDisplay : MonoBehaviour
 {
+    [SerializeField]
+    [ColorUsage(true, true)]
+    private Color OffBackgroundColor = Color.grey;
+
+    [SerializeField]
+    [ColorUsage(true, true)]
+    private Color OnBackgroundColor = Color.red;
+
+    private bool On;
+
     [SerializeField]
     Transform StartPoint;
 
@@ -15,6 +26,33 @@ public class RadioDisplay : MonoBehaviour
     private float NeedlePosition = 0.5f;
 
     private float needlePositionLastFrame = 0;
+
+    [SerializeField]
+    private MeshRenderer LightRenderer;
+
+    private Material LightMaterial;
+
+    private void Awake()
+    {
+        if (LightRenderer == null)
+        {
+            return;
+        }
+
+        LightMaterial = LightRenderer.material;
+        SetLightColor(OffBackgroundColor);
+    }
+
+    private void SetLightColor(Color color)
+    {
+        LightMaterial.SetColor("_EmissionColor", color);
+    }
+
+    public void SetOn(bool on) 
+    {
+        On = on;
+        SetLightColor(On ? OnBackgroundColor : OffBackgroundColor);
+    }
 
     public float GetNeedlePosition() 
     {
