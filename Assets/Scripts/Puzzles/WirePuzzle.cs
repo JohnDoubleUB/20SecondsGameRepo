@@ -25,6 +25,19 @@ public class WirePuzzle : Puzzle
         }
     }
 
+    protected override void OnPuzzleBecameActive(bool active)
+    {
+        if (active) 
+        {
+            return;
+        }
+
+        foreach (MouseInteractableWire wire in Wires)
+        {
+            wire.ResetIfNotConnnected();
+        }
+    }
+
     protected override void OnReset()
     {
         if (Panel != null) 

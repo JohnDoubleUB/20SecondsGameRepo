@@ -22,7 +22,7 @@ public class SessionData
 
     //Simon says
     public string AllowedSimonSaysColors = "RGBY";//'RGYBR'
-    public int SimonSaysCount = 5;
+    public int SimonSaysCount = 3;
 
     //Switch count
     public int EnabledSwitchCount = 2;

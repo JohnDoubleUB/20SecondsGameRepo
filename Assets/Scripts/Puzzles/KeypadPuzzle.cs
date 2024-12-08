@@ -32,8 +32,9 @@ public class KeypadPuzzle : Puzzle
 
     private float timer = 0;
 
-    public void Awake()
+    protected new void Awake()
     {
+        base.Awake();
         SetPassword("1234");
 
         if(KeypadButtons == null) 

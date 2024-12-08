@@ -1,10 +1,18 @@
 using UnityEngine;
+using UnityEngine.Audio;
+
 public class MouseInteractableLock : MouseInteractable
 {
     private string LockValue;
     public Puzzle PuzzleBrain;
 
     private bool Unlocked = false;
+
+    [SerializeField]
+    AudioResource LockedSound;
+
+    [SerializeField]
+    AudioResource UnlockedSound;
 
     [SerializeField]
     AudioSource LockAudioSource;
@@ -35,6 +43,8 @@ public class MouseInteractableLock : MouseInteractable
             return;
         }
 
+        LockAudioSource.resource = LockedSound;
+        LockAudioSource.Play();
         LockAnimator.Play("Shake", 0);
 
         if (LockAudioSource != null)
@@ -49,6 +59,9 @@ public class MouseInteractableLock : MouseInteractable
         {
             return;
         }
+
+        LockAudioSource.resource = UnlockedSound;
+        LockAudioSource.Play();
 
         Unlocked = value;
         LockAnimator.Play(value ? "Unlock" : "Locked");

@@ -4,10 +4,22 @@ using UnityEngine;
 public class Puzzle : MonoBehaviour
 {
     [SerializeField]
+    private PuzzleArea Area;
+
+    [SerializeField]
+    protected ParticleSystem SuccessParticleSystem;
+
+    [SerializeField]
+    protected AudioSource SuccessPlayer;
+
+    [SerializeField]
     protected CodeDisplayer Displayer;
 
     [SerializeField]
     protected bool ShouldShowCodepart = true;
+
+    [SerializeField]
+    private bool CompletingShouldFinishGame = false;
 
     protected string PuzzleCode = null;
     public int PuzzleIndex { get; private set; } = -1;
@@ -19,14 +31,37 @@ public class Puzzle : MonoBehaviour
 
         if (PuzzleCompleted)
         {
-            if(!ShouldShowCodepart) 
+            if (!ShouldShowCodepart)
             {
+                SuccessPlayer.Play();
+
+                if (SuccessParticleSystem != null) 
+                {
+                    SuccessParticleSystem.Play();
+                }
+
+                if (CompletingShouldFinishGame) 
+                {
+                    GameManager.current.CompleteGame();
+                }
+
                 return;
             }
 
-            if (PuzzleCode == null && GameManager.current.SessionData.TryGetNextUnusedCode(out string code))
+            if (PuzzleCode == null && GameManager.current.TryGetNextUnusedCode(out string code))
             {
                 PuzzleCode = code;
+
+                if (SuccessPlayer != null) 
+                {
+                    SuccessPlayer.Play();
+                }
+
+                if (SuccessParticleSystem != null) 
+                {
+                    SuccessParticleSystem.Play();
+                }
+
                 Displayer.SetText(code);
             }
         }
@@ -36,6 +71,17 @@ public class Puzzle : MonoBehaviour
             Displayer.SetText("");
         }
     }
+
+    public void PuzzleBecameActive(bool active) 
+    {
+        OnPuzzleBecameActive(active);
+    }
+
+    protected virtual void OnPuzzleBecameActive(bool active) 
+    {
+        
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -46,6 +92,14 @@ public class Puzzle : MonoBehaviour
     void Update()
     {
         
+    }
+
+    protected void Awake()
+    {
+        if (Area != null) 
+        {
+            Area.OnPlayerInteractUpdate += PuzzleBecameActive;
+        }
     }
 
     public virtual void ButtonValue(string value)
@@ -80,6 +134,11 @@ public class Puzzle : MonoBehaviour
 
     public virtual void FullReset() 
     {
+        if (SuccessPlayer != null) 
+        {
+            SuccessPlayer.Stop();
+        }
+
         PuzzleCode = null;
         Displayer.SetText("");
         PuzzleCompleted = false;

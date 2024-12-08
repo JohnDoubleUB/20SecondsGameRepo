@@ -6,6 +6,7 @@ public class AudioManager : MonoBehaviour
     public static AudioManager current;
     public float SoundVolumeMultiplier = 1;
     public AudioMixer AudioMixer;
+    public AudioMixerGroup DefaultAudioMixerGroup;
 
     public float pitchVariation = 0.2f;
 
@@ -54,6 +55,7 @@ public class AudioManager : MonoBehaviour
         newTempObject.Source.clip = clip; // define the clip
         newTempObject.Source.pitch = pitch;
         newTempObject.Source.volume = volume * SoundVolumeMultiplier;
+        newTempObject.Source.outputAudioMixerGroup = DefaultAudioMixerGroup;
 
         newTempObject.Source.PlayDelayed(delayInSeconds); // start the sound
         Destroy(newTempObject.gameObject, clip.length + delayInSeconds); // destroy object after clip duration

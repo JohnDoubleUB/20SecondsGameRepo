@@ -145,6 +145,7 @@ public class RadioPuzzle : Puzzle
     {
         PuzzleOn = value;
         OnLight.SetLight(PuzzleOn ? LightColor.Green : LightColor.None, 0);
+        RadioDisplay.SetOn(PuzzleOn);
         SetCompleteLight();
 
         NoiseAudioSource.mute = !PuzzleOn;
