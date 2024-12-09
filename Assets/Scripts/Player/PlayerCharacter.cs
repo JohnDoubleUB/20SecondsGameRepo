@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class PlayerCharacter : MonoBehaviour
@@ -41,6 +40,22 @@ public class PlayerCharacter : MonoBehaviour
     private bool isCrouching;
     private bool groundedLastFrame;
 
+    private bool isDead = true;
+
+    public void PlayDeath(bool value) 
+    {
+        isDead = value;
+
+        if (value) 
+        {
+
+            PlayAnimation("Death");
+            return;
+        }
+
+        PlayAnimation("Idle");
+    }
+
     public void PlayAnimation(string name)
     {
         CameraAnimator.Play(name, 0);
@@ -48,7 +63,7 @@ public class PlayerCharacter : MonoBehaviour
 
     public bool CanPlayerLook() 
     { 
-        return !PlayerController.PuzzleAreaActive;
+        return !PlayerController.PuzzleAreaActive && !isDead;
     }
 
     public Vector2 GetCharacterRotation()
@@ -99,7 +114,7 @@ public class PlayerCharacter : MonoBehaviour
                 isJumping = false;
             }
 
-            if (PlayerController.ControllerInput.Player.Jump.triggered)
+            if (PlayerController.current.JumpTriggered())
             {
                 moveDirection.y = JumpSpeed;
                 isJumping = true;
@@ -153,29 +168,19 @@ public class PlayerCharacter : MonoBehaviour
         return newMoveDirection;
     }
 
-    private void OnMovementPerformed(InputAction.CallbackContext callbackContext)
-    {
-        MoveVector = callbackContext.ReadValue<Vector2>();
-    }
 
-    private void OnMovementCanceled(InputAction.CallbackContext callbackContext)
+    public void Movement(Vector2 value)
     {
-        MoveVector = callbackContext.ReadValue<Vector2>();
-    }
-
-    private void OnLookPerformed(InputAction.CallbackContext callbackContext)
-    {
-        if(!CanPlayerLook())
+        if (isDead)
         {
-            LookVector = Vector2.zero;
+            MoveVector = Vector2.zero;
             return;
         }
 
-        Vector2 v = callbackContext.ReadValue<Vector2>();
-        LookVector = new Vector2(v.y, v.x);
+        MoveVector = value;
     }
 
-    private void OnLookCanceled(InputAction.CallbackContext callbackContext)
+    public void Look(Vector2 value)
     {
         if (!CanPlayerLook())
         {
@@ -183,49 +188,12 @@ public class PlayerCharacter : MonoBehaviour
             return;
         }
 
-        Vector2 v = callbackContext.ReadValue<Vector2>();
-        LookVector = new Vector2(v.y, v.x);
+        LookVector = value;
     }
 
     public void InitializeBind(PlayerController playerController)
     {
         PlayerController = playerController;
-
-        PlayerController.ControllerInput.Player.Move.performed += OnMovementPerformed;
-        PlayerController.ControllerInput.Player.Move.canceled += OnMovementCanceled;
-
-        PlayerController.ControllerInput.Player.Look.performed += OnLookPerformed;
-        PlayerController.ControllerInput.Player.Look.canceled += OnLookCanceled;
-
-        //PlayerController.ControllerInput.Player.Movement.performed += OnMovementPerformed;
-        //PlayerController.ControllerInput.Player.Movement.canceled += OnMovementCanceled;
-
-        //PlayerController.ControllerInput.Player.Look.performed += OnLookPerformed;
-        //PlayerController.ControllerInput.Player.Look.canceled += OnLookCanceled;
-
-        //PlayerController.ControllerInput.Player.ReloadLeft.performed += OnReloadLeftPerformed;
-        //PlayerController.ControllerInput.Player.ReloadRight.performed += OnReloadRightPerformed;
-
-        //PlayerController.ControllerInput.Player.Fire.performed += OnFireRightPerformed;
-        //PlayerController.ControllerInput.Player.Fire.canceled += OnCancelRight;
-
-        //PlayerController.ControllerInput.Player.AltFire.performed += OnFireLeftPerformed;
-        //PlayerController.ControllerInput.Player.AltFire.canceled += OnCancelLeft;
-
-        //PlayerController.ControllerInput.Player.Interact.performed += OnInteractPerformed;
-
-        //PlayerController.ControllerInput.Player.SwitchItems.performed += OnSwitchItemsPerformed;
-        //PlayerController.ControllerInput.Player.DropSelected.performed += OnDropSelectedItemPerformed;
-
-        //PlayerController.ControllerInput.Player.ToggleEquipment.performed += OnToggleEquipmentPerformed;
-        //PlayerController.ControllerInput.Player.DropSelectedEquipment.performed += OnDropSelectedEquipmentPerformed;
-
-        //PlayerController.ControllerInput.Player.Back.performed += OnBackPerformed;
-
-        //Keyboard.current.onTextInput += OnTextInput;
-
-        ////Interactor binds
-        //Interactor.OnInteractableChanged += OnInteractableChanged;
     }
 
     public void UninitializeBind()
@@ -234,42 +202,6 @@ public class PlayerCharacter : MonoBehaviour
         {
             return;
         }
-
-        PlayerController.ControllerInput.Player.Move.performed -= OnMovementPerformed;
-        PlayerController.ControllerInput.Player.Move.canceled -= OnMovementCanceled;
-
-        PlayerController.ControllerInput.Player.Look.performed -= OnLookPerformed;
-        PlayerController.ControllerInput.Player.Look.canceled -= OnLookCanceled;
-
-        //PlayerController.ControllerInput.Player.Movement.performed += OnMovementPerformed;
-        //PlayerController.ControllerInput.Player.Movement.canceled += OnMovementCanceled;
-
-        //PlayerController.ControllerInput.Player.Look.performed += OnLookPerformed;
-        //PlayerController.ControllerInput.Player.Look.canceled += OnLookCanceled;
-
-        //PlayerController.ControllerInput.Player.ReloadLeft.performed += OnReloadLeftPerformed;
-        //PlayerController.ControllerInput.Player.ReloadRight.performed += OnReloadRightPerformed;
-
-        //PlayerController.ControllerInput.Player.Fire.performed += OnFireRightPerformed;
-        //PlayerController.ControllerInput.Player.Fire.canceled += OnCancelRight;
-
-        //PlayerController.ControllerInput.Player.AltFire.performed += OnFireLeftPerformed;
-        //PlayerController.ControllerInput.Player.AltFire.canceled += OnCancelLeft;
-
-        //PlayerController.ControllerInput.Player.Interact.performed += OnInteractPerformed;
-
-        //PlayerController.ControllerInput.Player.SwitchItems.performed += OnSwitchItemsPerformed;
-        //PlayerController.ControllerInput.Player.DropSelected.performed += OnDropSelectedItemPerformed;
-
-        //PlayerController.ControllerInput.Player.ToggleEquipment.performed += OnToggleEquipmentPerformed;
-        //PlayerController.ControllerInput.Player.DropSelectedEquipment.performed += OnDropSelectedEquipmentPerformed;
-
-        //PlayerController.ControllerInput.Player.Back.performed += OnBackPerformed;
-
-        //Keyboard.current.onTextInput += OnTextInput;
-
-        ////Interactor binds
-        //Interactor.OnInteractableChanged += OnInteractableChanged;
     }
 
     private void OnDestroy()

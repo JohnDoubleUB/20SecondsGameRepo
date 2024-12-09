@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using TMPro;
+using UIManagerLibrary.Scripts;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,6 +9,9 @@ using UnityEngine.UI;
 public class UIElementManager : MonoBehaviour
 {
     public static UIElementManager current;
+
+    [SerializeField]
+    private DialogueSequenceData IntroSequence;
 
     public TextMeshProUGUI TimerText;
 
@@ -27,10 +31,6 @@ public class UIElementManager : MonoBehaviour
 
     private List<UIItem> SpawnedUIItems = new List<UIItem>();
 
-    public char PasswordGapCharacter = '_';
-
-    private string CurrentCode = string.Empty;
-
     public Color DeathStaticColor;
 
     private void Awake()
@@ -38,6 +38,8 @@ public class UIElementManager : MonoBehaviour
         if (current != null) Debug.LogWarning("Oops! it looks like there might already be a " + GetType().Name + " in this scene!");
         current = this;
     }
+
+    
 
     public void ToggleCodeDisplayCenter(bool center)
     {
@@ -64,31 +66,6 @@ public class UIElementManager : MonoBehaviour
         }
 
         UpdateStaticColor();
-
-        if (GameManager.current.SessionData == null)
-        {
-            if (!string.IsNullOrEmpty(CurrentCode)) 
-            {
-                CurrentCode = string.Empty;
-            }
-            
-            return;
-        }
-
-        if (CurrentCode != GameManager.current.SessionData.CurrentCode) 
-        {
-            CurrentCode = GameManager.current.SessionData.CurrentCode;
-            
-            string value = CurrentCode.PadRight(
-                    GameManager.current.SessionData.CodeCount * GameManager.current.SessionData.CodeLength,
-                    PasswordGapCharacter
-                    );
-
-
-
-            CodeText.text = value;
-            CodeText2.text = value;
-        }
     }
 
     private void Start()
@@ -114,11 +91,22 @@ public class UIElementManager : MonoBehaviour
         }
 
         PlayerController.current.PickupInteractor.OnInteractingItemUpdate += OnInteractingItemUpdate;
+
+        GameManager.current.OnCurrentCodeUpdate += OnCurrentCodeUpdate;
+    }
+
+    private void OnCurrentCodeUpdate(string currentCodeUpdate)
+    {
+        CodeText.text = currentCodeUpdate;
+        CodeText2.text = currentCodeUpdate;
     }
 
     public void PlayGame() 
     {
-        GameManager.current.StartGame();
+        GameManager.current.StopOutroAmbience();
+        UIManager.current.SetActiveContexts(false, true, "Menu");
+        DialogueSequencePlayer.current.StartDialogueSequence(IntroSequence, () => { GameManager.current.StartGame(); });
+        //GameManager.current.StartGame();
     }
 
     private void OnResetInventory()
@@ -151,8 +139,6 @@ public class UIElementManager : MonoBehaviour
 
     private void OnItemsHeldUpdate(PickedUpItem item, bool pickupOrDrop)
     {
-        //This is where the items that are picked up would be made to appear in the hud OR be removed from it
-
         if (pickupOrDrop) 
         {
             SpawnNewUIItem(item);
@@ -191,6 +177,8 @@ public class UIElementManager : MonoBehaviour
     public void Quit() 
     {
         //TODO: Implement return to menu
+        GameManager.current.QuitToMenu();
+
     }
 
     private void OnDestroy()

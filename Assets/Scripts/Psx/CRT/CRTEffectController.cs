@@ -36,6 +36,17 @@ public class CRTEffectController : MonoBehaviour
     [SerializeField] protected float grilleUvRotation = (90.0f);
     [SerializeField] protected float grilleUvMidPoint = 0.5f;
     [SerializeField] protected Vector3 grilleShift = new Vector3(1.0f, 1.0f, 1.0f);
+
+    public void SetScreenBend(float value) 
+    {
+        screenBendX = value;
+        screenBendY = value;
+    }
+
+    public void SetVignetteAmount(float value) 
+    {
+        vignetteAmount = value;
+    }
     
     protected void Update()
     {

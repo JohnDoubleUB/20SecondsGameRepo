@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class PuzzleArea : MonoBehaviour
 {
+    public delegate void PlayerInteractUpdate(bool interacting);
+    public event PlayerInteractUpdate OnPlayerInteractUpdate;
+
     public Transform PuzzleCameraTransform;
 
     public bool EnableCenteredCode = false;
@@ -26,6 +29,8 @@ public class PuzzleArea : MonoBehaviour
         {
             UIElementManager.current.ToggleCodeDisplayCenter(true);
         }
+
+        OnPlayerInteractUpdate?.Invoke(true);
     }
 
     private void OnTriggerExit(Collider other)
@@ -36,5 +41,7 @@ public class PuzzleArea : MonoBehaviour
         {
             UIElementManager.current.ToggleCodeDisplayCenter(false);
         }
+
+        OnPlayerInteractUpdate?.Invoke(false);
     }
 }

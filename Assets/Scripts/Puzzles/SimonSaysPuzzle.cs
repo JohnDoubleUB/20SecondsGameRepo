@@ -16,7 +16,7 @@ public class SimonSaysPuzzle : Puzzle
     private string CurrentCode = "";
     private int CurrentIndex = 0;
 
-    private float interval = 1.5f;
+    private float interval = 0.7f;
 
     private float timer = 0;
 
@@ -135,6 +135,12 @@ public class SimonSaysPuzzle : Puzzle
         if (Panel != null)
         {
             Panel.ResetInteractable();
+        }
+
+        foreach (IndicatorLight l in IndicatorLight)
+        {
+            l.blink = true;
+            l.SetLight(LightColor.None, 1);
         }
     }
 

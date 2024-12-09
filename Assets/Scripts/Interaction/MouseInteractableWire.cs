@@ -95,6 +95,18 @@ public class MouseInteractableWire : MouseInteractable
         ResetCable();
     }
 
+    public void ResetIfNotConnnected()
+    {
+        if (ConnectedIndex != -1 && ConnectionPoints != null)
+        {
+            return;
+        }
+
+        Debug.Log("Reset because not connected!");
+
+        ResetCable();
+    }
+
     private void BreakConnection(bool playSound = true) 
     {
         if (ConnectedIndex != -1 && ConnectionPoints != null)

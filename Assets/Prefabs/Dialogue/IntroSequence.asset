@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac6fd355d7de447478dc05a16964263d, type: 3}
+  m_Name: IntroSequence
+  m_EditorClassIdentifier: 
+  SequenceName: Intro
+  skippableIfSeenBefore: 1
+  skippable: 0
+  DialogueSections:
+  - StopPreviousSectionAudio: 0
+    TimePerWord: 0.5
+    LoopAudioResources: 0
+    AudioResources:
+    - Resource: {fileID: 8300000, guid: 2fcf27079092c2944a80c79f08f92d0d, type: 3}
+      Pitch: 1
+    - Resource: {fileID: 8300000, guid: be43178de428a3d42bc8ea416fbb8635, type: 3}
+      Pitch: 1
+    DialogueLines:
+    - Line: I don't think anyones been down here in decades.
+      Audio: {fileID: 0}
+      EndDelay: 1
+    - Line: why do they want me to clean this?
+      Audio: {fileID: 0}
+      EndDelay: 1
+    - Line: I don't get paid enough for this.
+      Audio: {fileID: 0}
+      EndDelay: 1
+  - StopPreviousSectionAudio: 0
+    TimePerWord: 0.5
+    LoopAudioResources: 1
+    AudioResources: []
+    DialogueLines:
+    - Line: ...
+      Audio: {fileID: 0}
+      EndDelay: 1
+    - Line: Well here I am, where do I..
+      Audio: {fileID: 0}
+      EndDelay: 1
+  - StopPreviousSectionAudio: 1
+    TimePerWord: 0.5
+    LoopAudioResources: 1
+    AudioResources:
+    - Resource: {fileID: 8300000, guid: dd413f8c393a8f8469edd01f570fd57d, type: 3}
+      Pitch: 1
+    DialogueLines:
+    - Line: Wait whats happening. Who locked the door?
+      Audio: {fileID: 8300000, guid: 563751376badc11499c3e1b2ab2f033e, type: 3}
+      EndDelay: 2
+    - Line: Anyone? I'm in here!
+      Audio: {fileID: 8300000, guid: b43233ebe836691478098d315dcf8227, type: 3}
+      EndDelay: 1
+    - Line: How do I stop this Infernal Machine?!?
+      Audio: {fileID: 0}
+      EndDelay: 1

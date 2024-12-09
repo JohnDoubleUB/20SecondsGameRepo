@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac6fd355d7de447478dc05a16964263d, type: 3}
+  m_Name: OutroSequence
+  m_EditorClassIdentifier: 
+  SequenceName: Outro
+  skippableIfSeenBefore: 1
+  skippable: 0
+  DialogueSections:
+  - StopPreviousSectionAudio: 0
+    TimePerWord: 0.5
+    LoopAudioResources: 0
+    AudioResources: []
+    DialogueLines:
+    - Line: Okay..
+      Audio: {fileID: 0}
+      EndDelay: 0.5
+    - Line: I think its stopped.
+      Audio: {fileID: 0}
+      EndDelay: 0
+    - Line: ...
+      Audio: {fileID: 8300000, guid: 563751376badc11499c3e1b2ab2f033e, type: 3}
+      EndDelay: 0
+  - StopPreviousSectionAudio: 0
+    TimePerWord: 0.5
+    LoopAudioResources: 0
+    AudioResources:
+    - Resource: {fileID: 8300000, guid: be43178de428a3d42bc8ea416fbb8635, type: 3}
+      Pitch: 2
+    DialogueLines:
+    - Line: Time to get out of here..
+      Audio: {fileID: 0}
+      EndDelay: 1
+  - StopPreviousSectionAudio: 1
+    TimePerWord: 0
+    LoopAudioResources: 0
+    AudioResources: []
+    DialogueLines:
+    - Line: 
+      Audio: {fileID: 0}
+      EndDelay: 5
+    - Line: 'Progamming and Implementation by:'
+      Audio: {fileID: 0}
+      EndDelay: 1.5
+    - Line: JohnDoubleUB
+      Audio: {fileID: 0}
+      EndDelay: 2.5
+    - Line: 'Sound Design and Music Composition By:'
+      Audio: {fileID: 0}
+      EndDelay: 1.5
+    - Line: Delgado
+      Audio: {fileID: 0}
+      EndDelay: 2.5
+    - Line: '3D Modelling, Texturing and Environment By:'
+      Audio: {fileID: 0}
+      EndDelay: 1.5
+    - Line: Raulski
+      Audio: {fileID: 0}
+      EndDelay: 2.5
+    - Line: Thanks for playing!
+      Audio: {fileID: 0}
+      EndDelay: 2

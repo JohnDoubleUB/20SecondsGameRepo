@@ -43,7 +43,7 @@ namespace UIManagerLibrary.Scripts
         {
             if (firstTimeSet && onlyInitializeIfNotSet)
             {
-                Debug.LogWarning("Context already set, skipping initialize.");
+                //Debug.LogWarning("Context already set, skipping initialize.");
                 return;
             }
 
