@@ -83,6 +83,11 @@ public class EnvironmentalEffectManager : MonoBehaviour
     private void SetCageLightColor(Color color) 
     {
         CageLightMaterial.SetColor("_EmissionColor", color);
+        
+        foreach (ReactiveCageLight cageLight in CageLights)
+        {
+            cageLight.Light.color = color;
+        }
     }
 
     private void Update()
