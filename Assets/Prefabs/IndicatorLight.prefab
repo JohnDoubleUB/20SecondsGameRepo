@@ -79,10 +79,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blink: 1
   NoneColor: {r: 0.026406588, g: 0.026406588, b: 0.026406588, a: 1}
-  RedColor: {r: 1, g: 0.000607054, b: 0, a: 1}
-  GreenColor: {r: 0, g: 0.34191445, b: 0.17144115, a: 1}
-  YellowColor: {r: 0.87136734, g: 0.77582246, b: 0.05448028, a: 1}
-  BlueColor: {r: 0, g: 0.16826946, b: 0.44520125, a: 1}
+  RedColor: {r: 0.9019608, g: 0, b: 0, a: 1}
+  GreenColor: {r: 0.15622401, g: 1, b: 0, a: 1}
+  YellowColor: {r: 1, g: 0.8695652, b: 0, a: 1}
+  BlueColor: {r: 0, g: 0.08627451, b: 1, a: 1}
   LightRenderer: {fileID: 2326924503761286947}
 --- !u!1001 &4002415977184979879
 PrefabInstance:

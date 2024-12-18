@@ -21,6 +21,12 @@ public class UIElementManager : MonoBehaviour
     public TextMeshProUGUI CodeText2;
 
     [SerializeField]
+    private Slider VolumeSlider;
+
+    [SerializeField]
+    private Slider MouseSensitivity;
+
+    [SerializeField]
     private Image DeathStatic;
 
     [SerializeField]
@@ -33,6 +39,7 @@ public class UIElementManager : MonoBehaviour
 
     public Color DeathStaticColor;
 
+    public bool PauseOptions;
     private void Awake()
     {
         if (current != null) Debug.LogWarning("Oops! it looks like there might already be a " + GetType().Name + " in this scene!");
@@ -70,6 +77,16 @@ public class UIElementManager : MonoBehaviour
 
     private void Start()
     {
+        VolumeSlider.minValue = -1;
+        VolumeSlider.maxValue = 1;
+        VolumeSlider.value = 0;
+        VolumeSlider.onValueChanged.AddListener(OnVolumeChanged);
+
+        MouseSensitivity.minValue = 0.0001f;
+        MouseSensitivity.maxValue = 1.5f;
+        MouseSensitivity.value = PlayerController.current.LookSpeed;
+        MouseSensitivity.onValueChanged.AddListener(OnMouseSensitivityChanged);
+
         if (ItemText != null) 
         {
             ItemText.text = "";
@@ -95,6 +112,16 @@ public class UIElementManager : MonoBehaviour
         GameManager.current.OnCurrentCodeUpdate += OnCurrentCodeUpdate;
     }
 
+    private void OnMouseSensitivityChanged(float value)
+    {
+        PlayerController.current.LookSpeed = value;
+    }
+
+    private void OnVolumeChanged(float volume)
+    {
+        AudioManager.current.SetMasterVolume(volume);
+    }
+
     private void OnCurrentCodeUpdate(string currentCodeUpdate)
     {
         CodeText.text = currentCodeUpdate;
@@ -104,7 +131,7 @@ public class UIElementManager : MonoBehaviour
     public void PlayGame() 
     {
         GameManager.current.StopOutroAmbience();
-        UIManager.current.SetActiveContexts(false, true, "Menu");
+        UIManager.current.SetActiveContexts(false, true, "Menu", "MenuMain");
         DialogueSequencePlayer.current.StartDialogueSequence(IntroSequence, () => { GameManager.current.StartGame(); });
         //GameManager.current.StartGame();
     }
@@ -179,6 +206,20 @@ public class UIElementManager : MonoBehaviour
         //TODO: Implement return to menu
         GameManager.current.QuitToMenu();
 
+    }
+
+    public void Options(int fromPause) 
+    {
+        PauseOptions = fromPause == 1;
+        Debug.Log(PauseOptions ? "Pause!" : "Main!");
+        UIManager.current.SetActiveContexts(false, PauseOptions ? "PauseMain" : "MenuMain");
+        UIManager.current.SetActiveContexts(true, "Options");
+    }
+
+    public void LeavePauseMenu() 
+    {
+        UIManager.current.SetActiveContexts(true, PauseOptions ? "PauseMain" : "MenuMain");
+        UIManager.current.SetActiveContexts(false, "Options");
     }
 
     private void OnDestroy()

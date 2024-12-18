@@ -38,13 +38,14 @@ public class PlayerController : MonoBehaviour
     public List<PickedUpItem> HeldItems = new List<PickedUpItem>();
 
     private bool Paused { get { return GameManager.current.Paused; } }
-    private bool InPuzzle;
+    public bool InPuzzleCache { get; private set; }
 
     public bool PuzzleAreaActive
     {
         get
         {
-            return ValidPuzzleArea();
+            InPuzzleCache = ValidPuzzleArea();
+            return InPuzzleCache;
         }
     }
 
@@ -104,9 +105,9 @@ public class PlayerController : MonoBehaviour
 
     private void SetIsInPuzzle(bool value) 
     {
-        InPuzzle = value;
+        InPuzzleCache = value;
 
-        if (!InPuzzle) 
+        if (!InPuzzleCache) 
         {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;

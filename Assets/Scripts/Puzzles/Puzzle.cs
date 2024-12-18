@@ -4,6 +4,9 @@ using UnityEngine;
 public class Puzzle : MonoBehaviour
 {
     [SerializeField]
+    private GameObject[] IndicatorObjects;
+
+    [SerializeField]
     private PuzzleArea Area;
 
     [SerializeField]
@@ -25,9 +28,23 @@ public class Puzzle : MonoBehaviour
     public int PuzzleIndex { get; private set; } = -1;
     public bool PuzzleCompleted { get; private set; } = false;
 
+    private void EnableIndicatorObjects(bool value) 
+    { 
+        if(IndicatorObjects == null || IndicatorObjects.Length < 1) 
+        {
+            return;
+        }
+
+        foreach(GameObject obj in IndicatorObjects) 
+        {
+            obj.SetActive(value);
+        }
+    }
+
     public void SetPuzzleCompleted(bool value) 
     {
         PuzzleCompleted = value;
+        EnableIndicatorObjects(!value);
 
         if (PuzzleCompleted)
         {
@@ -142,6 +159,7 @@ public class Puzzle : MonoBehaviour
         PuzzleCode = null;
         Displayer.SetText("");
         PuzzleCompleted = false;
+        EnableIndicatorObjects(true);
         OnFullReset();
     }
 
@@ -156,5 +174,7 @@ public class Puzzle : MonoBehaviour
         {
             PuzzleIndex = index;
         }
+
+        EnableIndicatorObjects(true);
     }
 }

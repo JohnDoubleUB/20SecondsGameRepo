@@ -7,6 +7,14 @@ public class AudioManager : MonoBehaviour
     public float SoundVolumeMultiplier = 1;
     public AudioMixer AudioMixer;
     public AudioMixerGroup DefaultAudioMixerGroup;
+    public Vector2 MinMaxMasterVolume = new Vector2(-40, 20);
+
+    public void SetMasterVolume(float volume) 
+    {
+        float value = volume >= 0 ? volume.Remap(0, 1, 0, MinMaxMasterVolume.y) : Mathf.Abs(volume).Remap(0, 1, 0, MinMaxMasterVolume.x);
+        AudioMixer.SetFloat("masterVol", value);
+    }
+
 
     public float pitchVariation = 0.2f;
 
@@ -36,6 +44,7 @@ public class AudioManager : MonoBehaviour
         newTempObject.Source.clip = clip; // define the clip
         newTempObject.Source.pitch = pitch;
         newTempObject.Source.volume = volume * SoundVolumeMultiplier;
+        newTempObject.Source.outputAudioMixerGroup = DefaultAudioMixerGroup;
 
         newTempObject.Source.PlayDelayed(delayInSeconds); // start the sound
         Destroy(newTempObject.gameObject, clip.length + delayInSeconds); // destroy object after clip duration

@@ -337,7 +337,7 @@ MonoBehaviour:
   CameraAnimator: {fileID: 2941346526120222606}
   moveDirection: {x: 0, y: 0, z: 0}
   CrouchingAmount: 4
-  Speed: 15
+  Speed: 11.5
   CrouchingSpeed: 2
   JumpSpeed: 8
   Gravity: 20

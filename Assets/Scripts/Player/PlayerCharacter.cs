@@ -132,7 +132,7 @@ public class PlayerCharacter : MonoBehaviour
 
         characterController.Move(moveDirection * Time.deltaTime);
 
-        Vector2 wantedVelocity = LookVector * PlayerController.LookSpeed;
+        Vector2 wantedVelocity = LookVector * 0.2f * PlayerController.LookSpeed;
 
         Velocity = wantedVelocity;
 

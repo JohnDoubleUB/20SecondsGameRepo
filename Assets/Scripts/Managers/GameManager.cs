@@ -62,7 +62,12 @@ public class GameManager : MonoBehaviour
 
         Paused = !Paused;
 
-        UIManager.current.SetActiveContexts(Paused, "Pause");
+        UIManager.current.SetActiveContexts(Paused, "Pause","PauseMain");
+
+        if (!Paused) 
+        {
+            UIManager.current.SetActiveContexts(false, true, "Options");
+        }
     }
 
     public void EndGamePrematurely() 
@@ -149,7 +154,7 @@ public class GameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
-        UIManager.current.SetActiveContexts(true, true, "Menu");
+        UIManager.current.SetActiveContexts(true, true, "Menu", "MenuMain");
         //StartGame();
     }
 
@@ -239,19 +244,20 @@ public class GameManager : MonoBehaviour
         Paused = false;
         StopMainAmbience();
 
-        UIManager.current.SetActiveContexts(false, true, "Game", "Pause");
+        UIManager.current.SetActiveContexts(false, true, "Game", "Pause", "PauseMain", "Options");
 
         if (withEndingCutscene) 
         {
             DialogueSequencePlayer.current.StartDialogueSequence(OutroSequence, () => { 
-                UIManager.current.SetActiveContexts(true, true, "Menu"); 
+                UIManager.current.SetActiveContexts(true, true, "Menu", "MenuMain");
+                UIElementManager.current.PauseOptions = false; //Just in case something goes wrong
                 //MainOutroAmbience.Stop(); 
             });
             return;
         }
 
         StopOutroAmbience();
-        UIManager.current.SetActiveContexts(true, "Menu");
+        UIManager.current.SetActiveContexts(true, "Menu", "MenuMain");
     }
 
     private void InitializePuzzles() 

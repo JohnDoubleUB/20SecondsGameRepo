@@ -8,6 +8,12 @@ public class MouseInteractablePanel : MouseInteractable
     public event PanelMovementChange OnPanelMovementChange;
 
     [SerializeField]
+    private GameObject MouseIndicatorObject;
+
+    [SerializeField]
+    private GameObject SwipeIndicatorObject;
+
+    [SerializeField]
     private AudioSource AudioSource;
 
     public float MaxRotation = 180;
@@ -55,6 +61,16 @@ public class MouseInteractablePanel : MouseInteractable
 
     private void PanelUnheldUpdate()
     {
+        if (SwipeIndicatorObject.activeInHierarchy) 
+        {
+            SwipeIndicatorObject.SetActive(false);
+        }
+
+        if(MouseIndicatorObject.activeInHierarchy != PlayerController.current.InPuzzleCache) 
+        {
+            MouseIndicatorObject.SetActive(PlayerController.current.InPuzzleCache);
+        }
+
         if (rotationYDifference < 0)
         {
             rotationYDifference = Mathf.Min(rotationYDifference + Time.deltaTime * 10, 0);
@@ -85,6 +101,16 @@ public class MouseInteractablePanel : MouseInteractable
         Vector3 rotation = transform.localRotation.eulerAngles;
 
         Vector3 currentMousePos = Input.mousePosition;
+
+        if(MouseIndicatorObject.activeInHierarchy) 
+        {
+            MouseIndicatorObject.SetActive(false);
+        }
+
+        if (!SwipeIndicatorObject.activeInHierarchy)
+        {
+            SwipeIndicatorObject.SetActive(true);
+        }
 
 
         if (mouseXLastFrame > currentMousePos.x || mouseXLastFrame < currentMousePos.x)

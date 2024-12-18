@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SequenceName: Intro
   skippableIfSeenBefore: 1
-  skippable: 0
+  skippable: 1
   DialogueSections:
   - StopPreviousSectionAudio: 0
     TimePerWord: 0.5
