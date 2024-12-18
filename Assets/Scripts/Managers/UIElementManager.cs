@@ -17,6 +17,8 @@ public class UIElementManager : MonoBehaviour
 
     public TextMeshProUGUI ItemText;
 
+    public TextMeshProUGUI VersionText;
+
     public TextMeshProUGUI CodeText;
     public TextMeshProUGUI CodeText2;
 
@@ -86,6 +88,8 @@ public class UIElementManager : MonoBehaviour
         MouseSensitivity.maxValue = 1.5f;
         MouseSensitivity.value = PlayerController.current.LookSpeed;
         MouseSensitivity.onValueChanged.AddListener(OnMouseSensitivityChanged);
+
+        VersionText.text = $"VERSION {Application.version}";
 
         if (ItemText != null) 
         {
